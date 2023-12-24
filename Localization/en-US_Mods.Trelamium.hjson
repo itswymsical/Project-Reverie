@@ -1,0 +1,53 @@
+Items: {
+	TestItem: {
+		DisplayName: Test Item
+		Tooltip: This is a Test Item.
+	}
+
+	CopperShovel: {
+		DisplayName: Copper Shovel
+		Tooltip: ""
+	}
+
+	GoldShovel: {
+		DisplayName: Gold Shovel
+		Tooltip: ""
+	}
+
+	IronShovel: {
+		DisplayName: Iron Shovel
+		Tooltip: ""
+	}
+
+	LeadShovel: {
+		DisplayName: Lead Shovel
+		Tooltip: ""
+	}
+
+	PlatinumShovel: {
+		DisplayName: Platinum Shovel
+		Tooltip: ""
+	}
+
+	SilverShovel: {
+		DisplayName: Silver Shovel
+		Tooltip: ""
+	}
+
+	TinShovel: {
+		DisplayName: Tin Shovel
+		Tooltip: ""
+	}
+
+	TungstenShovel: {
+		DisplayName: Tungsten Shovel
+		Tooltip: ""
+	}
+
+	WoodShovel: {
+		DisplayName: Wood Shovel
+		Tooltip: ""
+	}
+}
+
+NPCs.Fungore.DisplayName: Fungore

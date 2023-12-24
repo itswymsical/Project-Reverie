@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\tModLoader.targets" />
+  <PropertyGroup>
+    <AssemblyName>Trelamium</AssemblyName>
+    <TargetFramework>net6.0</TargetFramework>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Content\Items\Shovels\Shovels.cs~RF7b713434.TMP" />
+    <None Remove="Helpers\DustHelpers.cs~RF7d9f0961.TMP" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\Configuration\" />
+    <Folder Include="Common\Cutscenes\" />
+    <Folder Include="Common\Entropy\" />
+    <Folder Include="Common\Items\" />
+  </ItemGroup>
+</Project>

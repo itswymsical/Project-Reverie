@@ -39,26 +39,25 @@ namespace Trelamium.Common.Projectiles
 			if (stickingToTile || stickingToNPC)
 				Projectile.rotation = oldRotation;
 		}
+        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            if (!stickingToNPC && !stickingToTile && stickToNPC)
+            {
+                Projectile.ai[1] = target.whoAmI;
 
-		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
-		{
-			if (!stickingToNPC && !stickingToTile && stickToNPC)
-			{
-				Projectile.ai[1] = target.whoAmI;
+                oldRotation = Projectile.rotation;
 
-				oldRotation = Projectile.rotation;
+                offset = target.Center - Projectile.Center + (Projectile.velocity * 0.75f);
 
-				offset = target.Center - Projectile.Center + (Projectile.velocity * 0.75f);
+                stickingToNPC = true;
 
-				stickingToNPC = true;
-
-				Projectile.netUpdate = true;
-			}
-			else
-			{
-				RemoveStackProjectiles();
-			}
-		}
+                Projectile.netUpdate = true;
+            }
+            else
+            {
+                RemoveStackProjectiles();
+            }
+        }
 
 		public override bool OnTileCollide(Vector2 oldVelocity)
 		{

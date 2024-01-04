@@ -21,10 +21,6 @@ D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debu
 D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\Mono.Cecil.Mdb.dll
 D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\Mono.Cecil.Pdb.dll
 D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\Mono.Cecil.Rocks.dll
-D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\MonoMod.Backports.dll
-D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\MonoMod.Core.dll
-D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\MonoMod.Iced.dll
-D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\MonoMod.ILHelpers.dll
 D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\MonoMod.RuntimeDetour.dll
 D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\MonoMod.Utils.dll
 D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\MP3Sharp.dll
@@ -73,16 +69,7 @@ D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debu
 D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\Mono.Cecil.Mdb.pdb
 D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\Mono.Cecil.Pdb.pdb
 D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\Mono.Cecil.Rocks.pdb
-D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\MonoMod.Backports.pdb
-D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\MonoMod.Backports.xml
-D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\MonoMod.Core.pdb
-D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\MonoMod.Core.xml
-D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\MonoMod.Iced.pdb
-D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\MonoMod.Iced.xml
-D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\MonoMod.ILHelpers.pdb
-D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\MonoMod.RuntimeDetour.pdb
 D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\MonoMod.RuntimeDetour.xml
-D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\MonoMod.Utils.pdb
 D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\MonoMod.Utils.xml
 D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\ReLogic.pdb
 D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\Trelamium\bin\Debug\net6.0\ReLogic.xml

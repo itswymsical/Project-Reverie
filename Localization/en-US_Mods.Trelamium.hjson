@@ -24,6 +24,11 @@ Items: {
 		Tooltip: ""
 	}
 
+	MyconidSpore: {
+	DisplayName: Myconid Spore
+	Tooltip: "Strangley, it has bulges with bulges..."
+	}
+
 	PlatinumShovel: {
 		DisplayName: Platinum Shovel
 		Tooltip: ""

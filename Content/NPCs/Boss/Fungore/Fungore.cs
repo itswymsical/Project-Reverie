@@ -23,7 +23,7 @@ namespace Trelamium.Content.NPCs.Boss.Fungore
             Jumping,
             SuperJumping
         }
-
+        
         private States State
         {
             get => (States)NPC.ai[0];
@@ -53,12 +53,13 @@ namespace Trelamium.Content.NPCs.Boss.Fungore
 
         private int AITimer;
         private bool flag = false;
+        private bool flag1 = false;
         public override void SetStaticDefaults(){
             Main.npcFrameCount[NPC.type] = 16;
         }
         public override void SetDefaults()
         {
-            NPC.damage = 15;
+            NPC.damage = 21;
             NPC.defense = 11;
             NPC.lifeMax = 1440;
 
@@ -88,7 +89,7 @@ namespace Trelamium.Content.NPCs.Boss.Fungore
 
             frameRate = 4;
             if (State == States.Punching && frameY > 4 && frameY < 7)
-                frameRate = 8;        
+                frameRate = 5;        
 
             if (State == States.SuperJumping && frameY > 4 && frameY < 8)
                 frameRate = 10;
@@ -96,7 +97,7 @@ namespace Trelamium.Content.NPCs.Boss.Fungore
             if (State == States.SuperJumping && frameY == 9)
                 frameRate = 24;
 
-            if (State == States.Jumping && frameY == 7)
+            if (State == States.Jumping && frameY == 6)
                 frameRate = 24;
 
             if (NPC.frameCounter > frameRate)
@@ -123,7 +124,6 @@ namespace Trelamium.Content.NPCs.Boss.Fungore
             NPC.frame.Y = frameY * frameHeight;
             NPC.frame.X = frameX * NPC.frame.Width;
         }        
-
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
             float damage = NPC.damage;
@@ -196,9 +196,9 @@ namespace Trelamium.Content.NPCs.Boss.Fungore
             // Made a attack cooldown to avoid stuff as immediately doing certain attack out of nowhere, etc...
             if (AttackCooldown > minAttackCooldown)
             {
-                const float minPunchDistance = 120;
+                const float minPunchDistance = 90;
                 // Punch if the player is close enough to Fungore.
-                if (player.Distance(NPC.Center) < minPunchDistance && (Main.rand.NextBool(20)) || (Main.rand.NextBool(52)))
+                if (player.Distance(NPC.Center) < minPunchDistance && (Main.rand.NextBool(20)) || (Main.rand.NextBool(30)))
                 {
                     punchDirection = Math.Sign(player.position.X - NPC.position.X);
 
@@ -207,7 +207,7 @@ namespace Trelamium.Content.NPCs.Boss.Fungore
                     State = States.Punching;
                     AttackCooldown = 0;
                 }
-                if (player.Distance(NPC.Center) > 220f && (Main.rand.NextBool(40)) || (Main.rand.NextBool(70)))
+                if (player.Distance(NPC.Center) > 180f && (Main.rand.NextBool(30)) || (Main.rand.NextBool(60)))
                 {
                     frameY = 0;
 
@@ -220,7 +220,7 @@ namespace Trelamium.Content.NPCs.Boss.Fungore
                     State = States.SuperJumping;
                     AttackCooldown = 0;
                 }
-                if (Main.rand.NextBool(48))
+                if (Main.rand.NextBool(32))
                 {
                     frameY = 0;
 
@@ -262,9 +262,9 @@ namespace Trelamium.Content.NPCs.Boss.Fungore
         }
         private void Walk()
         {
-            const float maxSpeed = 2.7f;
+            const float maxSpeed = 3.0125f;
 
-            if (NPC.velocity.X < -maxSpeed || NPC.velocity.X > maxSpeed)
+                if (NPC.velocity.X < -maxSpeed || NPC.velocity.X > maxSpeed)
             {
                 if (NPC.velocity.Y == 0f)
                 {
@@ -318,8 +318,12 @@ namespace Trelamium.Content.NPCs.Boss.Fungore
         private void Punch()
         {
             NPC.knockBackResist = 0f;
-            if (frameY > 2 && frameY < 4)
+            if (frameY == 3 && !flag1)
+            {
                 SoundEngine.PlaySound(SoundID.DD2_OgreAttack, NPC.position);
+                flag1 = true;
+            }
+                
 
             if (frameY == 4 || frameY == 5)
             {
@@ -346,8 +350,9 @@ namespace Trelamium.Content.NPCs.Boss.Fungore
             // Go back to walking after finishing punching or if it collides with a side tile.
             if (frameY > 10 || NPC.collideX)
             {
+                flag1 = false;
                 frameY = 0; // Make sure to reset the frame. Will cause weird looks if you dont.
-                State = States.Walking;
+                State = States.Walking;          
             }
         }
         private void Jump()
@@ -374,23 +379,29 @@ namespace Trelamium.Content.NPCs.Boss.Fungore
 
             if (frameY == 7 && (NPC.collideY || NPC.collideX))
             {
-                SoundEngine.PlaySound(SoundID.DD2_OgreGroundPound, NPC.position);
-                Main.LocalPlayer.GetModPlayer<TPlayer>().ScreenShakeIntensity = .765f;
+                if (!flag1)
+                {
+                    SoundEngine.PlaySound(SoundID.DD2_OgreGroundPound, NPC.position);
+                    Main.LocalPlayer.GetModPlayer<TPlayer>().ScreenShakeIntensity = .765f;
+                    Projectile.NewProjectile(default, NPC.position, new Vector2(0), ModContent.ProjectileType<Projectiles.FungoreSmoke>(), NPC.damage, 16f, Main.myPlayer);
+                    flag1 = true;
+                }
 
-                Projectile.NewProjectile(spawnSource: default, new Vector2(NPC.Center.X, NPC.Center.Y + 40), new Vector2(0), ModContent.ProjectileType<Projectiles.FungoreSmoke>(), NPC.damage / 2, 16f, Main.myPlayer);
-                for (int i = 0; i < 6; ++i)
+                for (int i = 0; i < 6; i++)
                 {
                     //var index = Projectile.NewProjectile(spawnSource: default, NPC.Center, -Vector2.UnitY.RotatedByRandom(MathHelper.PiOver2) * 12f, ModContent.ProjectileType<Mushroom>(), (int)(NPC.damage * 0.25f), 0.5f);
                     //Main.projectile[index].hostile = true;
-                }                     
+                }                    
             }
             if (frameY == 11 && (NPC.collideY || NPC.collideX))
             {
+                flag1 = false;
                 frameY = 0;
                 State = States.Walking;
             }
             if (frameY > 15 && (NPC.collideY || NPC.collideX))
             {
+                flag1 = false;
                 SoundEngine.PlaySound(SoundID.DD2_OgreGroundPound, NPC.position);
                 frameY = 0;
                 State = States.Walking;
@@ -437,11 +448,15 @@ namespace Trelamium.Content.NPCs.Boss.Fungore
             if (frameY == 9 && NPC.collideY || NPC.collideX)
             {
                 NPC.velocity.X = 0;
-                SoundEngine.PlaySound(SoundID.DD2_OgreGroundPound, NPC.position);
-                Main.LocalPlayer.GetModPlayer<TPlayer>().ScreenShakeIntensity = 2.225f;
-                Dust.NewDust(NPC.oldPosition, NPC.width, NPC.height, DustID.OrangeTorch, NPC.oldVelocity.X, NPC.oldVelocity.Y, 0, default, 1f);              
-                Projectile.NewProjectile(default, NPC.position, new Vector2(0), ModContent.ProjectileType<Projectiles.FungoreSlam>(), NPC.damage / 2, 16f, Main.myPlayer);
-
+                frameRate = 4;
+                if (!flag1)
+                {
+                    SoundEngine.PlaySound(SoundID.DD2_OgreGroundPound, NPC.position);
+                    Main.LocalPlayer.GetModPlayer<TPlayer>().ScreenShakeIntensity = 2.225f;
+                    Dust.NewDust(NPC.oldPosition, NPC.width, NPC.height, DustID.OrangeTorch, NPC.oldVelocity.X, NPC.oldVelocity.Y, 0, default, 1f);                
+                    Projectile.NewProjectile(default, NPC.position, new Vector2(0), ModContent.ProjectileType<Projectiles.FungoreSlam>(), NPC.damage + 8, 16f, Main.myPlayer);
+                    flag1 = true;
+                }
                 for (int i = 0; i < 12; ++i)
                 {
                     //var index = Projectile.NewProjectile(default, NPC.Center, -Vector2.UnitY.RotatedByRandom(MathHelper.PiOver2) * 12f, ModContent.ProjectileType<Mushroom>(), (int)(NPC.damage * 0.25f), 0.5f);
@@ -450,6 +465,7 @@ namespace Trelamium.Content.NPCs.Boss.Fungore
             }
             if (frameY == 15 && (NPC.collideY || NPC.collideX))
             {
+                flag1 = false;
                 frameY = 0;
                 State = States.Walking;
             }

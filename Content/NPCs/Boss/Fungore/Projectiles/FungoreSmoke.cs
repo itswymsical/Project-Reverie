@@ -20,7 +20,7 @@ namespace Trelamium.Content.NPCs.Boss.Fungore.Projectiles
         public override void AI()
         {
             Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 6)
+            if (Projectile.frameCounter >= 4)
             {
                 Projectile.frame++;
                 Projectile.frameCounter = 0;

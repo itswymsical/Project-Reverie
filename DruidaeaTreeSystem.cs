@@ -227,9 +227,9 @@ namespace Trelamium
                         int solidNeighbors = CountSolidNeighbors(map, x, y, width, height);
 
                         // The rules of cellular automata
-                        if (solidNeighbors > 8)
+                        if (solidNeighbors > 4)
                             newMap[x, y] = true; // Tile becomes solid
-                        else if (solidNeighbors < 8)
+                        else if (solidNeighbors < 4)
                             newMap[x, y] = false; // Tile becomes empty
                         else
                             newMap[x, y] = map[x, y]; // Remains the same

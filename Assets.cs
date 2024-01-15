@@ -134,7 +134,7 @@
 
 			public const string Ores = Directory + "Ores/";
 
-			public const string Forest = Directory + "Forest/";
+			public const string DruidsGarden = Directory + "DruidsGarden/";
 
 			public const string Furniture = Directory + "Furniture/";
 

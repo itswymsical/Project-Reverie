@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "sT4gyfJhpEpjbosTwjE1PMSZUJTHoPorAzkgotGhzFqf3XabVss9UeuGvzqnhFNRWysaJI/z78oCNfkGfMf1lA==",
+  "success": true,
+  "projectFilePath": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Trelamium\\Trelamium.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\cobal\\.nuget\\packages\\tmodloader.codeassist\\0.1.5\\tmodloader.codeassist.0.1.5.nupkg.sha512"
+  ],
+  "logs": []
+}

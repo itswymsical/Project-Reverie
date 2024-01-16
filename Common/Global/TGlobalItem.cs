@@ -14,7 +14,7 @@ namespace Trelamium.Common.Global
         public bool Shovel;
         public int digPower;
         public int radius = 2;
-        public override void ExtractinatorUse(int extractType, ref int resultType, ref int resultStack)
+        public override void ExtractinatorUse(int extractType, int extractinatorBlockType, ref int resultType, ref int resultStack)
         {
             /*
             if (extractType == ItemID.DesertFossil)
@@ -24,7 +24,7 @@ namespace Trelamium.Common.Global
                     //resultType = ModContent.ItemType<Microlith>();
                 }
             }*/
-            base.ExtractinatorUse(extractType, ref resultType, ref resultStack);
+            base.ExtractinatorUse(extractType, extractinatorBlockType, ref resultType, ref resultStack);
         }
 
         public static int GetDigPower(int shovel)
@@ -37,7 +37,7 @@ namespace Trelamium.Common.Global
             Item i = ModContent.GetModItem(shovel).Item;
             return i.GetGlobalItem<TGlobalItem>().radius;
         }
-        public override void OnHitNPC(Item item, Player player, NPC target, int damage, float knockBack, bool crit)
+        public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
             ArmorSetPlayer armorSetPlayer = Main.LocalPlayer.GetModPlayer<ArmorSetPlayer>();
             if (armorSetPlayer.vikingSet && item.CountsAsClass(DamageClass.Melee))

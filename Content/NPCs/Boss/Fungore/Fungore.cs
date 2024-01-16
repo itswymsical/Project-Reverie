@@ -123,23 +123,24 @@ namespace Trelamium.Content.NPCs.Boss.Fungore
             }
             NPC.frame.Y = frameY * frameHeight;
             NPC.frame.X = frameX * NPC.frame.Width;
-        }        
-        public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
+        }
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             float damage = NPC.damage;
             NPC.damage += (int)(damage * .15f);
 
-            bossLifeScale = NPC.life;
-            NPC.life += (int)(bossLifeScale * .15f);
+            bossAdjustment = NPC.life;
+            NPC.life += (int)(bossAdjustment * .15f);
 
             if (Main.masterMode)
             {
                 NPC.damage += (int)(damage * .35f);
-                
-                NPC.life += (int)(bossLifeScale * .25f);
+
+                NPC.life += (int)(bossAdjustment * .25f);
                 NPC.defense = 17;
             }
         }
+
         public override void AI() => HandleAll();
         private void HandleAll()
         {
@@ -489,15 +490,6 @@ namespace Trelamium.Content.NPCs.Boss.Fungore
             if (scale.X != targetScale.X)
             {
                 scale.X = MathHelper.Lerp(scale.X, targetScale.X, 0.33f);
-            }
-        }
-        public override void HitEffect(int hitDirection, double damage)
-        {
-            if (NPC.life <= 0)
-            {
-                /*for (int i = 1; i <= 5; i++) {
-                    Gore.NewGore(NPC.Center, NPC.velocity, Mod.GetGoreSlot("Gores/Fungore/FungoreGore" + i));
-                }*/
             }
         }
     }

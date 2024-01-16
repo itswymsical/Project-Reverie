@@ -39,7 +39,7 @@ namespace Trelamium.Common.Projectiles
 			if (stickingToTile || stickingToNPC)
 				Projectile.rotation = oldRotation;
 		}
-        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             if (!stickingToNPC && !stickingToTile && stickToNPC)
             {

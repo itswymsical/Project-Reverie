@@ -2,7 +2,6 @@
 using Trelamium.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Trelamium.Helpers;
 using System;
 using Terraria;
 using Terraria.ID;

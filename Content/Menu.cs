@@ -1,8 +1,12 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Trelamium.Common.Systems;
 
 namespace Trelamium.Content
 {
@@ -14,8 +18,15 @@ namespace Trelamium.Content
         public override ModSurfaceBackgroundStyle MenuBackgroundStyle => base.MenuBackgroundStyle;
         public override Asset<Texture2D> SunTexture => null;
         public override Asset<Texture2D> MoonTexture => null;
+        public override string DisplayName => "Trelamium II";
         public override void OnSelected() {
-            SoundEngine.PlaySound(new SoundStyle(AssetPath + "SFX/MenuSweep"));
+            SoundEngine.PlaySound(new SoundStyle(AssetPath + "SFX/Theme_Select"));
+        }
+        public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
+        {
+            logoRotation = 0f;
+            logoScale *= 0.75f;
+            return true;
         }
     }
 }

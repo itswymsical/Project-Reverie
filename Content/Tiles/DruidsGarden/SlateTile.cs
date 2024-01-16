@@ -3,6 +3,8 @@ using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using Trelamium.Content.Items.Tiles;
+using System.Collections.Generic;
 
 namespace Trelamium.Content.Tiles.DruidsGarden
 {
@@ -18,9 +20,8 @@ namespace Trelamium.Content.Tiles.DruidsGarden
 
             DustType = 0;
             MineResist = 0.35f;
-            //ItemDrop = ModContent.ItemType<Items.Placeable.Slate>();
 
-            HitSound = SoundID.Dig;
+            HitSound = SoundID.Tink;
             Main.tileMerge[Type][ModContent.TileType<LoamTile>()] = true;
 
             AddMapEntry(new Color(145, 150, 160));

@@ -7,7 +7,11 @@
 	{
 		public const string Directory = "Trelamium/Assets/";
 
-		public const string PlaceholderTexture = Directory + "PlaceholderTexture";
+        public const string SFX = "Trelamium/SFX/";
+
+        public const string Music = "Trelamium/Music/";
+
+        public const string PlaceholderTexture = Directory + "Unloaded";
 
 		public const string Icon = "Trelamium/icon";
 
@@ -18,7 +22,9 @@
 
 			public const string Misc = Directory + "Misc/";
 
-			public const string Accessory = Directory + "Accessory/";
+            public const string Tiles = Directory + "Tiles/";
+
+            public const string Accessory = Directory + "Accessory/";
 
 			public const string Consumable = Directory + "Consumable/";
 
@@ -56,7 +62,6 @@
 
 			public const string Peepo = Directory + "Peepo/";
 		}
-
 		internal class Weapons
 		{
 			public const string Directory = Assets.Directory + "Items/Weapons/";

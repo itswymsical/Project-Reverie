@@ -17,7 +17,6 @@ namespace Trelamium.Content.Tiles.DruidsGarden
 
             DustType = 0;
             MineResist = 0.25f;
-            //ItemDrop = ModContent.ItemType<Items.Placeable.Loam>();
 
             HitSound = SoundID.Dig;
 
@@ -47,7 +46,7 @@ namespace Trelamium.Content.Tiles.DruidsGarden
             TileID.Sets.NeedsGrassFramingDirt[Type] = ModContent.TileType<LoamTile>();
             
             DustType = 39;
-            MineResist = 0.05f;
+            MineResist = 0f;
             HitSound = SoundID.Grass;
             //SetModTree(new AlderwoodTree())/* tModPorter Note: Removed. Assign GrowsOnTileId to this tile type in ModTree.SetStaticDefaults instead */;
             AddMapEntry(new Color(90, 160, 40));

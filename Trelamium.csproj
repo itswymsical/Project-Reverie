@@ -19,5 +19,6 @@
     <Folder Include="Common\Cutscenes\" />
     <Folder Include="Common\Entropy\" />
     <Folder Include="Common\Items\" />
+    <Folder Include="Content\Items\NewFolder\" />
   </ItemGroup>
 </Project>

@@ -1,3 +1,3 @@
-displayName = Trelamium
-author = Wymsical
+displayName = Trelamium II
+author = wymsical
 version = 0.1

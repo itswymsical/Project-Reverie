@@ -53,6 +53,26 @@ Items: {
 		DisplayName: Wood Shovel
 		Tooltip: ""
 	}
+
+	AlluviumOre: {
+		DisplayName: Alluvium Ore
+		Tooltip: ""
+	}
+
+	Loam: {
+		DisplayName: Loam
+		Tooltip: ""
+	}
+
+	LoamGrassSeeds: {
+		DisplayName: Loam Grass Seeds
+		Tooltip: ""
+	}
+
+	Slate: {
+		DisplayName: Slate
+		Tooltip: ""
+	}
 }
 
 NPCs.Fungore.DisplayName: Fungore

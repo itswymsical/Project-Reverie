@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Trelamium.Content.Tiles.DruidsGarden;
 
 namespace Trelamium.Content.Tiles
 {
@@ -15,6 +16,7 @@ namespace Trelamium.Content.Tiles
             Main.tileBlockLight[Type] = true;
             Main.tileLighted[Type] = true;
 
+            Main.tileMerge[Type][ModContent.TileType<LoamTile>()] = true;
             MineResist = 0.65f;
             HitSound = SoundID.Tink;
 

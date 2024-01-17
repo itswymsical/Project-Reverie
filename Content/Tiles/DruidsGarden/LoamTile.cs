@@ -20,7 +20,7 @@ namespace Trelamium.Content.Tiles.DruidsGarden
 
             HitSound = SoundID.Dig;
 
-            Main.tileMerge[Type][ModContent.TileType<SlateTile>()] = true;           
+            Main.tileMerge[Type][ModContent.TileType<CobblestoneTile>()] = true;           
             Main.tileMerge[Type][ModContent.TileType<LoamTileGrass>()] = true;
 
             AddMapEntry(new Color(125, 85, 50));
@@ -39,7 +39,7 @@ namespace Trelamium.Content.Tiles.DruidsGarden
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
             Main.tileBlendAll[Type] = true;
-            Main.tileMerge[Type][ModContent.TileType<LoamTileGrass>()] = true;
+            Main.tileMerge[Type][ModContent.TileType<LoamTile>()] = true;
 
             TileID.Sets.ChecksForMerge[Type] = true;
             TileID.Sets.NeedsGrassFraming[Type] = true;

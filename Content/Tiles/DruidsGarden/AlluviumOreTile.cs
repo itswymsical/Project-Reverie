@@ -12,7 +12,9 @@ namespace Trelamium.Content.Tiles.DruidsGarden
         {
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
-            Main.tileMerge[Type][ModContent.TileType<LoamTile>()] = true;
+            Main.tileMerge[Type]
+                [ModContent.TileType<LoamTile>()] = true;
+
             Main.tileBlockLight[Type] = true;
             Main.tileLighted[Type] = true;
 

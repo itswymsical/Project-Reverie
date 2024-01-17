@@ -84,8 +84,7 @@ namespace Trelamium.Content.Items.Shovels
             public override void SetDefaults()
             {
                 DiggingPower(28);
-                Item.DamageType = DamageClass.Melee;
-                Item.noMelee = true;
+                Item.DamageType = DamageClass.Melee;               
                 Item.damage = 2;
                 Item.useTime = Item.useAnimation = 25;
                 Item.width = Item.height = 32;
@@ -111,7 +110,6 @@ namespace Trelamium.Content.Items.Shovels
             {
                 DiggingPower(32);
                 Item.DamageType = DamageClass.Melee;
-                Item.noMelee = true;
                 Item.damage = 3;
                 Item.useTime = Item.useAnimation = 25;
                 Item.width = Item.height = 32;
@@ -140,7 +138,6 @@ namespace Trelamium.Content.Items.Shovels
                 DiggingPower(34);
 
                 Item.DamageType = DamageClass.Melee;
-                Item.noMelee = true;
                 Item.damage = 2;
                 Item.useTime = Item.useAnimation = 25;
                 Item.width = Item.height = 32;
@@ -169,7 +166,6 @@ namespace Trelamium.Content.Items.Shovels
                 DiggingPower(36);
 
                 Item.DamageType = DamageClass.Melee;
-                Item.noMelee = true;
                 Item.damage = 2;
                 Item.useTime = Item.useAnimation = 23;
                 Item.width = Item.height = 32;
@@ -198,7 +194,6 @@ namespace Trelamium.Content.Items.Shovels
                 DiggingPower(38);
 
                 Item.DamageType = DamageClass.Melee;
-                Item.noMelee = true;
                 Item.damage = 3;
                 Item.useTime = Item.useAnimation = 23;
                 Item.width = Item.height = 32;
@@ -227,7 +222,6 @@ namespace Trelamium.Content.Items.Shovels
                 DiggingPower(42);
 
                 Item.DamageType = DamageClass.Melee;
-                Item.noMelee = true;
                 Item.damage = 3;
                 Item.useTime = Item.useAnimation = 21;
                 Item.width = Item.height = 32;
@@ -256,7 +250,6 @@ namespace Trelamium.Content.Items.Shovels
                 DiggingPower(48);
 
                 Item.DamageType = DamageClass.Melee;
-                Item.noMelee = true;
                 Item.damage = 4;
                 Item.useTime = Item.useAnimation = 20;
                 Item.width = Item.height = 32;
@@ -285,7 +278,6 @@ namespace Trelamium.Content.Items.Shovels
                 DiggingPower(50);
 
                 Item.DamageType = DamageClass.Melee;
-                Item.noMelee = true;
                 Item.damage = 5;
                 Item.useTime = Item.useAnimation = 19;
                 Item.width = Item.height = 32;
@@ -314,7 +306,6 @@ namespace Trelamium.Content.Items.Shovels
                 DiggingPower(58);
 
                 Item.DamageType = DamageClass.Melee;
-                Item.noMelee = true;
                 Item.damage = 5;
                 Item.useTime = Item.useAnimation = 18;
                 Item.width = Item.height = 32;

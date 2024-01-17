@@ -8,6 +8,12 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <AdditionalFiles Remove="Content\Items\NewFolder\**" />
+    <Compile Remove="Content\Items\NewFolder\**" />
+    <EmbeddedResource Remove="Content\Items\NewFolder\**" />
+    <None Remove="Content\Items\NewFolder\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Content\Items\Shovels\Shovels.cs~RF7b713434.TMP" />
     <None Remove="Helpers\DustHelpers.cs~RF7d9f0961.TMP" />
   </ItemGroup>
@@ -19,6 +25,5 @@
     <Folder Include="Common\Cutscenes\" />
     <Folder Include="Common\Entropy\" />
     <Folder Include="Common\Items\" />
-    <Folder Include="Content\Items\NewFolder\" />
   </ItemGroup>
 </Project>

@@ -8,7 +8,7 @@ namespace Trelamium.Content.Items
 {
     public class TestItem : ModItem
     {
-        public override string Texture => Trelamium.Unloaded;
+        public override string Texture => Assets.PlaceholderTexture;
         public override void SetDefaults()
         {
 

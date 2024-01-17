@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.WorldBuilding;
 using Terraria.IO;
-using Terraria.Localization;
 using Terraria.ID;
 using System;
 using Microsoft.Xna.Framework;
 using Trelamium.Content.Tiles.DruidsGarden;
-using System.ComponentModel;
-using Trelamium.Common;
-using Microsoft.CodeAnalysis.Operations;
-using System.Reflection.Metadata;
 using Trelamium.Content.Tiles;
+using Trelamium.Helpers;
 
 namespace Trelamium
 {
@@ -30,87 +26,7 @@ namespace Trelamium
             {
                 tasks.Insert(DruidaeaExtrasIndex + 1, new DruidaeaExtrasPass("Druidaea Extras", 100f));
             }
-        }
-        public class DruidaeaExtrasPass : GenPass
-        {
-            public DruidaeaExtrasPass(string name, float loadWeight) : base(name, loadWeight)
-            {
-            }
-            protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
-            {
-                progress.Message = "Bringing life to the forest";
-                int trunkX;
-                int trunkDir = Main.rand.Next(2);
-                int spawnX = Main.maxTilesX / 2;
-                int spawnY = (int)Main.worldSurface - (Main.maxTilesY / 16);
-                int distance = (Main.maxTilesX - spawnX) / 20;
-                if (trunkDir == 0)
-                {
-                    trunkX = spawnX - distance;
-                }
-                else
-                {
-                    trunkX = spawnX + distance;
-                }
-                trunkX = Math.Clamp(trunkX, 0, Main.maxTilesX - 1); //safety
-
-                int trunkTopY = (int)(spawnY - (Main.maxTilesY - spawnY) / 8);
-                int trunkBottomY = (int)(Main.rockLayer + (Main.maxTilesY - Main.rockLayer) / 7);
-
-                int centerX = trunkX;
-                int centerY = trunkBottomY + (Main.maxTilesY - trunkBottomY) / 4;
-                int horizontalRadius = (int)(Main.maxTilesX * 0.038f);
-                int verticalRadius = (int)(Main.maxTilesY * 0.305f);
-                int middleSectionEndY = centerY + verticalRadius / 3;
-                int topSectionEndY = centerY - verticalRadius / 3;
-
-                int shrineCenterX = trunkX;
-                int shrineCenterY = centerY + (Main.maxTilesY - trunkBottomY) / 4;
-                int shrineHorizontalRadius = (int)(Main.maxTilesX * 0.0105f);
-                int shrineVerticalRadius = (int)(Main.maxTilesY * 0.0342f);
-
-                for (int x = centerX - horizontalRadius; x <= centerX + horizontalRadius; x++)
-                {
-                    for (int y = centerY - verticalRadius; y <= centerY + verticalRadius; y++)
-                    {
-                        if (IsPointInsideEllipse(x, y, centerX, centerY, horizontalRadius, verticalRadius))
-                        {
-                            if (y <= middleSectionEndY)
-                            {
-                                WorldGen.SpreadGrass(x, y, TileID.Mud, TileID.MushroomGrass, true, default);                               
-                            }
-                            if (y <= topSectionEndY)
-                            {
-                                WorldGen.SpreadGrass(x, y, ModContent.TileType<LoamTile>(), ModContent.TileType<LoamTileGrass>(), true, default);
-                            }
-                        }
-           
-                    }
-                }
-                for (int x = shrineCenterX - shrineHorizontalRadius; x <= shrineCenterX + shrineHorizontalRadius; x++)
-                {
-                    for (int y = shrineCenterY - shrineVerticalRadius; y <= shrineCenterY + shrineVerticalRadius; y++)
-                    {
-                        if (IsPointInsideEllipse(x, y, shrineCenterX, shrineCenterY, shrineHorizontalRadius, shrineVerticalRadius))
-                        {
-                            WorldGen.PlaceTile(x, y, ModContent.TileType<SlateTile>(), forced: true);
-                            WorldGen.KillWall(x, y);
-                            WorldGen.KillTile(x / 3, y / 3);
-                        }
-                    }
-                }
-            }
-            private static bool IsPointInsideEllipse(int x, int y, int centerX, int centerY, int horizontalRadius, int verticalRadius)
-            {
-                // The equation for an ellipse centered at (centerX, centerY) is:
-                // ((x - centerX)^2 / horizontalRadius^2) + ((y - centerY)^2 / verticalRadius^2) <= 1
-                // If the point (x, y) satisfies this inequality, it's inside the ellipse.
-
-                float dx = (x - centerX);
-                float dy = (y - centerY);
-                return (dx * dx) / (horizontalRadius * horizontalRadius) + (dy * dy) / (verticalRadius * verticalRadius) <= 1;
-            }
-        }
+        }    
         public class DruidaeaTreePass : GenPass
         {
             public DruidaeaTreePass(string name, float loadWeight) : base(name, loadWeight)
@@ -118,11 +34,13 @@ namespace Trelamium
             }
             protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
             {
-                progress.Message = "Planting a divine seed";
+                progress.Message = "Planting a divine seed (grab a drink)";
+
+                #region Trunk Positioning and Generation
                 int trunkX;
                 int trunkDir = Main.rand.Next(2);
                 int spawnX = Main.maxTilesX / 2;
-                int spawnY = (int)Main.worldSurface - (Main.maxTilesY / 16);
+                int spawnY = (int)Main.worldSurface - (Main.maxTilesY / 12);
                 int distance = (Main.maxTilesX - spawnX) / 20;
                 if (trunkDir == 0) {
                     trunkX = spawnX - distance;
@@ -133,12 +51,11 @@ namespace Trelamium
                 trunkX = Math.Clamp(trunkX, 0, Main.maxTilesX - 1); //safety
 
                 int trunkTopY = (int)(spawnY - (Main.maxTilesY - spawnY) / 8);
-                int trunkBottomY = (int)(Main.rockLayer + (Main.maxTilesY - Main.rockLayer) / 7);
+                int trunkBottomY = (int)(Main.rockLayer + (Main.maxTilesY - Main.rockLayer) / 8);
                 int trunkWidth = 18;
-
                 const float curveFrequency = 0.0765f;
                 const int curveAmplitude = 4;
-
+                
                 for (int y = trunkTopY; y <= trunkBottomY; y++)
                 {
                     // Calculate the current width and curve offset for this level of the trunk
@@ -167,13 +84,14 @@ namespace Trelamium
                         WorldGen.PlaceWall(x2, y2, WallID.LivingWoodUnsafe);
                     }
                 }
-                
                 GenerateLeaves(trunkX, trunkTopY, 4);
+                #endregion
 
-                int centerX = trunkX;
+                #region Biome Base Positioning, Caves, etc.
+                int centerX = spawnX;
                 int centerY = trunkBottomY + (Main.maxTilesY - trunkBottomY) / 4;
-                int horizontalRadius = (int)(Main.maxTilesX * 0.02875f);
-                int verticalRadius = (int)(Main.maxTilesY * 0.305f);
+                int horizontalRadius = (int)(Main.maxTilesX * 0.06375f);
+                int verticalRadius = (int)(Main.maxTilesY * 0.215f);
                 int topSectionEndY = centerY - verticalRadius / 3;
                 int middleSectionEndY = centerY + verticalRadius / 3;
 
@@ -181,11 +99,10 @@ namespace Trelamium
                 {
                     for (int y = centerY - verticalRadius; y <= centerY + verticalRadius; y++)
                     {
-
-                        if (IsPointInsideEllipse(x, y, centerX, centerY, horizontalRadius, verticalRadius))
+                        if (WorldGenHelpers.IsPointInsideEllipse(x, y, centerX, centerY, horizontalRadius, verticalRadius))
                         {
                             WorldGen.KillWall(x, y);
-                            
+
                             if (y <= topSectionEndY)
                             {
                                 WorldGen.PlaceWall(x, y, WallID.LivingLeaf);
@@ -215,7 +132,7 @@ namespace Trelamium
                                 }
                             }
                         }
-                        else if (IsPointNearOvalEdge(x, y, centerX, centerY, horizontalRadius, verticalRadius))
+                        else if (WorldGenHelpers.IsPointNearOvalEdge(x, y, centerX, centerY, horizontalRadius, verticalRadius))
                         {
                             if (Main.rand.NextFloat() < 0.8f)
                             {
@@ -232,7 +149,7 @@ namespace Trelamium
                                         }
                                         else if (y <= middleSectionEndY)
                                         {
-                                            WorldGen.PlaceTile(branchX, branchY, TileID.Mud, forced: true);                                      
+                                            WorldGen.PlaceTile(branchX, branchY, TileID.Mud, forced: true);
                                         }
                                         else
                                         {
@@ -244,144 +161,13 @@ namespace Trelamium
                         }
                     }
                 }
-                
-                GenerateCellularAutomataCaves(centerX, centerY, horizontalRadius, verticalRadius, 52, 12);
-
-                GenerateCellularAutomataWalls(centerX, centerY, horizontalRadius, verticalRadius, 49, 9);
+                WorldGenHelpers.GenerateCellularAutomataCaves(centerX, centerY, horizontalRadius, verticalRadius, 52, 12);
+                WorldGenHelpers.GenerateCellularAutomataWalls(centerX, centerY, horizontalRadius, verticalRadius, 49, 9);
+                #endregion
 
                 if (Main.netMode == NetmodeID.Server)
                     NetMessage.SendTileSquare(-1, trunkX, trunkTopY, trunkWidth, trunkBottomY - trunkTopY + 1);
             }
-            #region Cellular Automata
-            public static void GenerateCellularAutomataCaves(int cX, int cY, int hR, int vR, int density, int iterations)
-            {
-                bool[,] caveMap = new bool[hR * 2, vR * 2];
-                for (int x = 0; x < hR * 2; x++)
-                {
-                    for (int y = 0; y < vR * 2; y++)
-                    {
-                        if (IsPointInsideEllipse(x + cX - hR, y + cY - vR, cX, cY, hR, vR))
-                        {
-                            caveMap[x, y] = Main.rand.Next(100) < density;
-                        }
-                        else
-                        {
-                            caveMap[x, y] = false;
-                        }
-                    }
-                }
-                for (int iteration = 0; iteration < iterations; iteration++)
-                {
-                    caveMap = PerformCellularAutomataStep(caveMap, hR * 2, vR * 2);
-                }
-                for (int x = 0; x < hR * 2; x++)
-                {
-                    for (int y = 0; y < vR * 2; y++)
-                    {
-                        if (caveMap[x, y])
-                        {
-                            int worldX = cX - hR + x;
-                            int worldY = cY - vR + y;
-                            WorldGen.KillTile(worldX, worldY); // This removes the tile, creating empty space  
-                        }
-                    }
-                }
-                
-            }
-            public static void GenerateCellularAutomataWalls(int cX, int cY, int hR, int vR, int density, int iterations)
-            {
-                // Initialize the grid with random states within the oval
-                bool[,] caveMap = new bool[hR * 2, vR * 2];
-                for (int x = 0; x < hR * 2; x++)
-                {
-                    for (int y = 0; y < vR * 2; y++)
-                    {
-                        if (IsPointInsideEllipse(x + cX - hR, y + cY - vR, cX, cY, hR, vR))
-                        {
-                            caveMap[x, y] = Main.rand.Next(100) < density;
-                        }
-                        else
-                        {
-                            caveMap[x, y] = false;
-                        }
-                    }
-                }
-                for (int iteration = 0; iteration < iterations; iteration++)
-                {
-                    caveMap = PerformCellularAutomataStep(caveMap, hR * 2, vR * 2);
-                }
-                for (int x = 0; x < hR * 2; x++)
-                {
-                    for (int y = 0; y < vR * 2; y++)
-                    {
-                        if (caveMap[x, y])
-                        {
-                            int worldX = cX - hR + x;
-                            int worldY = cY - vR + y;
-                            WorldGen.KillWall(worldX, worldY, false);         
-                        }
-                    }
-                }
-            }
-            private static bool[,] PerformCellularAutomataStep(bool[,] map, int width, int height)
-            {
-                bool[,] newMap = new bool[width, height];
-                for (int x = 0; x < width; x++)
-                {
-                    for (int y = 0; y < height; y++)
-                    {
-                        int solidNeighbors = CountSolidNeighbors(map, x, y, width, height);
-
-                        // The rules of cellular automata
-                        if (solidNeighbors > 4)
-                            newMap[x, y] = true; // Tile becomes solid
-                        else if (solidNeighbors < 4)
-                            newMap[x, y] = false; // Tile becomes empty
-                        else
-                            newMap[x, y] = map[x, y]; // Remains the same
-                    }
-                }
-
-                return newMap;
-            }
-            private static int CountSolidNeighbors(bool[,] map, int x, int y, int width, int height)
-            {
-                int count = 0;
-
-                for (int i = -1; i <= 1; i++)
-                {
-                    for (int j = -1; j <= 1; j++)
-                    {
-                        if (i == 0 && j == 0)
-                        {
-                            // Skip the cell itself
-                            continue;
-                        }
-
-                        int neighborX = x + i;
-                        int neighborY = y + j;
-
-                        // Check if neighbor is within bounds and solid
-                        if (neighborX >= 0 && neighborX < width && neighborY >= 0 && neighborY < height)
-                        {
-                            if (map[neighborX, neighborY])
-                            {
-                                count++;
-                            }
-                        }
-                        else
-                        {
-                            // Treat out-of-bounds neighbors as solid
-                            count++;
-                        }
-                    }
-                }
-
-                return count;
-            }
-            #endregion
-
-            #region Biome Base
             public static void GenerateLeaves(int trunkX, int trunkY, int thickness)
             {
                 float[] angles = new float[] { MathHelper.ToRadians(-120), MathHelper.ToRadians(-90), MathHelper.ToRadians(-45), MathHelper.ToRadians(45), MathHelper.ToRadians(90), MathHelper.ToRadians(120) };
@@ -417,29 +203,92 @@ namespace Trelamium
                     }
                 }
             }
-            private static bool IsPointInsideEllipse(int x, int y, int centerX, int centerY, int horizontalRadius, int verticalRadius)
+        }
+
+        public class DruidaeaExtrasPass : GenPass
+        {
+            public DruidaeaExtrasPass(string name, float loadWeight) : base(name, loadWeight)
             {
-                // The equation for an ellipse centered at (centerX, centerY) is:
-                // ((x - centerX)^2 / horizontalRadius^2) + ((y - centerY)^2 / verticalRadius^2) <= 1
-                // If the point (x, y) satisfies this inequality, it's inside the ellipse.
-
-                float dx = (x - centerX);
-                float dy = (y - centerY);
-                return (dx * dx) / (horizontalRadius * horizontalRadius) + (dy * dy) / (verticalRadius * verticalRadius) <= 1;
             }
-            private static bool IsPointNearOvalEdge(int x, int y, int centerX, int centerY, int horizontalRadius, int verticalRadius, float threshold = 0.1f)
+            protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
             {
-                // Calculate the normalized distance from the point to the ellipse's edge
-                float dx = (float)(x - centerX) / horizontalRadius;
-                float dy = (float)(y - centerY) / verticalRadius;
-                float distance = dx * dx + dy * dy;
+                progress.Message = "Bringing life to the forest";
+                #region Find Trunk Coords
+                int trunkX;
+                int trunkDir = Main.rand.Next(2);
+                int spawnX = Main.maxTilesX / 2;
+                int spawnY = (int)Main.worldSurface - (Main.maxTilesY / 16);
+                int distance = (Main.maxTilesX - spawnX) / 20;
+                if (trunkDir == 0)
+                {
+                    trunkX = spawnX - distance;
+                }
+                else
+                {
+                    trunkX = spawnX + distance;
+                }
+                trunkX = Math.Clamp(trunkX, 0, Main.maxTilesX - 1); //safety
 
-                // Check if the point is near the edge of the ellipse
-                return distance >= (1.0f - threshold) && distance <= (1.0f + threshold);
+                int trunkBottomY = (int)(Main.rockLayer + (Main.maxTilesY - Main.rockLayer) / 7);
+
+                int centerX = trunkX;
+                int centerY = trunkBottomY + (Main.maxTilesY - trunkBottomY) / 4;
+                int horizontalRadius = (int)(Main.maxTilesX * 0.058f);
+                int verticalRadius = (int)(Main.maxTilesY * 0.305f);
+                int middleSectionEndY = centerY + verticalRadius / 3;
+                int topSectionEndY = centerY - verticalRadius / 3;
+                #endregion
+
+                int shrineCenterX = trunkX;
+                int shrineCenterY = centerY;
+                int shrineHorizontalRadius = (int)(Main.maxTilesX * 0.0095f);
+                int shrineVerticalRadius = (int)(Main.maxTilesY * 0.0275f);
+                int domeRadius = (int)(Main.maxTilesX * 0.0045f);
+
+                for (int x = centerX - horizontalRadius; x <= centerX + horizontalRadius; x++)
+                {
+                    for (int y = centerY - verticalRadius; y <= centerY + verticalRadius; y++)
+                    {
+                        if (WorldGenHelpers.IsPointInsideEllipse(x, y, centerX, centerY, horizontalRadius, verticalRadius))
+                        {
+                            if (y <= middleSectionEndY)
+                            {
+                                WorldGen.SpreadGrass(x, y, TileID.Mud, TileID.MushroomGrass, true, default);
+                            }
+                            if (y <= topSectionEndY)
+                            {
+                                WorldGen.SpreadGrass(x, y, ModContent.TileType<LoamTile>(), ModContent.TileType<LoamTileGrass>(), true, default);
+                            }
+                        }
+
+                    }
+                }
+                for (int x = shrineCenterX - shrineHorizontalRadius; x <= shrineCenterX + shrineHorizontalRadius; x++)
+                {
+                    for (int y = shrineCenterY - shrineVerticalRadius; y <= shrineCenterY + shrineVerticalRadius; y++)
+                    {
+                        if (WorldGenHelpers.IsPointInsideEllipse(x, y, shrineCenterX, shrineCenterY, shrineHorizontalRadius, shrineVerticalRadius))
+                        {
+                            WorldGen.PlaceTile(x, y, TileID.LivingWood, forced: true);
+                            WorldGen.KillWall(x, y);
+                        }
+                    }
+                }
+
+                WorldGenHelpers.GenerateCellularAutomataCaves(shrineCenterX, shrineCenterY, shrineHorizontalRadius, shrineVerticalRadius, 60, 12);
+                /*
+                for (int x = shrineCenterX - domeRadius; x <= shrineCenterX + domeRadius; x++)
+                {
+                    for (int y = shrineCenterY - domeRadius; y <= shrineCenterY; y++) // Only go up to the midpoint for a dome shape
+                    {
+                        if (WorldGenHelpers.IsPointInsideEllipse(x, y, shrineCenterX, shrineCenterY, domeRadius, domeRadius))
+                        {
+                            WorldGen.KillTile(x, y + 15);
+                            WorldGen.PlaceWall(x, y + 15, WallID.LivingWoodUnsafe);
+                        }
+                    }
+                } */
             }
-
-            #endregion
-           
         }
 
     }

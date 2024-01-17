@@ -8,7 +8,7 @@ namespace Trelamium.Common
 {
     public static class PerlinNoise
     {
-        private static int[] permutation = {
+        private static readonly int[] permutation = {
     180, 159, 198, 107, 37, 124, 88, 38, 100, 31, 242, 227, 65, 185, 221, 202,
     170, 194, 151, 135, 35, 14, 20, 27, 236, 172, 165, 44, 162, 183, 141, 160,
     98, 229, 63, 146, 22, 250, 17, 153, 96, 219, 80, 188, 212, 50, 161, 26,
@@ -25,7 +25,7 @@ namespace Trelamium.Common
     4, 249, 47, 209, 155, 248, 45, 113, 240, 103, 93, 43, 152, 149, 101, 130,
     89, 6, 91, 77, 12, 254, 108, 13, 34, 168, 208, 72, 56, 138, 232, 150,
     116, 224, 197, 127, 21, 59, 57, 157, 97, 62, 214, 148, 1, 253, 204, 81 };
-        private static int[] p; // Doubled permutation to avoid overflow
+        private static readonly int[] p; // Doubled permutation to avoid overflow
 
         static PerlinNoise()
         {

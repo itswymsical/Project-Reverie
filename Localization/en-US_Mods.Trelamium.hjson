@@ -81,3 +81,10 @@ Projectiles: {
 	FungoreSlam.DisplayName: Fungore Slam
 	FungoreSmoke.DisplayName: Fungore Smoke
 }
+
+Biomes: {
+	DruidsGardenBiome: {
+		DisplayName: Druids Garden Biome
+		TownNPCDialogueName: the Druids Garden Biome
+	}
+}

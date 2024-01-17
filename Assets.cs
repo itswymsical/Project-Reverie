@@ -1,24 +1,26 @@
 ﻿namespace Trelamium
 {
 	/// <summary>
-	/// Contains directories for all asset paths, inspired by Starlight River's system.
+	/// Contains directories for all asset paths.
 	/// </summary>
 	internal static class Assets
 	{
 		public const string Directory = "Trelamium/Assets/";
 
-        public const string SFX = "Trelamium/SFX/";
+        public const string TextureDirectory = "Trelamium/Assets/Textures/";
 
-        public const string Music = "Trelamium/Music/";
+        public const string SFX = "Assets/SFX/";
 
-        public const string PlaceholderTexture = Directory + "Unloaded";
+        public const string Music = "Assets/Music/";
+
+        public const string PlaceholderTexture = TextureDirectory + "Unloaded";
 
 		public const string Icon = "Trelamium/icon";
 
-		public const string Dusts = Directory + "Dusts/";
+		public const string Dusts = TextureDirectory + "Dusts/";
 		internal class Items
 		{
-			public const string Directory = Assets.Directory + "Items/";
+			public const string Directory = TextureDirectory + "Items/";
 
 			public const string Misc = Directory + "Misc/";
 
@@ -42,11 +44,14 @@
 			public const string Boss = Directory + "Boss/";
 
 			public const string Fungore = Boss + "Fungore/";
+            public const string FG = Boss + "ForestGuardian/";
+            public const string Legion = Boss + "FoodLegion/";
+            public const string Shelledrake = Boss + "Shelledrake/";
             #endregion
-		}
+        }
 		internal class Armor
 		{
-			public const string Directory = Assets.Directory + "Items/Armor/";
+			public const string Directory = TextureDirectory + "Items/Armor/";
 
 			public const string BloomRose = Directory + "BloomRose/";
 
@@ -58,13 +63,13 @@
 		}
 		internal class Vanity
 		{
-			public const string Directory = Assets.Directory + "Items/Vanity/";
+			public const string Directory = TextureDirectory + "Items/Vanity/";
 
 			public const string Peepo = Directory + "Peepo/";
 		}
 		internal class Weapons
 		{
-			public const string Directory = Assets.Directory + "Items/Weapons/";
+			public const string Directory = TextureDirectory + "Items/Weapons/";
 
 			public const string BloomRose = Directory + "BloomRose/";
 
@@ -84,7 +89,7 @@
 		}
 		internal class Buffs
 		{
-			public const string Directory = Assets.Directory + "Buffs/";
+			public const string Directory = TextureDirectory + "Buffs/";
 
 			public const string Minions = Directory + "Minions/";
 
@@ -95,7 +100,7 @@
 		}
 		internal class NPCs
 		{
-			public const string Directory = Assets.Directory + "NPCs/";
+			public const string Directory = TextureDirectory + "NPCs/";
 
             public const string Boss = Directory + "Boss/";
 
@@ -117,7 +122,7 @@
 		}
 		internal class Projectiles
 		{
-			public const string Directory = Assets.Directory + "Projectiles/";
+			public const string Directory = TextureDirectory + "Projectiles/";
 
 			public const string Typeless = Directory + "Typeless/";
 
@@ -131,7 +136,7 @@
 		}
 		internal class Tiles
 		{
-			public const string Directory = Assets.Directory + "Tiles/";
+			public const string Directory = TextureDirectory + "Tiles/";
 
 			public const string Ambience = Directory + "Ambience/";
 

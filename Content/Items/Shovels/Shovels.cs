@@ -42,7 +42,7 @@ namespace Trelamium.Content.Items.Shovels
             return i.GetGlobalItem<TGlobalItem>().radius;
         }
 
-        public void UseShovel(Player player, int rangeinBlocks)
+        public static void UseShovel(Player player, int rangeinBlocks)
         {
             if (player.Distance(Main.MouseWorld) < 16 * rangeinBlocks)
                 player.GetModPlayer<TPlayer_Shovel>().DigBlocks((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y);
@@ -80,7 +80,7 @@ namespace Trelamium.Content.Items.Shovels
 
         public class WoodShovel : ShovelItem
         {
-            public override string Texture => Trelamium.Items + "Tools/Shovels/WoodShovel";
+            public override string Texture => Assets.Items.Shovels + Name;
             public override void SetDefaults()
             {
                 DiggingPower(28);
@@ -105,7 +105,7 @@ namespace Trelamium.Content.Items.Shovels
         }
         public class CopperShovel : ShovelItem
         {
-            public override string Texture => Trelamium.Items + "Tools/Shovels/CopperShovel";
+            public override string Texture => Assets.Items.Shovels + Name;
             public override void SetDefaults()
             {
                 DiggingPower(32);
@@ -132,7 +132,7 @@ namespace Trelamium.Content.Items.Shovels
         }
         public class TinShovel : ShovelItem
         {
-            public override string Texture => Trelamium.Items + "Tools/Shovels/TinShovel";
+            public override string Texture => Assets.Items.Shovels + Name;
             public override void SetDefaults()
             {
                 DiggingPower(34);
@@ -160,7 +160,7 @@ namespace Trelamium.Content.Items.Shovels
         }
         public class IronShovel : ShovelItem
         {
-            public override string Texture => Trelamium.Items + "Tools/Shovels/IronShovel";
+            public override string Texture => Assets.Items.Shovels + Name;
             public override void SetDefaults()
             {
                 DiggingPower(36);
@@ -188,7 +188,7 @@ namespace Trelamium.Content.Items.Shovels
         }
         public class LeadShovel : ShovelItem
         {
-            public override string Texture => Trelamium.Items + "Tools/Shovels/LeadShovel";
+            public override string Texture => Assets.Items.Shovels + Name;
             public override void SetDefaults()
             {
                 DiggingPower(38);
@@ -216,7 +216,7 @@ namespace Trelamium.Content.Items.Shovels
         }
         public class SilverShovel : ShovelItem
         {
-            public override string Texture => Trelamium.Items + "Tools/Shovels/SilverShovel";
+            public override string Texture => Assets.Items.Shovels + Name;
             public override void SetDefaults()
             {
                 DiggingPower(42);
@@ -244,7 +244,7 @@ namespace Trelamium.Content.Items.Shovels
         }
         public class TungstenShovel : ShovelItem
         {
-            public override string Texture => Trelamium.Items + "Tools/Shovels/TungstenShovel";
+            public override string Texture => Assets.Items.Shovels + Name;
             public override void SetDefaults()
             {
                 DiggingPower(48);
@@ -272,7 +272,7 @@ namespace Trelamium.Content.Items.Shovels
         }
         public class GoldShovel : ShovelItem
         {
-            public override string Texture => Trelamium.Items + "Tools/Shovels/GoldShovel";
+            public override string Texture => Assets.Items.Shovels + Name;
             public override void SetDefaults()
             {
                 DiggingPower(50);
@@ -300,7 +300,7 @@ namespace Trelamium.Content.Items.Shovels
         }
         public class PlatinumShovel : ShovelItem
         {
-            public override string Texture => Trelamium.Items + "Tools/Shovels/PlatinumShovel";
+            public override string Texture => Assets.Items.Shovels + "PlatinumShovel";
             public override void SetDefaults()
             {
                 DiggingPower(58);

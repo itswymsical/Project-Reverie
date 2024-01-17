@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
-namespace Trelamium.Common.Systems
+namespace Trelamium.Content.Biomes
 {
-    public class TrelamiumStyleBackground : ModSurfaceBackgroundStyle
+    public class DruidsGardenBackgroundStyle : ModSurfaceBackgroundStyle
     {
-        // Use this to keep far Backgrounds like the mountains.
         public override void ModifyFarFades(float[] fades, float transitionSpeed)
         {
             for (int i = 0; i < fades.Length; i++)
@@ -32,10 +26,7 @@ namespace Trelamium.Common.Systems
                 }
             }
         }
-
-        public override int ChooseCloseTexture(ref float scale, ref double parallax, ref float a, ref float b)
-        {
-            return BackgroundTextureLoader.GetBackgroundSlot(Mod, "Assets/TrelamiumMenuBackground");
-        }
+        public override int ChooseFarTexture() => BackgroundTextureLoader.GetBackgroundSlot(Mod, "Assets/Textures/Backgrounds/DruidsGardenBackground1");
+        
     }
 }

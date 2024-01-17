@@ -4,15 +4,16 @@ using ReLogic.Content;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Trelamium.Common.Systems;
+using Trelamium.Content.Biomes;
 
 namespace Trelamium.Content
 {
     public class Menu : ModMenu
     {
-        private const string AssetPath = "Trelamium/Assets/";
+        private const string AssetPath = "Trelamium/Assets/Textures/";
         public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>($"{AssetPath}logo");
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Music/IlluminantInkiness");
         public override ModSurfaceBackgroundStyle MenuBackgroundStyle => base.MenuBackgroundStyle;
@@ -20,7 +21,7 @@ namespace Trelamium.Content
         public override Asset<Texture2D> MoonTexture => null;
         public override string DisplayName => "Trelamium II";
         public override void OnSelected() {
-            SoundEngine.PlaySound(new SoundStyle(AssetPath + "SFX/Theme_Select"));
+            SoundEngine.PlaySound(new SoundStyle("Trelamium/Assets/SFX/Theme_Select"));
         }
         public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
         {

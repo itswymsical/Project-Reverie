@@ -146,7 +146,9 @@
 
 			public const string DruidsGarden = Directory + "DruidsGarden/";
 
-			public const string Furniture = Directory + "Furniture/";
+            public const string Grotto = Directory + "Grotto/";
+
+            public const string Furniture = Directory + "Furniture/";
 
 			public const string Paintings = Furniture + "Paintings/";
 		}

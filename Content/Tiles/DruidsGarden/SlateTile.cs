@@ -19,12 +19,12 @@ namespace Trelamium.Content.Tiles.DruidsGarden
             Main.tileLighted[Type] = true;
 
             DustType = 0;
-            MineResist = 0.35f;
+            MineResist = 0.465f;
 
             HitSound = SoundID.Tink;
             Main.tileMerge[Type][ModContent.TileType<LoamTile>()] = true;
             Main.tileMerge[Type][ModContent.TileType<AlluviumOreTile>()] = true;
-            AddMapEntry(new Color(145, 150, 160));
+            AddMapEntry(new Color(94, 92, 89));
         }
         public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;
     }

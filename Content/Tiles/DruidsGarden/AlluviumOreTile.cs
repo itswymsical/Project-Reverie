@@ -23,7 +23,7 @@ namespace Trelamium.Content.Tiles.DruidsGarden
             MinPick = 50;
             HitSound = SoundID.Tink;
 
-            AddMapEntry(new Color(81, 144, 37));
+            AddMapEntry(new Color(108, 187, 86));
         }
         public override void NumDust(int i, int j, bool fail, ref int num)
         {

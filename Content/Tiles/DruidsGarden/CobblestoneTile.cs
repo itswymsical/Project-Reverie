@@ -20,7 +20,7 @@ namespace Trelamium.Content.Tiles
             MineResist = 0.65f;
             HitSound = SoundID.Tink;
 
-            AddMapEntry(new Color(155, 115, 155));
+            AddMapEntry(new Color(105, 106, 105));
         }
         public override void NumDust(int i, int j, bool fail, ref int num)
         {

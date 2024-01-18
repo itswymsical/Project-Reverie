@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
@@ -13,6 +14,20 @@ namespace Trelamium.Helpers
     /// <returns></returns>
     public class WorldGenHelpers
     {
+        public static bool IsPointInsideNonUniformEllipse(int x, int y, int centerX, int centerY, int horizontalRadius, int verticalRadius, float noise)
+        {
+            // The basic equation for an ellipse centered at (centerX, centerY)
+            float dx = (x - centerX);
+            float dy = (y - centerY);
+            float ellipseEquation = (dx * dx) / (horizontalRadius * horizontalRadius) + (dy * dy) / (verticalRadius * verticalRadius);
+
+            // Introduce noise to the radius
+            float noiseFactor = 1 + Main.rand.NextFloat(-noise, noise); // A random factor between 1 - noise and 1 + noise
+            ellipseEquation *= noiseFactor;
+
+            // Check if the point is inside the distorted ellipse
+            return ellipseEquation <= 1;
+        }
         /// <summary>
         /// Checks for tiles inside of a ovular radius.
         /// </summary>
@@ -56,6 +71,7 @@ namespace Trelamium.Helpers
         }
         /// <summary>
         /// Generates Cellular Automata (for tiles) like in Connway's game of life. Set the density and iteration count for variance.
+        /// parameters 'type' and 'forced' do not effect anything if 'killTile' is set to true but must still be called.
         /// </summary>
         /// <param name="cX"></param>
         /// <param name="cY"></param>
@@ -63,7 +79,10 @@ namespace Trelamium.Helpers
         /// <param name="vR"></param>
         /// <param name="density"></param>
         /// <param name="iterations"></param>
-        public static void GenerateCellularAutomataCaves(int cX, int cY, int hR, int vR, int density, int iterations)
+        /// <param name="kill"></param>
+        /// <param name="type"></param>
+        /// <param name="forced"></param>
+        public static void GenerateCellularAutomata(int cX, int cY, int hR, int vR, int density, int iterations, bool killTile, int type, bool forced)
         {
             bool[,] caveMap = new bool[hR * 2, vR * 2];
             for (int x = 0; x < hR * 2; x++)
@@ -92,7 +111,14 @@ namespace Trelamium.Helpers
                     {
                         int worldX = cX - hR + x;
                         int worldY = cY - vR + y;
-                        WorldGen.KillTile(worldX, worldY); // This removes the tile, creating empty space  
+                        if (killTile)
+                        {
+                            WorldGen.KillTile(worldX, worldY);
+                        }
+                        else
+                        {
+                            WorldGen.PlaceTile(worldX, worldX, type, forced: forced);
+                        }
                     }
                 }
             }
@@ -127,7 +153,7 @@ namespace Trelamium.Helpers
             }
             for (int iteration = 0; iteration < iterations; iteration++)
             {
-                caveMap = PerformCellularAutomataStep(caveMap, hR * 2, vR * 2);
+                caveMap = PerformCellularAutomataWallStep(caveMap, hR * 2, vR * 2);
             }
             for (int x = 0; x < hR * 2; x++)
             {
@@ -142,7 +168,7 @@ namespace Trelamium.Helpers
                 }
             }
         }
-        private static bool[,] PerformCellularAutomataStep(bool[,] map, int width, int height)
+        private static bool[,] PerformCellularAutomataWallStep(bool[,] map, int width, int height)
         {
             bool[,] newMap = new bool[width, height];
             for (int x = 0; x < width; x++)
@@ -197,6 +223,65 @@ namespace Trelamium.Helpers
             }
 
             return count;
+        }
+        private static bool[,] PerformCellularAutomataStep(bool[,] map, int width, int height)
+        {
+            bool[,] newMap = new bool[width, height];
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    int solidClusters = CountSolidClusters(map, x, y, width, height);
+
+                    // The rules of cellular automata
+                    if (solidClusters > 4)
+                        newMap[x, y] = true; // Tile becomes solid if surrounded by more than 4 solid clusters
+                    else if (solidClusters < 4)
+                        newMap[x, y] = false; // Tile becomes empty if fewer than 4 solid clusters surround it
+                    else
+                        newMap[x, y] = map[x, y]; // Remains the same
+                }
+            }
+
+            return newMap;
+        }
+        private static int CountSolidClusters(bool[,] map, int x, int y, int width, int height)
+        {
+            int count = 0;
+            int clusterSize = 2; // Size of the cluster
+
+            // Check clusters around the tile
+            for (int i = -1; i <= 0; i++)
+            {
+                for (int j = -1; j <= 0; j++)
+                {
+                    if (IsClusterSolid(map, x + i, y + j, width, height, clusterSize))
+                    {
+                        count++;
+                    }
+                }
+            }
+
+            return count;
+        }
+
+        private static bool IsClusterSolid(bool[,] map, int startX, int startY, int width, int height, int clusterSize)
+        {
+            for (int x = 0; x < clusterSize; x++)
+            {
+                for (int y = 0; y < clusterSize; y++)
+                {
+                    int checkX = startX + x;
+                    int checkY = startY + y;
+
+                    // Check if the tile is out of bounds or empty
+                    if (checkX < 0 || checkX >= width || checkY < 0 || checkY >= height || !map[checkX, checkY])
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Trelamium.Content.Tiles.DruidsGarden;
 using Trelamium.Content.Tiles;
 using Trelamium.Helpers;
+using Trelamium.Content.Tiles.MyceliumGrotto;
 
 namespace Trelamium
 {
@@ -20,6 +21,12 @@ namespace Trelamium
             if (DruidaeaIndex != 1)
             {
                 tasks.Insert(DruidaeaIndex + 1, new DruidaeaTreePass("Druidaea Tree", 100f));
+            }
+
+            int ForestTempleIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Wet Jungle"));
+            if (ForestTempleIndex != 1)
+            {
+                tasks.Insert(ForestTempleIndex + 1, new ForestTemplePass("Druidaea Temple", 100f));
             }
             int DruidaeaExtrasIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Smooth World"));
             if (DruidaeaExtrasIndex != 1)
@@ -90,7 +97,7 @@ namespace Trelamium
                 #region Biome Base Positioning, Caves, etc.
                 int centerX = spawnX;
                 int centerY = trunkBottomY + (Main.maxTilesY - trunkBottomY) / 4;
-                int horizontalRadius = (int)(Main.maxTilesX * 0.06375f);
+                int horizontalRadius = (int)(Main.maxTilesX * 0.06025f);
                 int verticalRadius = (int)(Main.maxTilesY * 0.215f);
                 int topSectionEndY = centerY - verticalRadius / 3;
                 int middleSectionEndY = centerY + verticalRadius / 3;
@@ -120,7 +127,7 @@ namespace Trelamium
                             else if (y <= middleSectionEndY)
                             {
                                 WorldGen.PlaceWall(x, y, WallID.MudUnsafe);
-                                WorldGen.PlaceTile(x, y, TileID.Mud, forced: true);
+                                WorldGen.PlaceTile(x, y, ModContent.TileType<MyceliumTile>(), forced: true);
                             }
                             else
                             {
@@ -136,7 +143,7 @@ namespace Trelamium
                         {
                             if (Main.rand.NextFloat() < 0.8f)
                             {
-                                int branchLength = Main.rand.Next(32, 61); // Randomize the branch length
+                                int branchLength = Main.rand.Next(21, 30); // Randomize the branch length
                                 for (int i = 0; i < branchLength; i++)
                                 {
                                     int branchX = x + Main.rand.Next(-1, 2); // Randomize the branch direction
@@ -149,7 +156,7 @@ namespace Trelamium
                                         }
                                         else if (y <= middleSectionEndY)
                                         {
-                                            WorldGen.PlaceTile(branchX, branchY, TileID.Mud, forced: true);
+                                            WorldGen.PlaceTile(branchX, branchY, ModContent.TileType<MyceliumTile>(), forced: true);
                                         }
                                         else
                                         {
@@ -161,7 +168,7 @@ namespace Trelamium
                         }
                     }
                 }
-                WorldGenHelpers.GenerateCellularAutomataCaves(centerX, centerY, horizontalRadius, verticalRadius, 52, 12);
+                WorldGenHelpers.GenerateCellularAutomata(centerX, centerY, horizontalRadius, verticalRadius, 53, 12, true, 0, false);           
                 WorldGenHelpers.GenerateCellularAutomataWalls(centerX, centerY, horizontalRadius, verticalRadius, 49, 9);
                 #endregion
 
@@ -204,7 +211,6 @@ namespace Trelamium
                 }
             }
         }
-
         public class DruidaeaExtrasPass : GenPass
         {
             public DruidaeaExtrasPass(string name, float loadWeight) : base(name, loadWeight)
@@ -233,17 +239,17 @@ namespace Trelamium
 
                 int centerX = trunkX;
                 int centerY = trunkBottomY + (Main.maxTilesY - trunkBottomY) / 4;
-                int horizontalRadius = (int)(Main.maxTilesX * 0.058f);
-                int verticalRadius = (int)(Main.maxTilesY * 0.305f);
+                int horizontalRadius = (int)(Main.maxTilesX * 0.06025f);
+                int verticalRadius = (int)(Main.maxTilesY * 0.215f);
                 int middleSectionEndY = centerY + verticalRadius / 3;
                 int topSectionEndY = centerY - verticalRadius / 3;
                 #endregion
-
+                
                 int shrineCenterX = trunkX;
-                int shrineCenterY = centerY;
+                int shrineCenterY = topSectionEndY;
                 int shrineHorizontalRadius = (int)(Main.maxTilesX * 0.0095f);
                 int shrineVerticalRadius = (int)(Main.maxTilesY * 0.0275f);
-                int domeRadius = (int)(Main.maxTilesX * 0.0045f);
+                int domeRadius = (int)(Main.maxTilesX * 0.0095f);
 
                 for (int x = centerX - horizontalRadius; x <= centerX + horizontalRadius; x++)
                 {
@@ -253,7 +259,7 @@ namespace Trelamium
                         {
                             if (y <= middleSectionEndY)
                             {
-                                WorldGen.SpreadGrass(x, y, TileID.Mud, TileID.MushroomGrass, true, default);
+                                WorldGen.SpreadGrass(x, y, ModContent.TileType<MyceliumTile>(), ModContent.TileType<MyceliumGrassTile>(), true, default);
                             }
                             if (y <= topSectionEndY)
                             {
@@ -275,8 +281,8 @@ namespace Trelamium
                     }
                 }
 
-                WorldGenHelpers.GenerateCellularAutomataCaves(shrineCenterX, shrineCenterY, shrineHorizontalRadius, shrineVerticalRadius, 60, 12);
-                /*
+                WorldGenHelpers.GenerateCellularAutomata(shrineCenterX, shrineCenterY, shrineHorizontalRadius, shrineVerticalRadius, 30, 12, true, 0, false);
+                
                 for (int x = shrineCenterX - domeRadius; x <= shrineCenterX + domeRadius; x++)
                 {
                     for (int y = shrineCenterY - domeRadius; y <= shrineCenterY; y++) // Only go up to the midpoint for a dome shape
@@ -287,9 +293,48 @@ namespace Trelamium
                             WorldGen.PlaceWall(x, y + 15, WallID.LivingWoodUnsafe);
                         }
                     }
-                } */
+                }
             }
         }
 
+        public class ForestTemplePass : GenPass
+        {
+            public ForestTemplePass(string name, float loadWeight) : base(name, loadWeight)
+            {
+            }
+            protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
+            {
+                progress.Message = "Carving out the forest";
+
+                int trunkX;
+                int trunkDir = Main.rand.Next(2);
+                int spawnX = Main.maxTilesX / 2;
+
+                int trunkBottomY = (int)(Main.rockLayer + (Main.maxTilesY - Main.rockLayer) / 8);
+
+                int centerX = spawnX;
+                int centerY = trunkBottomY + (Main.maxTilesY - trunkBottomY) / 4;
+                int horizontalRadius = (int)(Main.maxTilesX * 0.06025f);
+                int verticalRadius = (int)(Main.maxTilesY * 0.215f);
+                int middleSectionEndY = centerY + verticalRadius / 3;
+
+                for (int x = centerX - horizontalRadius; x <= centerX + horizontalRadius; x++)
+                {
+                    for (int y = centerY - verticalRadius; y <= centerY + verticalRadius; y++)
+                    {
+                        if (WorldGenHelpers.IsPointInsideNonUniformEllipse(x, y, centerX, centerY, horizontalRadius, verticalRadius, 0.2f))
+                        {
+                            if (y <= middleSectionEndY)
+                            {
+                                if (Main.rand.NextBool(120))
+                                {
+                                    WorldGen.digTunnel(x, y, Main.rand.Next(1, 3), Main.rand.Next(1, 3), Main.rand.Next(1, 7), Main.rand.Next(1, 3));
+                                }
+                            } 
+                        }
+                    }
+                }
+            }
+        }
     }
 }

@@ -20,16 +20,17 @@ namespace Trelamium.Content.Tiles.DruidsGarden
 
             HitSound = SoundID.Dig;
 
-            Main.tileMerge[Type][ModContent.TileType<CobblestoneTile>()] = true;           
+            Main.tileMerge[Type][ModContent.TileType<CobblestoneTile>()] = true;
             Main.tileMerge[Type][ModContent.TileType<LoamTileGrass>()] = true;
 
             AddMapEntry(new Color(126, 82, 52));
         }
-        public override void RandomUpdate(int i, int j) {
+        public override void RandomUpdate(int i, int j)
+        {
             if (WorldGen.genRand.NextBool(3))
-                WorldGen.SpreadGrass(i, j, ModContent.TileType<LoamTile>(), ModContent.TileType<LoamTileGrass>(), true, default);          
+                WorldGen.SpreadGrass(i, j, ModContent.TileType<LoamTile>(), ModContent.TileType<LoamTileGrass>(), true, default);
         }
-        public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;    
+        public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;
     }
     public class LoamTileGrass : ModTile
     {
@@ -44,7 +45,7 @@ namespace Trelamium.Content.Tiles.DruidsGarden
             TileID.Sets.ChecksForMerge[Type] = true;
             TileID.Sets.NeedsGrassFraming[Type] = true;
             TileID.Sets.NeedsGrassFramingDirt[Type] = ModContent.TileType<LoamTile>();
-            
+
             DustType = 39;
             MineResist = 0f;
             HitSound = SoundID.Grass;
@@ -56,12 +57,13 @@ namespace Trelamium.Content.Tiles.DruidsGarden
             => num = fail ? 1 : 3;
 
         /* tModPorter Note: Removed. Use ModTree.SaplingGrowthType */
-     
+
         public override void RandomUpdate(int i, int j)
         {
             if (WorldGen.genRand.NextBool(9))
-                WorldGen.SpreadGrass(i, j, ModContent.TileType<LoamTile>(), ModContent.TileType<LoamTileGrass>(), true, default);          
+                WorldGen.SpreadGrass(i, j, ModContent.TileType<LoamTile>(), ModContent.TileType<LoamTileGrass>(), true, default);
         }
+
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
             if (!effectOnly)

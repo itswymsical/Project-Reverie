@@ -41,7 +41,7 @@ namespace Trelamium
             }
             protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
             {
-                progress.Message = "Planting a divine seed (grab a drink)";
+                progress.Message = "Planting a druidaea seed";
 
                 #region Trunk Positioning and Generation
                 int trunkX;
@@ -99,7 +99,7 @@ namespace Trelamium
                 int centerY = trunkBottomY + (Main.maxTilesY - trunkBottomY) / 4;
                 int horizontalRadius = (int)(Main.maxTilesX * 0.06025f);
                 int verticalRadius = (int)(Main.maxTilesY * 0.215f);
-                int topSectionEndY = centerY - verticalRadius / 3;
+                int topSectionEndY = centerY - (verticalRadius + verticalRadius / 8) / 3;
                 int middleSectionEndY = centerY + verticalRadius / 3;
 
                 for (int x = centerX - horizontalRadius; x <= centerX + horizontalRadius; x++)
@@ -168,7 +168,7 @@ namespace Trelamium
                         }
                     }
                 }
-                WorldGenHelpers.GenerateCellularAutomata(centerX, centerY, horizontalRadius, verticalRadius, 53, 12, true, 0, false);           
+                WorldGenHelpers.GenerateCellularAutomata(centerX, centerY, horizontalRadius, verticalRadius, 50, 8, true, 0, false);           
                 WorldGenHelpers.GenerateCellularAutomataWalls(centerX, centerY, horizontalRadius, verticalRadius, 49, 9);
                 #endregion
 
@@ -264,9 +264,26 @@ namespace Trelamium
                             if (y <= topSectionEndY)
                             {
                                 WorldGen.SpreadGrass(x, y, ModContent.TileType<LoamTile>(), ModContent.TileType<LoamTileGrass>(), true, default);
+                                if (!Main.tile[x, y - 1].HasTile)
+                                {
+                                    if (Main.tile[x, y].TileType == ModContent.TileType<LoamTileGrass>())
+                                    {
+                                        if (Main.rand.NextBool(3)) // 25% chance to grow each tick, adjust as necessary
+                                        {
+                                            WorldGen.PlaceTile(x, y - 1, ModContent.TileType<DGFoliageTileNatural>());
+                                        }
+                                        if (Main.rand.NextBool(3))
+                                        {
+                                            WorldGen.PlaceTile(x, y - 1, ModContent.TileType<LeafTileNatural>());
+                                        }
+                                        if (Main.rand.NextBool(3))
+                                        {
+                                            WorldGen.PlaceTile(x, y - 1, ModContent.TileType<DGFoliageTile1x1Natural>());
+                                        }
+                                    }
+                                }
                             }
                         }
-
                     }
                 }
                 for (int x = shrineCenterX - shrineHorizontalRadius; x <= shrineCenterX + shrineHorizontalRadius; x++)
@@ -322,13 +339,13 @@ namespace Trelamium
                 {
                     for (int y = centerY - verticalRadius; y <= centerY + verticalRadius; y++)
                     {
-                        if (WorldGenHelpers.IsPointInsideNonUniformEllipse(x, y, centerX, centerY, horizontalRadius, verticalRadius, 0.2f))
+                        if (WorldGenHelpers.IsPointInsideEllipse(x, y, centerX, centerY, horizontalRadius, verticalRadius))
                         {
                             if (y <= middleSectionEndY)
                             {
-                                if (Main.rand.NextBool(120))
+                                if (Main.rand.NextBool(135))
                                 {
-                                    WorldGen.digTunnel(x, y, Main.rand.Next(1, 3), Main.rand.Next(1, 3), Main.rand.Next(1, 7), Main.rand.Next(1, 3));
+                                    WorldGen.digTunnel(x, y, Main.rand.Next(1, 9), Main.rand.Next(1, 3), Main.rand.Next(1, 5), Main.rand.Next(3, 7));
                                 }
                             } 
                         }

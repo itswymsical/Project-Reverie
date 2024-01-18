@@ -153,7 +153,7 @@ namespace Trelamium.Helpers
             }
             for (int iteration = 0; iteration < iterations; iteration++)
             {
-                caveMap = PerformCellularAutomataWallStep(caveMap, hR * 2, vR * 2);
+                caveMap = PerformCellularAutomataStep(caveMap, hR * 2, vR * 2);
             }
             for (int x = 0; x < hR * 2; x++)
             {
@@ -168,7 +168,7 @@ namespace Trelamium.Helpers
                 }
             }
         }
-        private static bool[,] PerformCellularAutomataWallStep(bool[,] map, int width, int height)
+        private static bool[,] PerformCellularAutomataStep(bool[,] map, int width, int height)
         {
             bool[,] newMap = new bool[width, height];
             for (int x = 0; x < width; x++)
@@ -224,7 +224,7 @@ namespace Trelamium.Helpers
 
             return count;
         }
-        private static bool[,] PerformCellularAutomataStep(bool[,] map, int width, int height)
+        private static bool[,] PerformCellularAutomataStep_BROKEN(bool[,] map, int width, int height)
         {
             bool[,] newMap = new bool[width, height];
             for (int x = 0; x < width; x++)

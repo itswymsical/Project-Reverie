@@ -17,7 +17,6 @@ namespace Trelamium.Content.Biomes
         public static int trunkBottomY = (int)(Main.rockLayer + (Main.maxTilesY - Main.rockLayer) / 7);
 
 		public override int Music => MusicLoader.GetMusicSlot(Mod, Assets.Music + "Ruins");
-        public override ModSurfaceBackgroundStyle SurfaceBackgroundStyle => ModContent.GetInstance<DruidsGardenBackgroundStyle>();
         public override SceneEffectPriority Priority => SceneEffectPriority.BiomeLow; // We have set the SceneEffectPriority to be BiomeLow for purpose of example, however default behavior is BiomeLow.
 
 		public override string BestiaryIcon => base.BestiaryIcon;

@@ -60,7 +60,7 @@ namespace Trelamium.Content.NPCs.Boss.Fungore
         public override void SetDefaults()
         {
             NPC.damage = 21;
-            NPC.defense = 11;
+            NPC.defense = 10;
             NPC.lifeMax = 1440;
 
             NPC.width = NPC.height = 88;
@@ -71,10 +71,12 @@ namespace Trelamium.Content.NPCs.Boss.Fungore
             NPC.knockBackResist = 0.005f;
 
             NPC.aiStyle = -1;
-            AIType = -1;
 
             NPC.value = Item.buyPrice(gold: 1);
-
+            if (!Main.dedServ)
+            {
+                Music = MusicLoader.GetMusicSlot(Mod, Assets.Music + "FungalFracas");
+            }
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.DD2_OgreDeath;
         }
@@ -97,8 +99,8 @@ namespace Trelamium.Content.NPCs.Boss.Fungore
             if (State == States.SuperJumping && frameY == 9)
                 frameRate = 24;
 
-            if (State == States.Jumping && frameY == 6)
-                frameRate = 24;
+            if (State == States.Jumping && frameY >= 4 && frameY <= 8)
+                frameRate = 28;
 
             if (NPC.frameCounter > frameRate)
             {
@@ -127,16 +129,18 @@ namespace Trelamium.Content.NPCs.Boss.Fungore
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
             float damage = NPC.damage;
-            NPC.damage += (int)(damage * .15f);
 
-            bossAdjustment = NPC.life;
-            NPC.life += (int)(bossAdjustment * .15f);
-
+            if (Main.expertMode)
+            {
+                NPC.damage += (int)(damage * .2f);
+                bossAdjustment = NPC.life;
+                NPC.life += (int)(bossAdjustment * .2f);
+            }
             if (Main.masterMode)
             {
                 NPC.damage += (int)(damage * .35f);
 
-                NPC.life += (int)(bossAdjustment * .25f);
+                NPC.life += (int)(bossAdjustment * .35f);
                 NPC.defense = 17;
             }
         }
@@ -471,7 +475,8 @@ namespace Trelamium.Content.NPCs.Boss.Fungore
                 State = States.Walking;
             }
         }
-        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) => NPC.DrawNPCCenteredWithTexture(TextureAssets.Npc[NPC.type].Value, spriteBatch, drawColor);
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) 
+            => NPC.DrawNPCCenteredWithTexture(TextureAssets.Npc[NPC.type].Value, spriteBatch, drawColor);
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {
             scale = 1.5f;

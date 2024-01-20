@@ -10,6 +10,7 @@ using Trelamium.Content.Tiles.DruidsGarden;
 using Trelamium.Content.Tiles;
 using Trelamium.Helpers;
 using Trelamium.Content.Tiles.MyceliumGrotto;
+using Trelamium.Core.Mechanics;
 
 namespace Trelamium
 {
@@ -237,6 +238,15 @@ namespace Trelamium
 
                 int trunkBottomY = (int)(Main.rockLayer + (Main.maxTilesY - Main.rockLayer) / 7);
 
+                int controlPointOffsetX = Main.rand.Next(-40, 40); // Random horizontal offset
+                int controlPointOffsetY = Main.rand.Next(-20, 0);  // Random vertical offset, upwards
+
+                Vector2 start = new Vector2(trunkX, trunkBottomY);
+                Vector2 control = new Vector2(trunkX + controlPointOffsetX, trunkBottomY + controlPointOffsetY);
+                Vector2 end = new Vector2(trunkX, trunkBottomY - 30);
+
+                BezierCurve roots = new BezierCurve(start, control, end);
+                WorldGenHelpers.GenerateBezierPath(roots, TileID.LivingWood);
                 int centerX = trunkX;
                 int centerY = trunkBottomY + (Main.maxTilesY - trunkBottomY) / 4;
                 int horizontalRadius = (int)(Main.maxTilesX * 0.06025f);
@@ -264,7 +274,7 @@ namespace Trelamium
                             if (y <= topSectionEndY)
                             {
                                 WorldGen.SpreadGrass(x, y, ModContent.TileType<LoamTile>(), ModContent.TileType<LoamTileGrass>(), true, default);
-                                if (!Main.tile[x, y - 1].HasTile)
+                                if (!Main.tile[x, y - 1].HasTile && Main.rand.NextBool(40))
                                 {
                                     if (Main.tile[x, y].TileType == ModContent.TileType<LoamTileGrass>())
                                     {
@@ -272,11 +282,11 @@ namespace Trelamium
                                         {
                                             WorldGen.PlaceTile(x, y - 1, ModContent.TileType<DGFoliageTileNatural>());
                                         }
-                                        if (Main.rand.NextBool(3))
+                                        else if (Main.rand.NextBool(3))
                                         {
                                             WorldGen.PlaceTile(x, y - 1, ModContent.TileType<LeafTileNatural>());
                                         }
-                                        if (Main.rand.NextBool(3))
+                                        else if (Main.rand.NextBool(3))
                                         {
                                             WorldGen.PlaceTile(x, y - 1, ModContent.TileType<DGFoliageTile1x1Natural>());
                                         }

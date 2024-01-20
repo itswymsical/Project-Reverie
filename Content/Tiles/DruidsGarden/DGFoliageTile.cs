@@ -15,9 +15,12 @@ namespace Trelamium.Content.Tiles
 		public override void SetStaticDefaults() {
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoFail[Type] = true;
-			Main.tileObsidianKill[Type] = true;
+            Main.tileLavaDeath[Type] = true;
+            Main.tileWaterDeath[Type] = true;
+            Main.tileObsidianKill[Type] = true;
+            Main.tileCut[Type] = true;
 
-			DustType = DustID.JungleGrass;
+            DustType = DustID.JungleGrass;
 
 			TileObjectData.newTile.CopyFrom(TileObjectData.Style2x1);
 
@@ -30,11 +33,11 @@ namespace Trelamium.Content.Tiles
     {
 		public override void SetStaticDefaults() {
 			base.SetStaticDefaults();
-			TileObjectData.GetTileData(Type, 0).LavaDeath = false;
-		}
+            TileObjectData.GetTileData(Type, 0).LavaDeath = true;
+            TileObjectData.GetTileData(Type, 0).WaterDeath = true;
+        }
 
 		public override void DropCritterChance(int i, int j, ref int wormChance, ref int grassHopperChance, ref int jungleGrubChance) {
-			wormChance = 6;
 			grassHopperChance = 6;
 		}
 	}

@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.ID;
+using Trelamium.Core.Mechanics;
 
 namespace Trelamium.Helpers
 {
@@ -14,6 +17,15 @@ namespace Trelamium.Helpers
     /// <returns></returns>
     public class WorldGenHelpers
     {
+        public static void GenerateBezierPath(BezierCurve curve, ushort tileType)
+        {
+            List<Vector2> points = curve.GetPoints(100); // Get 100 points along the curve
+
+            foreach (Vector2 point in points)
+            {
+                WorldGen.PlaceTile((int)point.X, (int)point.Y, tileType, forced: true);
+            }
+        }
         public static bool IsPointInsideNonUniformEllipse(int x, int y, int centerX, int centerY, int horizontalRadius, int verticalRadius, float noise)
         {
             // The basic equation for an ellipse centered at (centerX, centerY)
@@ -264,7 +276,6 @@ namespace Trelamium.Helpers
 
             return count;
         }
-
         private static bool IsClusterSolid(bool[,] map, int startX, int startY, int width, int height, int clusterSize)
         {
             for (int x = 0; x < clusterSize; x++)

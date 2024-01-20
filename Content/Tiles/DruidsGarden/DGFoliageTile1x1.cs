@@ -30,12 +30,13 @@ namespace Trelamium.Content.Tiles
     {
 		public override void SetStaticDefaults() {
 			base.SetStaticDefaults();
-			TileObjectData.GetTileData(Type, 0).LavaDeath = false;
-		}
+            TileObjectData.GetTileData(Type, 0).LavaDeath = true;
+            TileObjectData.GetTileData(Type, 0).WaterDeath = true;
+        }
 
 		public override void DropCritterChance(int i, int j, ref int wormChance, ref int grassHopperChance, ref int jungleGrubChance) {
 			wormChance = 12;
-			grassHopperChance = 8;
+			grassHopperChance = 7;
 		}
 	}
 }

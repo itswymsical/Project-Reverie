@@ -1,14 +1,14 @@
-﻿using Trelamium;
-using Trelamium.Common.Global;
-using Trelamium.Common.Players;
-using Trelamium.Helpers;
+﻿using EmpyreanDreamscape;
+using EmpyreanDreamscape.Common.Global;
+using EmpyreanDreamscape.Common.Players;
+using EmpyreanDreamscape.Helpers;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
-namespace Trelamium.Content.Items.Shovels
+namespace EmpyreanDreamscape.Content.Items.Shovels
 {
 
     public abstract class ShovelItem : ModItem
@@ -26,7 +26,7 @@ namespace Trelamium.Content.Items.Shovels
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            TooltipLine tooltipLine = new TooltipLine(Mod, "Trelamium:Digging Power", $"{Item.GetGlobalItem<TGlobalItem>().digPower}% digging power");
+            TooltipLine tooltipLine = new TooltipLine(Mod, "EmpyreanDreamscape:Digging Power", $"{Item.GetGlobalItem<TGlobalItem>().digPower}% digging power");
             tooltips.Add(tooltipLine);
         }
 

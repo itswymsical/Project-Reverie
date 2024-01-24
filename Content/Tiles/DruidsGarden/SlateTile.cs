@@ -3,10 +3,10 @@ using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using Trelamium.Content.Items.Tiles;
+using EmpyreanDreamscape.Content.Items.Tiles;
 using System.Collections.Generic;
 
-namespace Trelamium.Content.Tiles.DruidsGarden
+namespace EmpyreanDreamscape.Content.Tiles.DruidsGarden
 {
     public class SlateTile : ModTile
     {

@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Trelamium.Helpers
+namespace EmpyreanDreamscape.Helpers
 {
     internal static partial class Helper
     {

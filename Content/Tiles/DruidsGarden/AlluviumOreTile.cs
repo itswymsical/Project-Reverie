@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Trelamium.Content.Tiles.DruidsGarden
+namespace EmpyreanDreamscape.Content.Tiles.DruidsGarden
 {
     public class AlluviumOreTile : ModTile
     {

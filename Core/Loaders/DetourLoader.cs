@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Trelamium.Core.Abstraction.Interfaces;
-using Trelamium.Core.Detours;
+using EmpyreanDreamscape.Core.Abstraction.Interfaces;
+using EmpyreanDreamscape.Core.Detours;
 
-namespace Trelamium.Core.Loaders
+namespace EmpyreanDreamscape.Core.Loaders
 {
-    public sealed class DetourLoader : ILoadableTrelamium
+    public sealed class DetourLoader : ILoadableEmpyreanDreamscape
     {
         public float Priority => 1f;
 
@@ -17,7 +17,7 @@ namespace Trelamium.Core.Loaders
         {
             Detours = new List<Detour>();
 
-            foreach (var type in Trelamium.Instance.Code.GetTypes())
+            foreach (var type in EmpyreanDreamscape.Instance.Code.GetTypes())
             {
                 if (!type.IsAbstract && type.IsSubclassOf(typeof(Detour)))
                 {

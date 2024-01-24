@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.UI.Chat;
 
-namespace Trelamium.Helpers
+namespace EmpyreanDreamscape.Helpers
 {
     internal static partial class Helper
     {

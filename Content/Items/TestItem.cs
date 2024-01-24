@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-namespace Trelamium.Content.Items
+namespace EmpyreanDreamscape.Content.Items
 {
     public class TestItem : ModItem
     {

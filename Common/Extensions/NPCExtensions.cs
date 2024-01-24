@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 
 #endregion
 
-namespace Trelamium.Common.Extensions
+namespace EmpyreanDreamscape.Common.Extensions
 {
 	internal static class NPCExtensions
 	{

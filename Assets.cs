@@ -1,13 +1,13 @@
-﻿namespace Trelamium
+﻿namespace EmpyreanDreamscape
 {
 	/// <summary>
 	/// Contains directories for all asset paths.
 	/// </summary>
 	internal static class Assets
 	{
-		public const string Directory = "Trelamium/Assets/";
+		public const string Directory = "EmpyreanDreamscape/Assets/";
 
-        public const string TextureDirectory = "Trelamium/Assets/Textures/";
+        public const string TextureDirectory = "EmpyreanDreamscape/Assets/Textures/";
 
         public const string SFX = "Assets/SFX/";
 
@@ -15,7 +15,7 @@
 
         public const string PlaceholderTexture = TextureDirectory + "Unloaded";
 
-		public const string Icon = "Trelamium/icon";
+		public const string Icon = "EmpyreanDreamscape/icon";
 
 		public const string Dusts = TextureDirectory + "Dusts/";
 		internal class Items

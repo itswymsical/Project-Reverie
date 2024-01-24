@@ -1,6 +1,6 @@
 ﻿using Terraria.ModLoader;
 
-namespace Trelamium.Common.Players
+namespace EmpyreanDreamscape.Common.Players
 {
 	public class BuffPlayer : ModPlayer
 	{

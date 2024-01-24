@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics.Shaders;
 
-namespace Trelamium.Helpers
+namespace EmpyreanDreamscape.Helpers
 {
 	internal static partial class Helper
 	{

@@ -36,11 +36,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Trelamium\\Trelamium.csproj",
-      "projectName": "Trelamium",
-      "projectPath": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Trelamium\\Trelamium.csproj",
+      "projectUniqueName": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\EmpyreanDreamscape\\EmpyreanDreamscape.csproj",
+      "projectName": "EmpyreanDreamscape",
+      "projectPath": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\EmpyreanDreamscape\\EmpyreanDreamscape.csproj",
       "packagesPath": "C:\\Users\\cobal\\.nuget\\packages\\",
-      "outputPath": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\Trelamium\\obj\\",
+      "outputPath": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\EmpyreanDreamscape\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\cobal\\AppData\\Roaming\\NuGet\\NuGet.Config",

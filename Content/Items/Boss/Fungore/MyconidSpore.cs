@@ -3,7 +3,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Trelamium.Content.Items.Boss.Fungore
+namespace EmpyreanDreamscape.Content.Items.Boss.Fungore
 {
     public class MyconidSpore : ModItem
     {

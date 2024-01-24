@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Terraria.UI;
 
-namespace Trelamium.Core.Mechanics
+namespace EmpyreanDreamscape.Core.Mechanics
 {   /// <summary>
     /// Cutscene class created by naka. Allows you to draw text, textures, and modify screen elements.
     /// </summary>

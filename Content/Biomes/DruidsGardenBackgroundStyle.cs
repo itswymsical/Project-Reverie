@@ -1,6 +1,6 @@
 ﻿using Terraria.ModLoader;
 
-namespace Trelamium.Content.Biomes
+namespace EmpyreanDreamscape.Content.Biomes
 {
     public class DruidsGardenBackgroundStyle : ModSurfaceBackgroundStyle
     {

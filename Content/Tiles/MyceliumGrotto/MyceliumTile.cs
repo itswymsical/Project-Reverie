@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Trelamium.Content.Tiles.MyceliumGrotto
+namespace EmpyreanDreamscape.Content.Tiles.MyceliumGrotto
 {
     public class MyceliumTile : ModTile
     {

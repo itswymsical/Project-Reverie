@@ -8,7 +8,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 
 
-namespace Trelamium.Helpers
+namespace EmpyreanDreamscape.Helpers
 {
     internal static partial class Helper
     {

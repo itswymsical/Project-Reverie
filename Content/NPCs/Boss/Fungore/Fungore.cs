@@ -7,10 +7,10 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.UI;
-using Trelamium.Common.Players;
-using Trelamium.Helpers;
+using EmpyreanDreamscape.Common.Players;
+using EmpyreanDreamscape.Helpers;
 
-namespace Trelamium.Content.NPCs.Boss.Fungore
+namespace EmpyreanDreamscape.Content.NPCs.Boss.Fungore
 {
     [AutoloadBossHead]
     public class Fungore : ModNPC
@@ -54,9 +54,8 @@ namespace Trelamium.Content.NPCs.Boss.Fungore
         private int AITimer;
         private bool flag = false;
         private bool flag1 = false;
-        public override void SetStaticDefaults(){
-            Main.npcFrameCount[NPC.type] = 16;
-        }
+        public override void SetStaticDefaults() => Main.npcFrameCount[NPC.type] = 16;
+        
         public override void SetDefaults()
         {
             NPC.damage = 21;

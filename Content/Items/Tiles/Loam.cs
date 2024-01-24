@@ -1,9 +1,9 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Trelamium.Content.Tiles.DruidsGarden;
+using EmpyreanDreamscape.Content.Tiles.DruidsGarden;
 
-namespace Trelamium.Content.Items.Tiles
+namespace EmpyreanDreamscape.Content.Items.Tiles
 {
     public class Loam : ModItem
     {

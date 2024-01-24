@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
-using Trelamium.Core.Mechanics;
+using EmpyreanDreamscape.Core.Mechanics;
 
-namespace Trelamium.Helpers
+namespace EmpyreanDreamscape.Helpers
 {
     /// <summary>
     /// Introduces new world generation tools such as Cellular Automata and shapes.

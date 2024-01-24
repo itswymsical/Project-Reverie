@@ -3,7 +3,7 @@ using Terraria.ModLoader.IO;
 using Terraria.ModLoader;
 using Terraria;
 
-namespace Trelamium.Common.Systems
+namespace EmpyreanDreamscape.Common.Systems
 {
     public class DownedBossSystem : ModSystem
     {

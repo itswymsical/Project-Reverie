@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Trelamium.Content.NPCs.Boss.Fungore.Projectiles
+namespace EmpyreanDreamscape.Content.NPCs.Boss.Fungore.Projectiles
 {
     public class FungoreSmoke : ModProjectile
     {

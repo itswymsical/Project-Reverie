@@ -1,4 +1,4 @@
-﻿namespace Trelamium.Core.Detours
+﻿namespace EmpyreanDreamscape.Core.Detours
 {
     public abstract class Detour
     {

@@ -1,48 +1,28 @@
 ﻿using Terraria.ModLoader;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.WorldBuilding;
 using Terraria.IO;
 using Terraria.ID;
 using System;
 using Microsoft.Xna.Framework;
-using Trelamium.Content.Tiles.DruidsGarden;
-using Trelamium.Content.Tiles;
-using Trelamium.Helpers;
-using Trelamium.Content.Tiles.MyceliumGrotto;
-using Trelamium.Core.Mechanics;
+using EmpyreanDreamscape.Content.Tiles.DruidsGarden;
+using EmpyreanDreamscape.Content.Tiles;
+using EmpyreanDreamscape.Helpers;
+using EmpyreanDreamscape.Content.Tiles.MyceliumGrotto;
+using EmpyreanDreamscape.Core.Mechanics;
 
-namespace Trelamium
+namespace EmpyreanDreamscape
 {
-    public class DruidaeaTreeSystem : ModSystem
-    {
-        public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
+    public class ReverieSystem : ModSystem
+    {    
+        public class ReveriePass : GenPass
         {
-            int DruidaeaIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Altars"));
-            if (DruidaeaIndex != 1)
-            {
-                tasks.Insert(DruidaeaIndex + 1, new DruidaeaTreePass("Druidaea Tree", 100f));
-            }
-
-            int ForestTempleIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Wet Jungle"));
-            if (ForestTempleIndex != 1)
-            {
-                tasks.Insert(ForestTempleIndex + 1, new ForestTemplePass("Druidaea Temple", 100f));
-            }
-            int DruidaeaExtrasIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Smooth World"));
-            if (DruidaeaExtrasIndex != 1)
-            {
-                tasks.Insert(DruidaeaExtrasIndex + 1, new DruidaeaExtrasPass("Druidaea Extras", 100f));
-            }
-        }    
-        public class DruidaeaTreePass : GenPass
-        {
-            public DruidaeaTreePass(string name, float loadWeight) : base(name, loadWeight)
+            public ReveriePass(string name, float loadWeight) : base(name, loadWeight)
             {
             }
             protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
             {
-                progress.Message = "Planting a druidaea seed";
+                progress.Message = "Planting an empyreal seed";
 
                 #region Trunk Positioning and Generation
                 int trunkX;
@@ -212,9 +192,9 @@ namespace Trelamium
                 }
             }
         }
-        public class DruidaeaExtrasPass : GenPass
+        public class ReverieExtrasPass : GenPass
         {
-            public DruidaeaExtrasPass(string name, float loadWeight) : base(name, loadWeight)
+            public ReverieExtrasPass(string name, float loadWeight) : base(name, loadWeight)
             {
             }
             protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
@@ -243,10 +223,9 @@ namespace Trelamium
 
                 Vector2 start = new Vector2(trunkX, trunkBottomY);
                 Vector2 control = new Vector2(trunkX + controlPointOffsetX, trunkBottomY + controlPointOffsetY);
-                Vector2 end = new Vector2(trunkX, trunkBottomY - 30);
+                Vector2 end = new Vector2(trunkX, trunkBottomY - 50);
 
-                BezierCurve roots = new BezierCurve(start, control, end);
-                WorldGenHelpers.GenerateBezierPath(roots, TileID.LivingWood);
+                GenerateTreeRoot(start, control, end, TileID.LivingWood);
                 int centerX = trunkX;
                 int centerY = trunkBottomY + (Main.maxTilesY - trunkBottomY) / 4;
                 int horizontalRadius = (int)(Main.maxTilesX * 0.06025f);
@@ -322,8 +301,30 @@ namespace Trelamium
                     }
                 }
             }
-        }
+            Vector2 CalculateBezierPoint(float t, Vector2 p0, Vector2 p1, Vector2 p2)
+            {
+                float u = 1 - t;
+                float tt = t * t;
+                float uu = u * u;
 
+                Vector2 p = uu * p0; // First term
+                p += 2 * u * t * p1; // Second term
+                p += tt * p2; // Third term
+
+                return p;
+            }
+
+            // Generate tree root
+            void GenerateTreeRoot(Vector2 p0, Vector2 p1, Vector2 p2, ushort tileType)
+            {
+                for (float t = 0; t <= 1; t += 0.01f) // Increment t to draw the curve
+                {
+                    Vector2 point = CalculateBezierPoint(t, p0, p1, p2);
+                    WorldGen.PlaceTile((int)point.X, (int)point.Y, tileType, mute: true, forced: true);
+                }
+            }
+
+        }
         public class ForestTemplePass : GenPass
         {
             public ForestTemplePass(string name, float loadWeight) : base(name, loadWeight)
@@ -332,9 +333,6 @@ namespace Trelamium
             protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
             {
                 progress.Message = "Carving out the forest";
-
-                int trunkX;
-                int trunkDir = Main.rand.Next(2);
                 int spawnX = Main.maxTilesX / 2;
 
                 int trunkBottomY = (int)(Main.rockLayer + (Main.maxTilesY - Main.rockLayer) / 8);

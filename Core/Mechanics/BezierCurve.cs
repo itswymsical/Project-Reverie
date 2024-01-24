@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
-namespace Trelamium.Core.Mechanics
+namespace EmpyreanDreamscape.Core.Mechanics
 {   /// <summary>
     /// Cool bezier curve stuff, created by naka.
     /// </summary>

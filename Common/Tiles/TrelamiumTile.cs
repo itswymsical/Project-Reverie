@@ -4,11 +4,11 @@ using Terraria.ModLoader;
 
 using Microsoft.Xna.Framework;
 
-using Trelamium.Helpers;
+using EmpyreanDreamscape.Helpers;
 
-namespace Trelamium.Common.Tiles
+namespace EmpyreanDreamscape.Common.Tiles
 {
-	public class TrelamiumTile : GlobalTile
+	public class EmpyreanDreamscapeTile : GlobalTile
 	{
 		private const float nutSpawnChance = 0.05f;
 		private const float leafSpawnChance = 0.025f;

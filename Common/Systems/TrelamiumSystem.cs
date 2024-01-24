@@ -2,15 +2,15 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
-using Trelamium.Core.Loaders;
+using EmpyreanDreamscape.Core.Loaders;
 
-namespace Trelamium.Common.Systems
+namespace EmpyreanDreamscape.Common.Systems
 {
-    public class TrelamiumSystem : ModSystem
+    public class EmpyreanDreamscapeSystem : ModSystem
     {
         public override void PostUpdateEverything()
         {
-            /* if (!Main.dedServ) // TODO: Ask naka if we can use his Trelamium 2 code, then fix it
+            /* if (!Main.dedServ) // TODO: Ask naka if we can use his EmpyreanDreamscape 2 code, then fix it
             {
                 ParticleManager.Instance.UpdateParticles();
                 TrailManager.Instance.UpdateTrails();

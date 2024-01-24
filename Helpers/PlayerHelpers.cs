@@ -4,7 +4,7 @@ using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Trelamium.Helpers
+namespace EmpyreanDreamscape.Helpers
 {
     internal static partial class Helper
     {

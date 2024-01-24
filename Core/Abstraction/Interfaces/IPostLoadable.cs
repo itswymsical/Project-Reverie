@@ -1,4 +1,4 @@
-﻿namespace Trelamium.Core.Abstraction.Interfaces
+﻿namespace EmpyreanDreamscape.Core.Abstraction.Interfaces
 {
     public interface IPostLoadable
 	{

@@ -2,9 +2,9 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Trelamium.Content.Tiles.DruidsGarden;
+using EmpyreanDreamscape.Content.Tiles.DruidsGarden;
 
-namespace Trelamium.Content.Tiles
+namespace EmpyreanDreamscape.Content.Tiles
 {
     public class CobblestoneTile : ModTile
     {

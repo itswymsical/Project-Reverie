@@ -7,21 +7,21 @@ using Terraria.GameContent;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Trelamium.Content.Biomes;
+using EmpyreanDreamscape.Content.Biomes;
 
-namespace Trelamium.Content
+namespace EmpyreanDreamscape.Content
 {
     public class Menu : ModMenu
     {
-        private const string AssetPath = "Trelamium/Assets/Textures/";
+        private const string AssetPath = "EmpyreanDreamscape/Assets/Textures/";
         public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>($"{AssetPath}logo");
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Music/IlluminantInkiness");
         public override ModSurfaceBackgroundStyle MenuBackgroundStyle => base.MenuBackgroundStyle;
         public override Asset<Texture2D> SunTexture => null;
         public override Asset<Texture2D> MoonTexture => null;
-        public override string DisplayName => "Trelamium II";
+        public override string DisplayName => "Empyrean Dreamscape";
         public override void OnSelected() {
-            SoundEngine.PlaySound(new SoundStyle("Trelamium/Assets/SFX/Theme_Select"));
+            SoundEngine.PlaySound(new SoundStyle("EmpyreanDreamscape/Assets/SFX/Theme_Select"));
         }
         public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
         {

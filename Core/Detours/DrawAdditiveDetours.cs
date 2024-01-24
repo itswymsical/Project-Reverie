@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Trelamium.Core.Abstraction.Interfaces;
+using EmpyreanDreamscape.Core.Abstraction.Interfaces;
 
-namespace Trelamium.Core.Detours
+namespace EmpyreanDreamscape.Core.Detours
 {
     public class DrawAdditiveDetours : Detour
     {

@@ -1,12 +1,12 @@
 using Terraria.ModLoader;
 
-namespace Trelamium
+namespace EmpyreanDreamscape
 {
-	public class Trelamium : Mod
+	public class EmpyreanDreamscape : Mod
 	{
         public const string Abbreviation = "TM";
 
         public const string AbbreviationPrefix = Abbreviation + ":";
-        public static Trelamium Instance => ModContent.GetInstance<Trelamium>();
+        public static EmpyreanDreamscape Instance => ModContent.GetInstance<EmpyreanDreamscape>();
     }
 }

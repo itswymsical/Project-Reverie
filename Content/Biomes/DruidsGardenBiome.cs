@@ -1,10 +1,10 @@
-﻿using Trelamium.Common.Systems;
+﻿using EmpyreanDreamscape.Common.Systems;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Trelamium.Content.Biomes
+namespace EmpyreanDreamscape.Content.Biomes
 {
 	public class DruidsGardenBiome : ModBiome
 	{

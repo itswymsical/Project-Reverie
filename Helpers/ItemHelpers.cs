@@ -1,7 +1,7 @@
 ﻿using Terraria;
-using Trelamium.Common.Global;
+using EmpyreanDreamscape.Common.Global;
 
-namespace Trelamium.Helpers
+namespace EmpyreanDreamscape.Helpers
 {
     internal static partial class Helper
     {

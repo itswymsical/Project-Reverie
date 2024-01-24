@@ -1,9 +1,9 @@
-﻿namespace Trelamium.Core.Abstraction.Interfaces
+﻿namespace EmpyreanDreamscape.Core.Abstraction.Interfaces
 {
     /// <summary>
     /// Inspired from other mod structures, this is to be able to centralize content loading.
     /// </summary>
-    public interface ILoadableTrelamium
+    public interface ILoadableEmpyreanDreamscape
 	{
 		/// <summary>
 		/// Load priority. Important for loadables that are load-order-dependent.

@@ -14,7 +14,7 @@ namespace EmpyreanDreamscape.Content.Items.Tiles
             Item.rare = ItemRarityID.White;
             
             Item.width = Item.height = 24;
-            Item.useAnimation = Item.useTime = 20;
+            Item.useAnimation = Item.useTime = 14;
 
             Item.useStyle = ItemUseStyleID.Swing;
             Item.useTurn = Item.autoReuse = Item.consumable = true;

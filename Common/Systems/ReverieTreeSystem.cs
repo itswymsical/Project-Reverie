@@ -77,9 +77,9 @@ namespace ReverieMod
 
                 #region Biome Base Positioning, Caves, etc.
                 int centerX = trunkX;
-                int centerY = trunkBottomY - (trunkBottomY / 16);
+                int centerY = trunkBottomY - (trunkBottomY / 7);
                 int horizontalRadius = (int)(Main.maxTilesX * 0.03500f);
-                int verticalRadius = (int)(Main.maxTilesY * 0.1258f);
+                int verticalRadius = (int)(Main.maxTilesY * 0.1650f);
                 int topSectionEndY = centerY - (verticalRadius + verticalRadius / 8) / 3;
                 int middleSectionEndY = centerY + verticalRadius / 3;
 

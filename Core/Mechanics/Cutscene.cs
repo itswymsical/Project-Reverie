@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Terraria.UI;
 
-namespace EmpyreanDreamscape.Core.Mechanics
+namespace ReverieMod.Core.Mechanics
 {   /// <summary>
     /// Cutscene class created by naka. Allows you to draw text, textures, and modify screen elements.
     /// </summary>

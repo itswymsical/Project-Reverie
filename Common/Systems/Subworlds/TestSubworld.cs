@@ -11,7 +11,7 @@ using Terraria.IO;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
 
-namespace EmpyreanDreamscape.Common.Systems.Subworlds
+namespace ReverieMod.Common.Systems.Subworlds
 {
     public class TestSubworld : Subworld
     {

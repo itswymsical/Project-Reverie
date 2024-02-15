@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 
 #endregion
 
-namespace EmpyreanDreamscape.Common.Extensions
+namespace ReverieMod.Common.Extensions
 {
 	internal static class NPCExtensions
 	{

@@ -1,7 +1,7 @@
 ﻿using Terraria;
-using EmpyreanDreamscape.Common.Global;
+using ReverieMod.Common.Global;
 
-namespace EmpyreanDreamscape.Helpers
+namespace ReverieMod.Helpers
 {
     internal static partial class Helper
     {

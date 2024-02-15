@@ -4,7 +4,7 @@ using Terraria;
 
 #endregion
 
-namespace EmpyreanDreamscape.Common.Extensions
+namespace ReverieMod.Common.Extensions
 {
 	internal static class PlayerExtensions
 	{

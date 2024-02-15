@@ -1,5 +1,5 @@
 ﻿using Terraria.Audio;
-using EmpyreanDreamscape.Helpers;
+using ReverieMod.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ID;
 using System.Collections.Generic;
 
-namespace EmpyreanDreamscape.Common.Projectiles
+namespace ReverieMod.Common.Projectiles
 {
 	public abstract class TomahawkProjectile : StickyProjectile
 	{

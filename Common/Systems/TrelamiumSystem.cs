@@ -2,15 +2,15 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
-using EmpyreanDreamscape.Core.Loaders;
+using ReverieMod.Core.Loaders;
 
-namespace EmpyreanDreamscape.Common.Systems
+namespace ReverieMod.Common.Systems
 {
-    public class EmpyreanDreamscapeSystem : ModSystem
+    public class ReverieModSystem : ModSystem
     {
         public override void PostUpdateEverything()
         {
-            /* if (!Main.dedServ) // TODO: Ask naka if we can use his EmpyreanDreamscape 2 code, then fix it
+            /* if (!Main.dedServ) // TODO: Ask naka if we can use his ReverieMod 2 code, then fix it
             {
                 ParticleManager.Instance.UpdateParticles();
                 TrailManager.Instance.UpdateTrails();

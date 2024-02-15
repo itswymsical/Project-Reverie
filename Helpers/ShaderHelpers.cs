@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics.Shaders;
 
-namespace EmpyreanDreamscape.Helpers
+namespace ReverieMod.Helpers
 {
 	internal static partial class Helper
 	{

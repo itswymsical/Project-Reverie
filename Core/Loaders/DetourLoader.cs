@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using EmpyreanDreamscape.Core.Abstraction.Interfaces;
-using EmpyreanDreamscape.Core.Detours;
+using ReverieMod.Core.Abstraction.Interfaces;
+using ReverieMod.Core.Detours;
 
-namespace EmpyreanDreamscape.Core.Loaders
+namespace ReverieMod.Core.Loaders
 {
-    public sealed class DetourLoader : ILoadableEmpyreanDreamscape
+    public sealed class DetourLoader : ILoadableReverieMod
     {
         public float Priority => 1f;
 
@@ -17,7 +17,7 @@ namespace EmpyreanDreamscape.Core.Loaders
         {
             Detours = new List<Detour>();
 
-            foreach (var type in EmpyreanDreamscape.Instance.Code.GetTypes())
+            foreach (var type in ReverieMod.Instance.Code.GetTypes())
             {
                 if (!type.IsAbstract && type.IsSubclassOf(typeof(Detour)))
                 {

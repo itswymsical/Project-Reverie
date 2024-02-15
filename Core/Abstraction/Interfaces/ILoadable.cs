@@ -1,9 +1,9 @@
-﻿namespace EmpyreanDreamscape.Core.Abstraction.Interfaces
+﻿namespace ReverieMod.Core.Abstraction.Interfaces
 {
     /// <summary>
     /// Inspired from other mod structures, this is to be able to centralize content loading.
     /// </summary>
-    public interface ILoadableEmpyreanDreamscape
+    public interface ILoadableReverieMod
 	{
 		/// <summary>
 		/// Load priority. Important for loadables that are load-order-dependent.

@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace EmpyreanDreamscape.Content.NPCs.Boss.Fungore.Projectiles
+namespace ReverieMod.Content.NPCs.Boss.Fungore.Projectiles
 {
     public class FungoreSlam : ModProjectile
     {

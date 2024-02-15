@@ -1,6 +1,6 @@
 ﻿using Terraria.ModLoader;
 
-namespace EmpyreanDreamscape.Common.Players
+namespace ReverieMod.Common.Players
 {
 	public class ArmorSetPlayer : ModPlayer
 	{

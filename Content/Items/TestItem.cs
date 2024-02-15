@@ -4,9 +4,9 @@ using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using SubworldLibrary;
-using EmpyreanDreamscape.Common.Systems.Subworlds;
+using ReverieMod.Common.Systems.Subworlds;
 
-namespace EmpyreanDreamscape.Content.Items
+namespace ReverieMod.Content.Items
 {
     public class TestItem : ModItem
     {

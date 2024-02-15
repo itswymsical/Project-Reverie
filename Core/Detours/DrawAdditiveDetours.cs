@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using EmpyreanDreamscape.Core.Abstraction.Interfaces;
+using ReverieMod.Core.Abstraction.Interfaces;
 
-namespace EmpyreanDreamscape.Core.Detours
+namespace ReverieMod.Core.Detours
 {
     public class DrawAdditiveDetours : Detour
     {

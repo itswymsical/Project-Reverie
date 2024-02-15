@@ -1,5 +1,5 @@
-﻿using EmpyreanDreamscape.Core.Mechanics;
-using EmpyreanDreamscape.Core.Abstraction.Interfaces;
+﻿using ReverieMod.Core.Mechanics;
+using ReverieMod.Core.Abstraction.Interfaces;
 
 using System;
 using System.Collections.Generic;
@@ -7,9 +7,9 @@ using System.Linq;
 
 using Terraria.UI;
 
-namespace EmpyreanDreamscape.Core.Loaders
+namespace ReverieMod.Core.Loaders
 {
-	internal sealed class CutsceneLoader : ILoadableEmpyreanDreamscape
+	internal sealed class CutsceneLoader : ILoadableReverieMod
     {
 		public float Priority => 1f;
 
@@ -19,7 +19,7 @@ namespace EmpyreanDreamscape.Core.Loaders
 
 		public void Load()
 		{
-			foreach (Type t in EmpyreanDreamscape.Instance.Code.GetTypes())
+			foreach (Type t in ReverieMod.Instance.Code.GetTypes())
 			{
 				if (t.IsSubclassOf(typeof(Cutscene)))
 				{
@@ -36,7 +36,7 @@ namespace EmpyreanDreamscape.Core.Loaders
 		{
 			string name = cutscene == null ? "Unknown" : cutscene.GetType().Name;
 
-			layers.Insert(index, new LegacyGameInterfaceLayer(EmpyreanDreamscape.AbbreviationPrefix + name,
+			layers.Insert(index, new LegacyGameInterfaceLayer(ReverieMod.AbbreviationPrefix + name,
 				delegate 
 				{
 					if (visible)

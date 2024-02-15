@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace EmpyreanDreamscape.Content.Items.Weapons.Frostbark
+namespace ReverieMod.Content.Items.Weapons.Frostbark
 {
     public class FrostbarkClaymore : ModItem
     {

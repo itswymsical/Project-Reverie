@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 #endregion
 
-namespace EmpyreanDreamscape.Common.Extensions
+namespace ReverieMod.Common.Extensions
 {
 	internal static class ProjectileExtensions // Eldrazi Code imported from EH
 	{

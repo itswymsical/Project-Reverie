@@ -2,9 +2,9 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using EmpyreanDreamscape.Common.Players;
+using ReverieMod.Common.Players;
 
-namespace EmpyreanDreamscape.Common.Global
+namespace ReverieMod.Common.Global
 {
     public class TGlobalItem : GlobalItem
     {

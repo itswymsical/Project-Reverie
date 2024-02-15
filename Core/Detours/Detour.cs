@@ -1,4 +1,4 @@
-﻿namespace EmpyreanDreamscape.Core.Detours
+﻿namespace ReverieMod.Core.Detours
 {
     public abstract class Detour
     {

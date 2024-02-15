@@ -1,4 +1,4 @@
-﻿using EmpyreanDreamscape.Common.Systems.Subworlds;
+﻿using ReverieMod.Common.Systems.Subworlds;
 using SubworldLibrary;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria;
 
-namespace EmpyreanDreamscape.Common.Systems
+namespace ReverieMod.Common.Systems
 {
     public class UpdateSubworldSystem : ModSystem
     {

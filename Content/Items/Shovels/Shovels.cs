@@ -1,14 +1,14 @@
-﻿using EmpyreanDreamscape;
-using EmpyreanDreamscape.Common.Global;
-using EmpyreanDreamscape.Common.Players;
-using EmpyreanDreamscape.Helpers;
+﻿using ReverieMod;
+using ReverieMod.Common.Global;
+using ReverieMod.Common.Players;
+using ReverieMod.Helpers;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 
-namespace EmpyreanDreamscape.Content.Items.Shovels
+namespace ReverieMod.Content.Items.Shovels
 {
 
     public abstract class ShovelItem : ModItem
@@ -26,7 +26,7 @@ namespace EmpyreanDreamscape.Content.Items.Shovels
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            TooltipLine tooltipLine = new TooltipLine(Mod, "EmpyreanDreamscape:Digging Power", $"{Item.GetGlobalItem<TGlobalItem>().digPower}% digging power");
+            TooltipLine tooltipLine = new TooltipLine(Mod, "ReverieMod:Digging Power", $"{Item.GetGlobalItem<TGlobalItem>().digPower}% digging power");
             tooltips.Add(tooltipLine);
         }
 

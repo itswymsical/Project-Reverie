@@ -1,4 +1,4 @@
-﻿namespace EmpyreanDreamscape.Core.Abstraction.Interfaces
+﻿namespace ReverieMod.Core.Abstraction.Interfaces
 {
     public interface IPostLoadable
 	{

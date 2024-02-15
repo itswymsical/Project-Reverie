@@ -5,10 +5,10 @@ using Terraria.DataStructures;
 
 using Terraria.ModLoader;
 
-using EmpyreanDreamscape.Helpers;
+using ReverieMod.Helpers;
 using Terraria.ID;
 
-namespace EmpyreanDreamscape.Common.Players
+namespace ReverieMod.Common.Players
 {
     public partial class TPlayer : ModPlayer
     {

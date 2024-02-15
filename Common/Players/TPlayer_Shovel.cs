@@ -2,9 +2,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using EmpyreanDreamscape.Common.Global;
+using ReverieMod.Common.Global;
 
-namespace EmpyreanDreamscape.Common.Players
+namespace ReverieMod.Common.Players
 {
     public partial class TPlayer_Shovel : ModPlayer
     {

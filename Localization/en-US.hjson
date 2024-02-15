@@ -1,5 +1,5 @@
 Mods: {
-	EmpyreanDreamscape: {
+	ReverieMod: {
 		Biomes: {
 			DruidsGardenBiome: {
 				DisplayName: Druids Garden Biome
@@ -82,9 +82,17 @@ Mods: {
 				DisplayName: Slate
 				Tooltip: ""
 			}
+
+			FrostbarkClaymore: {
+				DisplayName: Frostbark Claymore
+				Tooltip: ""
+			}
 		}
 
-		NPCs.Fungore.DisplayName: Fungore
+		NPCs: {
+			Fungore.DisplayName: Fungore
+			ForestWarden.DisplayName: Forest Warden
+		}
 
 		Projectiles: {
 			FungoreSlam.DisplayName: Fungore Slam

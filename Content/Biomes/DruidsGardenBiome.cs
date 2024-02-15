@@ -1,10 +1,10 @@
-﻿using EmpyreanDreamscape.Common.Systems;
+﻿using ReverieMod.Common.Systems;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace EmpyreanDreamscape.Content.Biomes
+namespace ReverieMod.Content.Biomes
 {
 	public class DruidsGardenBiome : ModBiome
 	{

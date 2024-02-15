@@ -1,9 +1,9 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using EmpyreanDreamscape.Content.Tiles.DruidsGarden;
+using ReverieMod.Content.Tiles.DruidsGarden;
 
-namespace EmpyreanDreamscape.Content.Items.Tiles
+namespace ReverieMod.Content.Items.Tiles
 {
     public class AlluviumOre : ModItem
     {

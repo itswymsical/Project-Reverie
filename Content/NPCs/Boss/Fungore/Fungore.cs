@@ -7,10 +7,10 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.UI;
-using EmpyreanDreamscape.Common.Players;
-using EmpyreanDreamscape.Helpers;
+using ReverieMod.Common.Players;
+using ReverieMod.Helpers;
 
-namespace EmpyreanDreamscape.Content.NPCs.Boss.Fungore
+namespace ReverieMod.Content.NPCs.Boss.Fungore
 {
     [AutoloadBossHead]
     public class Fungore : ModNPC

@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
-using EmpyreanDreamscape.Core.Mechanics;
+using ReverieMod.Core.Mechanics;
 
-namespace EmpyreanDreamscape.Helpers
+namespace ReverieMod.Helpers
 {
     /// <summary>
     /// Introduces new world generation tools such as Cellular Automata and shapes.
@@ -25,20 +25,6 @@ namespace EmpyreanDreamscape.Helpers
             {
                 WorldGen.PlaceTile((int)point.X, (int)point.Y, tileType, forced: true);
             }
-        }
-        public static bool IsPointInsideNonUniformEllipse(int x, int y, int centerX, int centerY, int horizontalRadius, int verticalRadius, float noise)
-        {
-            // The basic equation for an ellipse centered at (centerX, centerY)
-            float dx = (x - centerX);
-            float dy = (y - centerY);
-            float ellipseEquation = (dx * dx) / (horizontalRadius * horizontalRadius) + (dy * dy) / (verticalRadius * verticalRadius);
-
-            // Introduce noise to the radius
-            float noiseFactor = 1 + Main.rand.NextFloat(-noise, noise); // A random factor between 1 - noise and 1 + noise
-            ellipseEquation *= noiseFactor;
-
-            // Check if the point is inside the distorted ellipse
-            return ellipseEquation <= 1;
         }
         /// <summary>
         /// Checks for tiles inside of a ovular radius.
@@ -229,46 +215,6 @@ namespace EmpyreanDreamscape.Helpers
                     else
                     {
                         // Treat out-of-bounds neighbors as solid
-                        count++;
-                    }
-                }
-            }
-
-            return count;
-        }
-        private static bool[,] PerformCellularAutomataStep_BROKEN(bool[,] map, int width, int height)
-        {
-            bool[,] newMap = new bool[width, height];
-            for (int x = 0; x < width; x++)
-            {
-                for (int y = 0; y < height; y++)
-                {
-                    int solidClusters = CountSolidClusters(map, x, y, width, height);
-
-                    // The rules of cellular automata
-                    if (solidClusters > 4)
-                        newMap[x, y] = true; // Tile becomes solid if surrounded by more than 4 solid clusters
-                    else if (solidClusters < 4)
-                        newMap[x, y] = false; // Tile becomes empty if fewer than 4 solid clusters surround it
-                    else
-                        newMap[x, y] = map[x, y]; // Remains the same
-                }
-            }
-
-            return newMap;
-        }
-        private static int CountSolidClusters(bool[,] map, int x, int y, int width, int height)
-        {
-            int count = 0;
-            int clusterSize = 2; // Size of the cluster
-
-            // Check clusters around the tile
-            for (int i = -1; i <= 0; i++)
-            {
-                for (int j = -1; j <= 0; j++)
-                {
-                    if (IsClusterSolid(map, x + i, y + j, width, height, clusterSize))
-                    {
                         count++;
                     }
                 }

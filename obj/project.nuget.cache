@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "HnhjJzuvtYs7CpCdj9hyFoWeGN5Ed39PVcwcmNAzLMmCkSRO/ORcEmBxcKFipST+siHF/GKQoyhZoxVZq4MY6g==",
+  "dgSpecHash": "xxqAiolwoUoE3WdJxcOnAaNfvfehx0cHgqcQKD4yqYRWiVay3UpKJwngm0uAmFd06X/9rKLpFWHdZhxeKEleow==",
   "success": true,
-  "projectFilePath": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\EmpyreanDreamscape\\EmpyreanDreamscape.csproj",
+  "projectFilePath": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\ReverieMod.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\cobal\\.nuget\\packages\\tmodloader.codeassist\\0.1.5\\tmodloader.codeassist.0.1.5.nupkg.sha512"
   ],

@@ -4,9 +4,9 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using EmpyreanDreamscape.Content.Items.Tiles;
+using ReverieMod.Content.Items.Tiles;
 
-namespace EmpyreanDreamscape.Content.Tiles
+namespace ReverieMod.Content.Tiles
 {
 	public abstract class DGFoliageTile1x1 : ModTile
 	{

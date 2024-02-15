@@ -1,8 +1,8 @@
 ﻿using System;
 using Terraria.ModLoader;
-using EmpyreanDreamscape.Content.Tiles.DruidsGarden;
+using ReverieMod.Content.Tiles.DruidsGarden;
 
-namespace EmpyreanDreamscape.Common.Systems
+namespace ReverieMod.Common.Systems
 {
     internal class TileCountSystem :ModSystem
     {

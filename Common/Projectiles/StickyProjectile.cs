@@ -2,7 +2,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace EmpyreanDreamscape.Common.Projectiles
+namespace ReverieMod.Common.Projectiles
 {
 	public abstract class StickyProjectile : ModProjectile
 	{

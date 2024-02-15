@@ -4,11 +4,11 @@ using Terraria.ModLoader;
 
 using Microsoft.Xna.Framework;
 
-using EmpyreanDreamscape.Helpers;
+using ReverieMod.Helpers;
 
-namespace EmpyreanDreamscape.Common.Tiles
+namespace ReverieMod.Common.Tiles
 {
-	public class EmpyreanDreamscapeTile : GlobalTile
+	public class ReverieModTile : GlobalTile
 	{
 		private const float nutSpawnChance = 0.05f;
 		private const float leafSpawnChance = 0.025f;

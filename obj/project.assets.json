@@ -36,11 +36,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\EmpyreanDreamscape\\EmpyreanDreamscape.csproj",
-      "projectName": "EmpyreanDreamscape",
-      "projectPath": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\EmpyreanDreamscape\\EmpyreanDreamscape.csproj",
+      "projectUniqueName": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\ReverieMod.csproj",
+      "projectName": "ReverieMod",
+      "projectPath": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\ReverieMod.csproj",
       "packagesPath": "C:\\Users\\cobal\\.nuget\\packages\\",
-      "outputPath": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\EmpyreanDreamscape\\obj\\",
+      "outputPath": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\cobal\\AppData\\Roaming\\NuGet\\NuGet.Config",

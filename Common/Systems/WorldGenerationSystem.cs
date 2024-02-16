@@ -18,12 +18,12 @@ namespace ReverieMod
             int ForestTempleIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Wet Jungle"));
             if (ForestTempleIndex != 1)
             {
-                tasks.Insert(ForestTempleIndex + 1, new ForestTemplePass("Reverie Temple", 100f));
+                tasks.Insert(ForestTempleIndex + 1, new ForestTemplePass("Reverie Temple", 75f));
             }
             int ReverieExtrasIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Smooth World"));
             if (ReverieExtrasIndex != 1)
             {
-                tasks.Insert(ReverieExtrasIndex + 1, new ReverieExtrasPass("Reverie Extras", 100f));
+                tasks.Insert(ReverieExtrasIndex + 1, new ReverieExtrasPass("Reverie Extras", 74f));
             }
         }    
     }

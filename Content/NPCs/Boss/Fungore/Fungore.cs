@@ -386,7 +386,7 @@ namespace ReverieMod.Content.NPCs.Boss.Fungore
                 if (!flag1)
                 {
                     SoundEngine.PlaySound(SoundID.DD2_OgreGroundPound, NPC.position);
-                    Main.LocalPlayer.GetModPlayer<TPlayer>().ScreenShakeIntensity = .765f;
+                    Main.LocalPlayer.GetModPlayer<ReveriePlayer>().ScreenShakeIntensity = .765f;
                     Projectile.NewProjectile(default, NPC.position, new Vector2(0), ModContent.ProjectileType<Projectiles.FungoreSmoke>(), NPC.damage, 16f, Main.myPlayer);
                     flag1 = true;
                 }
@@ -456,7 +456,7 @@ namespace ReverieMod.Content.NPCs.Boss.Fungore
                 if (!flag1)
                 {
                     SoundEngine.PlaySound(SoundID.DD2_OgreGroundPound, NPC.position);
-                    Main.LocalPlayer.GetModPlayer<TPlayer>().ScreenShakeIntensity = 2.225f;
+                    Main.LocalPlayer.GetModPlayer<ReveriePlayer>().ScreenShakeIntensity = 2.225f;
                     Dust.NewDust(NPC.oldPosition, NPC.width, NPC.height, DustID.OrangeTorch, NPC.oldVelocity.X, NPC.oldVelocity.Y, 0, default, 1f);                
                     Projectile.NewProjectile(default, NPC.position, new Vector2(0), ModContent.ProjectileType<Projectiles.FungoreSlam>(), NPC.damage + 8, 16f, Main.myPlayer);
                     flag1 = true;

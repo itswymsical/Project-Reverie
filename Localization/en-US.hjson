@@ -1,9 +1,9 @@
 Mods: {
 	ReverieMod: {
 		Biomes: {
-			DruidsGardenBiome: {
-				DisplayName: Druids Garden Biome
-				TownNPCDialogueName: the Druids Garden Biome
+			WoodlandCanopyBiome: {
+				TownNPCDialogueName: the Woodland Canopy Biome
+				DisplayName: Woodland Canopy Biome
 			}
 		}
 
@@ -87,11 +87,24 @@ Mods: {
 				DisplayName: Frostbark Claymore
 				Tooltip: ""
 			}
+
+			WoodlandGrassSeeds: {
+				DisplayName: Woodland Grass Seeds
+				Tooltip: ""
+			}
+
+			WoodlandDirt: {
+				DisplayName: Woodland Dirt
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
 			Fungore.DisplayName: Fungore
 			ForestWarden.DisplayName: Forest Warden
+			WoodenWardenBoss.DisplayName: Wooden Warden Boss
+			WardenArmLeft.DisplayName: Warden Arm Left
+			WardenArmRight.DisplayName: Warden Arm Right
 		}
 
 		Projectiles: {

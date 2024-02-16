@@ -106,11 +106,11 @@
 
 			public const string Fungore = Boss + "Fungore/";
 
-            public const string ForestWarden = Boss + "ForestWarden/";
+            public const string WoodenWarden = Boss + "WoodenWarden/";
 
             public const string FoodLegion = Boss + "FoodLegion/";
 
-			public const string Cumulor = Boss + "Cumulor/";
+			//public const string Cumulor = Boss + "Cumulor/";
 
 			public const string Critters = Directory + "Critters/";
 
@@ -140,15 +140,11 @@
 		{
 			public const string Directory = TextureDirectory + "Tiles/";
 
-			public const string Ambience = Directory + "Ambience/";
-
 			public const string Bars = Directory + "Bars/";
 
 			public const string Ores = Directory + "Ores/";
 
-			public const string DruidsGarden = Directory + "DruidsGarden/";
-
-            public const string Grotto = Directory + "Grotto/";
+			public const string WoodlandCanopy = Directory + "WoodlandCanopy/";
 
             public const string Furniture = Directory + "Furniture/";
 

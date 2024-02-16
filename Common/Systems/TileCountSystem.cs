@@ -1,19 +1,15 @@
 ﻿using System;
 using Terraria.ModLoader;
-using ReverieMod.Content.Tiles.DruidsGarden;
+using ReverieMod.Content.Tiles.WoodlandCanopy;
 
 namespace ReverieMod.Common.Systems
 {
     internal class TileCountSystem :ModSystem
     {
-        public int druidsBlockCount;
-        public int quagmireBlockCount;
-        public int shroomBlockCount;
-        public int ruinsBlockCount;
+        public int canopyBlockCount;
         public override void TileCountsAvailable(ReadOnlySpan<int> tileCounts)
         {
-            druidsBlockCount = tileCounts[ModContent.TileType<LoamTileGrass>()];
-            ruinsBlockCount = tileCounts[ModContent.TileType<SlateTile>()];
+            canopyBlockCount = tileCounts[ModContent.TileType<WoodlandGrassTile>()];
         }
     }
 }

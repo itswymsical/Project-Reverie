@@ -1,13 +1,13 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ReverieMod.Content.Tiles.DruidsGarden;
+using ReverieMod.Content.Tiles.WoodlandCanopy;
 
 namespace ReverieMod.Content.Items.Tiles
 {
     public class Slate : ModItem
     {
-        public override string Texture => Assets.Items.Tiles + "Slate";
+        public override string Texture => Assets.Items.Tiles + Name;
         public override void SetDefaults()
         {
             Item.maxStack = 999;

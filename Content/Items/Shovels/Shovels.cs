@@ -20,32 +20,32 @@ namespace ReverieMod.Content.Items.Shovels
 
         public void DiggingPower(int digPower)
         {
-            Item.GetGlobalItem<TGlobalItem>().digPower = digPower;
-            Item.GetGlobalItem<TGlobalItem>().radius = 6;
+            Item.GetGlobalItem<ReverieGlobalItem>().digPower = digPower;
+            Item.GetGlobalItem<ReverieGlobalItem>().radius = 6;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            TooltipLine tooltipLine = new TooltipLine(Mod, "ReverieMod:Digging Power", $"{Item.GetGlobalItem<TGlobalItem>().digPower}% digging power");
+            TooltipLine tooltipLine = new TooltipLine(Mod, "ReverieMod:Digging Power", $"{Item.GetGlobalItem<ReverieGlobalItem>().digPower}% digging power");
             tooltips.Add(tooltipLine);
         }
 
         public static int GetDigPower(int shovel)
         {
             Item i = ModContent.GetModItem(shovel).Item;
-            return i.GetGlobalItem<TGlobalItem>().digPower;
+            return i.GetGlobalItem<ReverieGlobalItem>().digPower;
         }
 
         public static int GetShovelRadius(int shovel)
         {
             Item i = ModContent.GetModItem(shovel).Item;
-            return i.GetGlobalItem<TGlobalItem>().radius;
+            return i.GetGlobalItem<ReverieGlobalItem>().radius;
         }
 
         public static void UseShovel(Player player, int rangeinBlocks)
         {
             if (player.Distance(Main.MouseWorld) < 16 * rangeinBlocks)
-                player.GetModPlayer<TPlayer_Shovel>().DigBlocks((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y);
+                player.GetModPlayer<ReveriePlayer_Shovel>().DigBlocks((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y);
         }
         public override bool? UseItem(Player player)
         {

@@ -83,7 +83,7 @@ namespace ReverieMod.Content.NPCs.Boss.WoodenWarden
         }
         public override void AI()
         {
-            State == AIState.Moving;
+            State = AIState.Moving;
             target = Main.player[NPC.target];
             NPC.TargetClosest(true);       
             if (target.dead || !target.active)

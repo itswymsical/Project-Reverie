@@ -16,9 +16,7 @@ namespace ReverieMod.Content.Tiles
             Main.tileBlockLight[Type] = true;
             Main.tileLighted[Type] = true;
 
-            Main.tileMerge[Type][ModContent.TileType<WoodlandDirtTile>()] = true;
-
-            MineResist = 0.65f;
+            MineResist = 1.2f;
             HitSound = SoundID.Tink;
 
             AddMapEntry(new Color(105, 106, 105));

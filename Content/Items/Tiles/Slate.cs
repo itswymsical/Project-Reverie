@@ -20,7 +20,7 @@ namespace ReverieMod.Content.Items.Tiles
             Item.useTurn = Item.autoReuse = Item.consumable = true;
 
             Item.value = Item.sellPrice(copper: 0);
-            Item.createTile = ModContent.TileType<SlateTile>();
+            
         }
     }
 }

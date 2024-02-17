@@ -78,7 +78,7 @@ namespace ReverieMod
                 #region Biome Base Positioning, Caves, etc.
                 int centerX = trunkX;
                 int centerY = trunkBottomY + (Main.maxTilesY - trunkBottomY) / 4;
-                int horizontalRadius = (int)(Main.maxTilesX * 0.043f);
+                int horizontalRadius = (int)(Main.maxTilesX * 0.035f);
                 int verticalRadius = (int)(Main.maxTilesY * 0.175f);
 
                 for (int x = centerX - horizontalRadius; x <= centerX + horizontalRadius; x++)
@@ -89,14 +89,14 @@ namespace ReverieMod
                         {
                             WorldGen.KillWall(x, y);
                             WorldGen.PlaceWall(x, y, WallID.LivingLeaf);
-                            WorldGen.PlaceTile(x, y, ModContent.TileType<WoodlandDirtTile>(), forced: true);
-                            if (Main.rand.NextBool(62))
+                            WorldGen.PlaceTile(x, y, 0, forced: true);
+                            if (Main.rand.NextBool(64))
                             {
                                 WorldGen.TileRunner(x, y, Main.rand.Next(2, 4), Main.rand.Next(2, 4), ModContent.TileType<AlluviumOreTile>());
                             }
-                            if (Main.rand.NextBool(65))
+                            if (Main.rand.NextBool(67))
                             {
-                                WorldGen.TileRunner(x, y, Main.rand.Next(4, 9), Main.rand.Next(5, 7), ModContent.TileType<CobblestoneTile>());
+                                WorldGen.TileRunner(x, y, Main.rand.Next(4, 7), Main.rand.Next(4, 7), ModContent.TileType<CobblestoneTile>());
                             }
                         }
                         else if (WorldGenHelpers.IsPointNearOvalEdge(x, y, centerX, centerY, horizontalRadius, verticalRadius))
@@ -110,15 +110,17 @@ namespace ReverieMod
                                     int branchY = y + Main.rand.Next(-1, 2);
                                     if (!WorldGen.TileEmpty(branchX, branchY))
                                     {
-                                        WorldGen.PlaceTile(branchX, branchY, ModContent.TileType<WoodlandDirtTile>(), forced: true);
+                                        WorldGen.PlaceTile(branchX, branchY, 0, forced: true);
                                     }
                                 }
                             }
                         }
                     }
                 }
-                WorldGenHelpers.GenerateCellularAutomata(centerX, centerY, horizontalRadius, verticalRadius, 50, 8, true, 0, false);
-                WorldGenHelpers.GenerateCellularAutomataWalls(centerX, centerY, horizontalRadius, verticalRadius, 49, 9);
+                int cellX = horizontalRadius - (horizontalRadius / 12);
+                int cellY = verticalRadius - (verticalRadius / 12);
+                WorldGenHelpers.GenerateCellularAutomata(centerX, centerY, cellX, cellY, 48, 8, true, 0, false);
+                WorldGenHelpers.GenerateCellularAutomataWalls(centerX, centerY, cellX, cellY, 42, 9);
                 #endregion
 
                 if (Main.netMode == NetmodeID.Server)
@@ -160,6 +162,7 @@ namespace ReverieMod
                 }
             }
         }
+    
         public class ReverieExtrasPass : GenPass
         {
             public ReverieExtrasPass(string name, float loadWeight) : base(name, loadWeight)
@@ -207,30 +210,32 @@ namespace ReverieMod
                 int shrineHorizontalRadius = (int)(Main.maxTilesX * 0.0095f);
                 int shrineVerticalRadius = (int)(Main.maxTilesY * 0.0275f);
                 int domeRadius = (int)(Main.maxTilesX * 0.0095f);
+                
+                
 
+                
                 for (int x = centerX - horizontalRadius; x <= centerX + horizontalRadius; x++)
                 {
                     for (int y = centerY - verticalRadius; y <= centerY + verticalRadius; y++)
                     {
+                        progress.Set(x / horizontalRadius);
                         if (WorldGenHelpers.IsPointInsideEllipse(x, y, centerX, centerY, horizontalRadius, verticalRadius))
                         {
+                            //WorldGen.SpreadGrass(x, y, 0, ModContent.TileType<WoodlandGrassTile>(), true, default);
 
-                            WorldGen.SpreadGrass(x, y, ModContent.TileType<WoodlandDirtTile>(), ModContent.TileType<WoodlandGrassTile>(), true, default);
-                            if (!Main.tile[x, y - 1].HasTile && Main.rand.NextBool(40))
+                            Tile tile = Framing.GetTileSafely(x, y);
+                            for (int grassX = x - 1; grassX <= x + 1; grassX++)
                             {
-                                if (Main.tile[x, y].TileType == ModContent.TileType<WoodlandGrassTile>())
+                                for (int grassY = y - 1; grassY <= y + 1; grassY++)
                                 {
-                                    if (Main.rand.NextBool(3)) // 25% chance to grow each tick, adjust as necessary
+                                    Tile tile2 = Framing.GetTileSafely(grassX, grassY);
+                                    if (!tile2.HasTile)
                                     {
-                                        WorldGen.PlaceTile(x, y - 1, ModContent.TileType<DGFoliageTileNatural>());
-                                    }
-                                    else if (Main.rand.NextBool(3))
-                                    {
-                                        WorldGen.PlaceTile(x, y - 1, ModContent.TileType<LeafTileNatural>());
-                                    }
-                                    else if (Main.rand.NextBool(3))
-                                    {
-                                        WorldGen.PlaceTile(x, y - 1, ModContent.TileType<DGFoliageTile1x1Natural>());
+                                        if (tile.TileType == TileID.Dirt || TileID.Sets.Grass[tile.TileType])
+                                            tile.TileType = (ushort)ModContent.TileType<WoodlandGrassTile>();
+
+                                        if (tile.HasTile && tile2.WallType == 0)
+                                            tile.WallType = 0;
                                     }
                                 }
                             }
@@ -295,7 +300,7 @@ namespace ReverieMod
             }
             protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
             {
-                progress.Message = "Carving out the forest";
+                progress.Message = "Ligneous Temple";
                 int spawnX = Main.maxTilesX / 2;
 
                 int trunkBottomY = (int)(Main.rockLayer + (Main.maxTilesY - Main.rockLayer) / 8);
@@ -312,9 +317,9 @@ namespace ReverieMod
                         if (WorldGenHelpers.IsPointInsideEllipse(x, y, centerX, centerY, horizontalRadius, verticalRadius))
                         {
 
-                            if (Main.rand.NextBool(135))
+                            if (Main.rand.NextBool(210))
                             {
-                                WorldGen.digTunnel(x, y, Main.rand.Next(1, 9), Main.rand.Next(1, 3), Main.rand.Next(1, 5), Main.rand.Next(3, 7));
+                                WorldGen.digTunnel(x, y, Main.rand.Next(1, 5), Main.rand.Next(1, 3), Main.rand.Next(1, 3), Main.rand.Next(3, 4));
                             }
                         }
                     }

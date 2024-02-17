@@ -17,9 +17,16 @@ namespace ReverieMod.Helpers
     /// <returns></returns>
     public class WorldGenHelpers
     {
-        public static void GenerateBezierPath(BezierCurve curve, ushort tileType)
+        /// <summary>
+        /// Generates a bezier path.
+        /// 'i' represents the amount of points.
+        /// </summary>
+        /// <param name="curve"></param>
+        /// <param name="tileType"></param>
+        /// <param name="i"></param>
+        public static void GenerateBezierPath(BezierCurve curve, ushort tileType, int i)
         {
-            List<Vector2> points = curve.GetPoints(100); // Get 100 points along the curve
+            List<Vector2> points = curve.GetPoints(i); // Get 100 points along the curve
 
             foreach (Vector2 point in points)
             {

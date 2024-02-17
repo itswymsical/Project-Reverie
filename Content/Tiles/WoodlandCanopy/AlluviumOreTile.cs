@@ -12,8 +12,6 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
         {
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
-            Main.tileMerge[Type]
-                [ModContent.TileType<WoodlandDirtTile>()] = true;
 
             Main.tileBlockLight[Type] = true;
             Main.tileLighted[Type] = true;

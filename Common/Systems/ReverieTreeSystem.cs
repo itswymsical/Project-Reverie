@@ -6,90 +6,279 @@ using Terraria.ID;
 using System;
 using Microsoft.Xna.Framework;
 using ReverieMod.Content.Tiles;
-using ReverieMod.Helpers;
 using ReverieMod.Content.Tiles.WoodlandCanopy;
+using static tModPorter.ProgressUpdate;
+using System.Reflection;
+using Terraria.GameContent.Generation;
+using System.Collections.Generic;
 
 namespace ReverieMod
 {
     public class ReverieSystem : ModSystem
     {
-        public class ReveriePass : GenPass
+        public static int treeWood = TileID.LivingWood;
+        public static int treeWall = WallID.LivingWoodUnsafe;
+        public static int canopyWall = WallID.FlowerUnsafe;
+        public static int treeLeaves = TileID.LeafBlock;
+        public static int canopyGrass = ModContent.TileType<WoodlandGrassTile>();
+        public static bool InsideCanopyRadius(int x, int y, int centerX, int centerY, int horizontalRadius, int verticalRadius)
         {
-            public ReveriePass(string name, float loadWeight) : base(name, loadWeight)
+            // The equation for an ellipse centered at (centerX, centerY) is:
+            // ((x - centerX)^2 / horizontalRadius^2) + ((y - centerY)^2 / verticalRadius^2) <= 1
+            // If the point (x, y) satisfies this inequality, it's inside the ellipse.
+
+            float dx = (x - centerX);
+            float dy = (y - centerY);
+            return (dx * dx) / (horizontalRadius * horizontalRadius) + (dy * dy) / (verticalRadius * verticalRadius) <= 1;
+        }
+        public static bool OutsideRadius_Canopy(int x, int y, int centerX, int centerY, int horizontalRadius, int verticalRadius, float threshold = 0.1f)
+        {
+            float dx = (float)(x - centerX) / horizontalRadius;
+            float dy = (float)(y - centerY) / verticalRadius;
+            float distance = dx * dx + dy * dy;
+
+            return distance >= (1.0f - threshold) && distance <= (1.0f + threshold);
+        }
+        public static void Gen_CaveNoiseMap(int cX, int cY, int hR, int vR, int density, int iterations, bool killTile, int type, bool forced)
+        {
+            bool[,] caveMap = new bool[hR * 2, vR * 2];
+            for (int x = 0; x < hR * 2; x++)
+            {
+                for (int y = 0; y < vR * 2; y++)
+                {
+                    if (InsideCanopyRadius(x + cX - hR, y + cY - vR, cX, cY, hR, vR))
+                    {
+                        caveMap[x, y] = Main.rand.Next(100) < density;
+                    }
+                    else
+                    {
+                        caveMap[x, y] = false;
+                    }
+                }
+            }
+            for (int iteration = 0; iteration < iterations; iteration++)
+            {
+                caveMap = PerformStep(caveMap, hR * 2, vR * 2);
+            }
+            for (int x = 0; x < hR * 2; x++)
+            {
+                for (int y = 0; y < vR * 2; y++)
+                {
+                    if (caveMap[x, y])
+                    {
+                        int worldX = cX - hR + x;
+                        int worldY = cY - vR + y;
+                        if (killTile)
+                        {
+                            WorldGen.KillTile(worldX, worldY);
+                        }
+                        else
+                        {
+                            WorldGen.PlaceTile(worldX, worldX, type, forced: forced);
+                        }
+                    }
+                }
+            }
+
+        }
+        public static void Gen_CaveNoiseMap_Wall(int cX, int cY, int hR, int vR, int density, int iterations)
+        {
+            bool[,] caveMap = new bool[hR * 2, vR * 2];
+            for (int x = 0; x < hR * 2; x++)
+            {
+                for (int y = 0; y < vR * 2; y++)
+                {
+                    if (InsideCanopyRadius(x + cX - hR, y + cY - vR, cX, cY, hR, vR))
+                    {
+                        caveMap[x, y] = Main.rand.Next(100) < density;
+                    }
+                    else
+                    {
+                        caveMap[x, y] = false;
+                    }
+                }
+            }
+            for (int iteration = 0; iteration < iterations; iteration++)
+            {
+                caveMap = PerformStep(caveMap, hR * 2, vR * 2);
+            }
+            for (int x = 0; x < hR * 2; x++)
+            {
+                for (int y = 0; y < vR * 2; y++)
+                {
+                    if (caveMap[x, y])
+                    {
+                        int worldX = cX - hR + x;
+                        int worldY = cY - vR + y;
+                        WorldGen.KillWall(worldX, worldY, false);
+                    }
+                }
+            }
+        }
+        private static bool[,] PerformStep(bool[,] map, int width, int height)
+        {
+            bool[,] newMap = new bool[width, height];
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    int solidNeighbors = CountSolidNeighbors(map, x, y, width, height);
+
+                    if (solidNeighbors > 4)
+                        newMap[x, y] = true;
+                    else if (solidNeighbors < 4)
+                        newMap[x, y] = false;
+                    else
+                        newMap[x, y] = map[x, y];
+                }
+            }
+
+            return newMap;
+        }
+        private static int CountSolidNeighbors(bool[,] map, int x, int y, int width, int height)
+        {
+            int count = 0;
+
+            for (int i = -1; i <= 1; i++)
+            {
+                for (int j = -1; j <= 1; j++)
+                {
+                    if (i == 0 && j == 0)
+                    {
+                        continue;
+                    }
+
+                    int neighborX = x + i;
+                    int neighborY = y + j;
+
+                    if (neighborX >= 0 && neighborX < width && neighborY >= 0 && neighborY < height)
+                    {
+                        if (map[neighborX, neighborY])
+                        {
+                            count++;
+                        }
+                    }
+                    else
+                    {
+                        count++;
+                    }
+                }
+            }
+
+            return count;
+        }
+        public static Vector2 CalculatePoint(float t, Vector2 p0, Vector2 p1, Vector2 p2)
+        {
+            float u = 1 - t;
+            float tt = t * t;
+            float uu = u * u;
+
+            Vector2 p = uu * p0;
+            p += 2 * u * t * p1;
+            p += tt * p2;
+
+            return p;
+        } //bezier >:)
+        public static void GenRoot(Vector2 p0, Vector2 p1, Vector2 p2, ushort tileType)
+        {
+            for (float t = 0; t <= 1; t += 0.01f)
+            {
+                Vector2 point = CalculatePoint(t, p0, p1, p2);
+                WorldGen.PlaceTile((int)point.X, (int)point.Y, tileType, mute: true, forced: true);
+            }
+        }
+        public static void CarveRoot(Vector2 p0, Vector2 p1, Vector2 p2)
+        {
+            for (float t = 0; t <= 1; t += 0.01f)
+            {
+                Vector2 point = CalculatePoint(t, p0, p1, p2);
+                WorldGen.KillTile((int)point.X, (int)point.Y);
+            }
+        }
+        public class TrunkPass : GenPass
+        {
+            public TrunkPass(string name, float loadWeight) : base(name, loadWeight)
             {
             }
             protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
             {
                 progress.Message = "Manifesting Reverie";
+                int TRUNK_X;
+                int TRUNK_DIR = Main.rand.Next(2);
 
-                #region Trunk Positioning and Generation
-                int trunkX;
-                int trunkDir = Main.rand.Next(2);
-                int spawnX = Main.maxTilesX / 2;
-                int spawnY = (int)Main.worldSurface - (Main.maxTilesY / 12);
-                int distance = (Main.maxTilesX - spawnX) / 20;
-                if (trunkDir == 0)
+                int SPAWN_X = Main.maxTilesX / 2;
+                int SPAWN_Y = (int)Main.worldSurface - (Main.maxTilesY / 12);
+                int SPAWN_DISTANCE = (Main.maxTilesX - SPAWN_X) / 20;
+                if (TRUNK_DIR == 0)
                 {
-                    trunkX = spawnX - distance;
+                    TRUNK_X = SPAWN_X - SPAWN_DISTANCE;
                 }
                 else
                 {
-                    trunkX = spawnX + distance;
+                    TRUNK_X = SPAWN_X + SPAWN_DISTANCE;
                 }
-                trunkX = Math.Clamp(trunkX, 0, Main.maxTilesX - 1); //safety
 
-                int trunkTopY = (int)(spawnY - (Main.maxTilesY - spawnY) / 8);
-                int trunkBottomY = (int)(Main.rockLayer + (Main.maxTilesY - Main.rockLayer) / 8);
-                int trunkWidth = 10;
-                const float curveFrequency = 0.0765f;
-                const int curveAmplitude = 4;
+                int TRUNK_WIDTH = 10;
+                int TRUNK_TOP = (int)(SPAWN_Y - (Main.maxTilesY - SPAWN_Y) / 8);
+                int TRUNK_BOTTOM = (int)(Main.rockLayer + (Main.maxTilesY - Main.rockLayer) / 8);
 
-                for (int y = trunkTopY; y <= trunkBottomY; y++)
+                int CANOPY_CENTER_X = TRUNK_X;
+                int CANOPY_CENTER_Y = TRUNK_BOTTOM + (Main.maxTilesY - TRUNK_BOTTOM) / 4;
+
+                int CANOPY_RADIUS_H = (int)(Main.maxTilesX * 0.035f);
+                int CANOPY_RADIUS_V = (int)(Main.maxTilesY * 0.175f);
+
+                const float TRUNK_CURVE_FREQUENCY = 0.0765f;
+                const int TRUNK_CURVE_AMPLITUDE = 4;
+
+
+
+                TRUNK_X = Math.Clamp(TRUNK_X, 0, Main.maxTilesX - 1); //safety
+
+
+                for (int y = TRUNK_TOP; y <= TRUNK_BOTTOM; y++)
                 {
-                    // Calculate the current width and curve offset for this level of the trunk
-                    int currentTrunkWidth = trunkWidth + (y % 5 == 0 ? 2 : 0); // Example: add extra width every 5 blocks
-                    int curveOffset = (int)(Math.Sin(y * curveFrequency) * curveAmplitude); // Calculate the curve offset
+                    int currentTRUNK_WIDTH = TRUNK_WIDTH + (y % 5 == 0 ? 2 : 0);
+                    int curveOffset = (int)(Math.Sin(y * TRUNK_CURVE_FREQUENCY) * TRUNK_CURVE_AMPLITUDE);
 
-                    // Calculate the left and right bounds of the trunk at this level
-                    int leftBound = trunkX - currentTrunkWidth / 2 + curveOffset;
-                    int rightBound = trunkX + currentTrunkWidth / 2 + curveOffset;
+                    int leftBound = TRUNK_X - currentTRUNK_WIDTH / 2 + curveOffset;
+                    int rightBound = TRUNK_X + currentTRUNK_WIDTH / 2 + curveOffset;
 
                     for (int x = leftBound; x <= rightBound; x++)
                     {
                         WorldGen.KillWall(x, y);
-                        WorldGen.PlaceTile(x, y, TileID.LivingWood, forced: true);
+                        WorldGen.PlaceTile(x, y, treeWood, forced: true);
+
                     }
                 }
-                for (int y2 = trunkTopY; y2 <= trunkBottomY; y2++)
+                for (int y2 = TRUNK_TOP; y2 <= TRUNK_BOTTOM; y2++)
                 {
-                    int tunnelTrunkWidth = (trunkWidth / 2) + (y2 % 5 == 0 ? 2 : 0); // Example: add extra width every 5 blocks
-                    int tunnelOffset = (int)(Math.Sin(y2 * curveFrequency) * curveAmplitude); // Calculate the curve offset
-                    int leftBound = trunkX - tunnelTrunkWidth / 2 + tunnelOffset;
-                    int rightBound = trunkX + tunnelTrunkWidth / 2 + tunnelOffset;
+                    int tunnelTRUNK_WIDTH = (TRUNK_WIDTH / 2) + (y2 % 5 == 0 ? 2 : 0);
+                    int tunnelOffset = (int)(Math.Sin(y2 * TRUNK_CURVE_FREQUENCY) * TRUNK_CURVE_AMPLITUDE);
+                    int leftBound = TRUNK_X - tunnelTRUNK_WIDTH / 2 + tunnelOffset;
+                    int rightBound = TRUNK_X + tunnelTRUNK_WIDTH / 2 + tunnelOffset;
                     for (int x2 = leftBound; x2 <= rightBound; x2++)
                     {
                         WorldGen.KillTile(x2, y2);
-                        WorldGen.PlaceWall(x2, y2, WallID.LivingWoodUnsafe);
+                        WorldGen.PlaceWall(x2, y2, treeWall);
                     }
                 }
-                GenerateLeaves(trunkX, trunkTopY, 4);
-                #endregion
 
-                #region Biome Base Positioning, Caves, etc.
-                int centerX = trunkX;
-                int centerY = trunkBottomY + (Main.maxTilesY - trunkBottomY) / 4;
-                int horizontalRadius = (int)(Main.maxTilesX * 0.035f);
-                int verticalRadius = (int)(Main.maxTilesY * 0.175f);
-
-                for (int x = centerX - horizontalRadius; x <= centerX + horizontalRadius; x++)
+                for (int x = CANOPY_CENTER_X - CANOPY_RADIUS_H; x <= CANOPY_CENTER_X + CANOPY_RADIUS_H; x++)
                 {
-                    for (int y = centerY - verticalRadius; y <= centerY + verticalRadius; y++)
+                    for (int y = CANOPY_CENTER_Y - CANOPY_RADIUS_V; y <= CANOPY_CENTER_Y + CANOPY_RADIUS_V; y++)
                     {
-                        if (WorldGenHelpers.IsPointInsideEllipse(x, y, centerX, centerY, horizontalRadius, verticalRadius))
+                        for (double index = 0.001; index < 100; index++)
+                        {
+                            progress.Set(index);
+                        }
+                       
+                        if (InsideCanopyRadius(x, y, CANOPY_CENTER_X, CANOPY_CENTER_Y, CANOPY_RADIUS_H, CANOPY_RADIUS_V))
                         {
                             WorldGen.KillWall(x, y);
-                            WorldGen.PlaceWall(x, y, WallID.LivingLeaf);
+                            WorldGen.PlaceWall(x, y, canopyWall);
                             WorldGen.PlaceTile(x, y, 0, forced: true);
+                            /*
                             if (Main.rand.NextBool(64))
                             {
                                 WorldGen.TileRunner(x, y, Main.rand.Next(2, 4), Main.rand.Next(2, 4), ModContent.TileType<AlluviumOreTile>());
@@ -97,62 +286,67 @@ namespace ReverieMod
                             if (Main.rand.NextBool(67))
                             {
                                 WorldGen.TileRunner(x, y, Main.rand.Next(4, 7), Main.rand.Next(4, 7), ModContent.TileType<CobblestoneTile>());
-                            }
+                            }*/
                         }
-                        else if (WorldGenHelpers.IsPointNearOvalEdge(x, y, centerX, centerY, horizontalRadius, verticalRadius))
+
+                        else if (OutsideRadius_Canopy(x, y, CANOPY_CENTER_X, CANOPY_CENTER_Y, CANOPY_RADIUS_H, CANOPY_RADIUS_V))
                         {
                             if (Main.rand.NextFloat() < 0.8f)
                             {
-                                int branchLength = Main.rand.Next(21, 30); // Randomize the branch length
-                                for (int i = 0; i < branchLength; i++)
+                                int border = Main.rand.Next(21, 30);
+                                for (int i = 0; i < border; i++)
                                 {
-                                    int branchX = x + Main.rand.Next(-1, 2); // Randomize the branch direction
-                                    int branchY = y + Main.rand.Next(-1, 2);
-                                    if (!WorldGen.TileEmpty(branchX, branchY))
+                                    int borderX = x + Main.rand.Next(-1, 2);
+                                    int borderY = y + Main.rand.Next(-1, 2);
+                                    if (!WorldGen.TileEmpty(borderX, borderY))
                                     {
-                                        WorldGen.PlaceTile(branchX, branchY, 0, forced: true);
+                                        WorldGen.PlaceTile(borderX, borderY, 0, forced: true);
                                     }
                                 }
                             }
                         }
                     }
                 }
-                int cellX = horizontalRadius - (horizontalRadius / 12);
-                int cellY = verticalRadius - (verticalRadius / 12);
-                WorldGenHelpers.GenerateCellularAutomata(centerX, centerY, cellX, cellY, 48, 8, true, 0, false);
-                WorldGenHelpers.GenerateCellularAutomataWalls(centerX, centerY, cellX, cellY, 42, 9);
-                #endregion
 
+                int cellX = CANOPY_RADIUS_H - (CANOPY_RADIUS_H / 64);
+                int cellY = CANOPY_RADIUS_V - (CANOPY_RADIUS_V / 64);
+
+                Gen_CaveNoiseMap(CANOPY_CENTER_X, CANOPY_CENTER_Y, cellX, cellY, 48, 8, true, 0, false);
+                Gen_CaveNoiseMap_Wall(CANOPY_CENTER_X, CANOPY_CENTER_Y, cellX, cellY, 42, 8);
+
+                GenerateLeaves(TRUNK_X, TRUNK_TOP, 4);
                 if (Main.netMode == NetmodeID.Server)
-                    NetMessage.SendTileSquare(-1, trunkX, trunkTopY, trunkWidth, trunkBottomY - trunkTopY + 1);
+                    NetMessage.SendTileSquare(-1, TRUNK_X, TRUNK_TOP, TRUNK_WIDTH, TRUNK_BOTTOM - TRUNK_TOP + 1);
             }
-            public static void GenerateLeaves(int trunkX, int trunkY, int thickness)
+            public static void GenerateLeaves(int TRUNK_X, int trunkY, int thickness)
             {
                 float[] angles = new float[] { MathHelper.ToRadians(-120), MathHelper.ToRadians(-90), MathHelper.ToRadians(-45), MathHelper.ToRadians(45), MathHelper.ToRadians(90), MathHelper.ToRadians(120) };
 
                 int numBranches = angles.Length;
-
                 for (int i = 0; i < numBranches; i++)
                 {
                     float angle = angles[i];
                     int branchLength = 32;
 
-                    // Apply the curves as we did previously, with a sine wave function
                     for (int j = 0; j < branchLength; j++)
                     {
-                        // Apply a gentle curvature using a sine wave
-                        float curve = (float)Math.Sin(j * 0.09f) * 3f;  // Adjust the frequency and amplitude as needed
+                        int controlPointOffsetX = Main.rand.Next(-40, 40); // Random horizontal offset
+                        int controlPointOffsetY = Main.rand.Next(-20, 0);  // Random vertical offset, upwards
 
-                        // Calculate the position of the current segment
-                        int posX = trunkX + (int)(j * Math.Cos(angle + curve));
+                        Vector2 start = new Vector2(TRUNK_X, trunkY);
+                        Vector2 control = new Vector2(TRUNK_X + controlPointOffsetX, trunkY + controlPointOffsetY);
+                        Vector2 end = new Vector2(TRUNK_X + controlPointOffsetX, trunkY + 20);
+                        GenRoot(start, control, end, (ushort)treeWood);
+
+                        float curve = (float)Math.Sin(j * 0.09f) * 3f;
+                        int posX = TRUNK_X + (int)(j * Math.Cos(angle + curve));
                         int posY = trunkY - (int)(j * Math.Sin(angle + curve));
 
-                        // Place tiles to make the branch thicker
                         for (int tx = -thickness; tx <= thickness; tx++)
                         {
                             for (int ty = -thickness; ty <= thickness; ty++)
                             {
-                                if (tx * tx + ty * ty <= thickness * thickness) // Check if within circle radius for thickness
+                                if (tx * tx + ty * ty <= thickness * thickness)
                                 {
                                     WorldGen.TileRunner(posX + tx, posY + ty, 30, 30, TileID.LeafBlock, true, 1, 1);
                                 }
@@ -160,9 +354,8 @@ namespace ReverieMod
                         }
                     }
                 }
-            }
+            } 
         }
-    
         public class ReverieExtrasPass : GenPass
         {
             public ReverieExtrasPass(string name, float loadWeight) : base(name, loadWeight)
@@ -170,59 +363,64 @@ namespace ReverieMod
             }
             protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
             {
-                progress.Message = "Bringing life to the forest";
-                #region Find Trunk Coords
-                int trunkX;
-                int trunkDir = Main.rand.Next(2);
-                int spawnX = Main.maxTilesX / 2;
-                int spawnY = (int)Main.worldSurface - (Main.maxTilesY / 16);
-                int distance = (Main.maxTilesX - spawnX) / 20;
-                if (trunkDir == 0)
+                progress.Message = "Foresting the Woodland Canopy";
+                int TRUNK_X;
+                int TRUNK_DIR = Main.rand.Next(2);
+
+                int SPAWN_X = Main.maxTilesX / 2;
+                int SPAWN_DISTANCE = (Main.maxTilesX - SPAWN_X) / 20;
+                if (TRUNK_DIR == 0)
                 {
-                    trunkX = spawnX - distance;
+                    TRUNK_X = SPAWN_X - SPAWN_DISTANCE;
                 }
                 else
                 {
-                    trunkX = spawnX + distance;
+                    TRUNK_X = SPAWN_X + SPAWN_DISTANCE;
                 }
-                trunkX = Math.Clamp(trunkX, 0, Main.maxTilesX - 1); //safety
 
-                int trunkBottomY = (int)(Main.rockLayer + (Main.maxTilesY - Main.rockLayer) / 7);
+                int TRUNK_BOTTOM = (int)(Main.rockLayer + (Main.maxTilesY - Main.rockLayer) / 8);
+
+                int CANOPY_CENTER_X = TRUNK_X;
+                int CANOPY_CENTER_Y = TRUNK_BOTTOM + (Main.maxTilesY - TRUNK_BOTTOM) / 4;
+
+                int CANOPY_RADIUS_H = (int)(Main.maxTilesX * 0.035f);
+                int CANOPY_RADIUS_V = (int)(Main.maxTilesY * 0.175f);
+
+                TRUNK_X = Math.Clamp(TRUNK_X, 0, Main.maxTilesX - 1); //safety
 
                 int controlPointOffsetX = Main.rand.Next(-40, 40); // Random horizontal offset
                 int controlPointOffsetY = Main.rand.Next(-20, 0);  // Random vertical offset, upwards
 
-                Vector2 start = new Vector2(trunkX, trunkBottomY);
-                Vector2 control = new Vector2(trunkX + controlPointOffsetX, trunkBottomY + controlPointOffsetY);
-                Vector2 end = new Vector2(trunkX, trunkBottomY - 50);
+                int randomshit = Main.rand.Next(-10, 10);
 
-                GenerateTreeRoot(start, control, end, TileID.LivingWood);
-                int centerX = trunkX;
-                int centerY = trunkBottomY + (Main.maxTilesY - trunkBottomY) / 4;
-                int horizontalRadius = (int)(Main.maxTilesX * 0.06025f);
-                int verticalRadius = (int)(Main.maxTilesY * 0.215f);
-                int middleSectionEndY = centerY + verticalRadius / 3;
-                int topSectionEndY = centerY - verticalRadius / 3;
-                #endregion
+                Vector2 start = new Vector2(TRUNK_X + controlPointOffsetX, TRUNK_BOTTOM + 60);
+                Vector2 control = new Vector2(TRUNK_X + controlPointOffsetX, TRUNK_BOTTOM + controlPointOffsetY);
+                Vector2 end = new Vector2(TRUNK_X + randomshit, TRUNK_BOTTOM - controlPointOffsetY);
+                
+                for (int i = 0; i < 25; i++)
+                {
+                    GenRoot(new Vector2(i) + start, control, new Vector2(i) + end, (ushort)treeWood);
+                }
+                
 
-                int shrineCenterX = trunkX;
-                int shrineCenterY = topSectionEndY;
-                int shrineHorizontalRadius = (int)(Main.maxTilesX * 0.0095f);
-                int shrineVerticalRadius = (int)(Main.maxTilesY * 0.0275f);
+                int topSectionEndY = CANOPY_CENTER_Y - CANOPY_RADIUS_V / 3;
+                
+
+                int shrineCANOPY_CENTER_X = TRUNK_X;
+                int shrineCANOPY_CENTER_Y = topSectionEndY;
+
+                int shrineCANOPY_RADIUS_H = (int)(Main.maxTilesX * 0.0095f);
+                int shrineCANOPY_RADIUS_V = (int)(Main.maxTilesY * 0.0275f);
+
                 int domeRadius = (int)(Main.maxTilesX * 0.0095f);
                 
-                
-
-                
-                for (int x = centerX - horizontalRadius; x <= centerX + horizontalRadius; x++)
+                for (int x = CANOPY_CENTER_X - CANOPY_RADIUS_H; x <= CANOPY_CENTER_X + CANOPY_RADIUS_H; x++)
                 {
-                    for (int y = centerY - verticalRadius; y <= centerY + verticalRadius; y++)
+                    for (int y = CANOPY_CENTER_Y - CANOPY_RADIUS_V; y <= CANOPY_CENTER_Y + CANOPY_RADIUS_V; y++)
                     {
-                        progress.Set(x / horizontalRadius);
-                        if (WorldGenHelpers.IsPointInsideEllipse(x, y, centerX, centerY, horizontalRadius, verticalRadius))
+                        
+                        if (InsideCanopyRadius(x, y, CANOPY_CENTER_X, CANOPY_CENTER_Y, CANOPY_RADIUS_H, CANOPY_RADIUS_V))
                         {
-                            //WorldGen.SpreadGrass(x, y, 0, ModContent.TileType<WoodlandGrassTile>(), true, default);
-
                             Tile tile = Framing.GetTileSafely(x, y);
                             for (int grassX = x - 1; grassX <= x + 1; grassX++)
                             {
@@ -232,7 +430,7 @@ namespace ReverieMod
                                     if (!tile2.HasTile)
                                     {
                                         if (tile.TileType == TileID.Dirt || TileID.Sets.Grass[tile.TileType])
-                                            tile.TileType = (ushort)ModContent.TileType<WoodlandGrassTile>();
+                                            tile.TileType = (ushort)canopyGrass;
 
                                         if (tile.HasTile && tile2.WallType == 0)
                                             tile.WallType = 0;
@@ -243,11 +441,11 @@ namespace ReverieMod
                     }
                 }
                 
-                for (int x = shrineCenterX - shrineHorizontalRadius; x <= shrineCenterX + shrineHorizontalRadius; x++)
+                for (int x = shrineCANOPY_CENTER_X - shrineCANOPY_RADIUS_H; x <= shrineCANOPY_CENTER_X + shrineCANOPY_RADIUS_H; x++)
                 {
-                    for (int y = shrineCenterY - shrineVerticalRadius; y <= shrineCenterY + shrineVerticalRadius; y++)
+                    for (int y = shrineCANOPY_CENTER_Y - shrineCANOPY_RADIUS_V; y <= shrineCANOPY_CENTER_Y + shrineCANOPY_RADIUS_V; y++)
                     {
-                        if (WorldGenHelpers.IsPointInsideEllipse(x, y, shrineCenterX, shrineCenterY, shrineHorizontalRadius, shrineVerticalRadius))
+                        if (InsideCanopyRadius(x, y, shrineCANOPY_CENTER_X, shrineCANOPY_CENTER_Y, shrineCANOPY_RADIUS_H, shrineCANOPY_RADIUS_V))
                         {
                             WorldGen.PlaceTile(x, y, TileID.LivingWood, forced: true);
                             WorldGen.KillWall(x, y);
@@ -255,13 +453,11 @@ namespace ReverieMod
                     }
                 }
 
-                WorldGenHelpers.GenerateCellularAutomata(shrineCenterX, shrineCenterY, shrineHorizontalRadius, shrineVerticalRadius, 30, 12, true, 0, false);
-
-                for (int x = shrineCenterX - domeRadius; x <= shrineCenterX + domeRadius; x++)
+                for (int x = shrineCANOPY_CENTER_X - domeRadius; x <= shrineCANOPY_CENTER_X + domeRadius; x++)
                 {
-                    for (int y = shrineCenterY - domeRadius; y <= shrineCenterY; y++) // Only go up to the midpoint for a dome shape
+                    for (int y = shrineCANOPY_CENTER_Y - domeRadius; y <= shrineCANOPY_CENTER_Y; y++) // Only go up to the midpoint for a dome shape
                     {
-                        if (WorldGenHelpers.IsPointInsideEllipse(x, y, shrineCenterX, shrineCenterY, domeRadius, domeRadius))
+                        if (InsideCanopyRadius(x, y, shrineCANOPY_CENTER_X, shrineCANOPY_CENTER_Y, domeRadius, domeRadius))
                         {
                             WorldGen.KillTile(x, y + 15);
                             WorldGen.PlaceWall(x, y + 15, WallID.LivingWoodUnsafe);
@@ -269,62 +465,7 @@ namespace ReverieMod
                     }
                 }
             }
-            Vector2 CalculateBezierPoint(float t, Vector2 p0, Vector2 p1, Vector2 p2)
-            {
-                float u = 1 - t;
-                float tt = t * t;
-                float uu = u * u;
 
-                Vector2 p = uu * p0; // First term
-                p += 2 * u * t * p1; // Second term
-                p += tt * p2; // Third term
-
-                return p;
-            }
-
-            // Generate tree root
-            void GenerateTreeRoot(Vector2 p0, Vector2 p1, Vector2 p2, ushort tileType)
-            {
-                for (float t = 0; t <= 1; t += 0.01f) // Increment t to draw the curve
-                {
-                    Vector2 point = CalculateBezierPoint(t, p0, p1, p2);
-                    WorldGen.PlaceTile((int)point.X, (int)point.Y, tileType, mute: true, forced: true);
-                }
-            }
-
-        }
-        public class ForestTemplePass : GenPass
-        {
-            public ForestTemplePass(string name, float loadWeight) : base(name, loadWeight)
-            {
-            }
-            protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
-            {
-                progress.Message = "Ligneous Temple";
-                int spawnX = Main.maxTilesX / 2;
-
-                int trunkBottomY = (int)(Main.rockLayer + (Main.maxTilesY - Main.rockLayer) / 8);
-
-                int centerX = spawnX;
-                int centerY = trunkBottomY + (Main.maxTilesY - trunkBottomY) / 4;
-                int horizontalRadius = (int)(Main.maxTilesX * 0.06025f);
-                int verticalRadius = (int)(Main.maxTilesY * 0.215f);
-
-                for (int x = centerX - horizontalRadius; x <= centerX + horizontalRadius; x++)
-                {
-                    for (int y = centerY - verticalRadius; y <= centerY + verticalRadius; y++)
-                    {
-                        if (WorldGenHelpers.IsPointInsideEllipse(x, y, centerX, centerY, horizontalRadius, verticalRadius))
-                        {
-
-                            if (Main.rand.NextBool(210))
-                            {
-                                WorldGen.digTunnel(x, y, Main.rand.Next(1, 5), Main.rand.Next(1, 3), Main.rand.Next(1, 3), Main.rand.Next(3, 4));
-                            }
-                        }
-                    }
-                }
-            }
         }
     }
 }

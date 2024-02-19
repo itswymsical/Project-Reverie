@@ -21,7 +21,7 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
             TileID.Sets.Grass[Type] = true;
             //TileID.Sets.Conversion.Grass[Type] = true;
             TileID.Sets.CanBeDugByShovel[Type] = true;
-            MineResist = 0f;
+            MineResist = 0.1f;
             DustType = 39;
             AddMapEntry(new Color(32, 103, 29));
         }
@@ -30,6 +30,9 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
         {
             Tile tile = Framing.GetTileSafely(i, j);
             Tile tileBelow = Framing.GetTileSafely(i, j + 1);
+
+            if (WorldGen.genRand.NextBool(2))
+                WorldGen.SpreadGrass(i, j, 0, Type);
 
             if (WorldGen.genRand.NextBool(10) && !tileBelow.HasTile && !(tileBelow.LiquidType == LiquidID.Lava))
             {
@@ -43,7 +46,7 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
                         NetMessage.SendTileSquare(-1, i, j + 1, 3, 0);
                     }
                 }
-            }
+            }  
         }
         public override bool CanExplode(int i, int j)
         {

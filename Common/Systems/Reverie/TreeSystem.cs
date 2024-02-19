@@ -8,85 +8,119 @@ using Microsoft.Xna.Framework;
 using ReverieMod.Content.Tiles;
 using ReverieMod.Helpers;
 using ReverieMod.Content.Tiles.WoodlandCanopy;
+using System.Collections.Generic;
+using System.Text;
+using System.Reflection.Metadata;
 
 namespace ReverieMod.Common.Systems.Reverie
 {
     public class TreeSystem : ModSystem
     {
-        private int trunkDir = Main.rand.Next(2);
-        private static int POINT_X = Main.maxTilesX / 2;
-        private static int POINT_Y = (int)Main.worldSurface - (Main.maxTilesY / 16);
-
-        private int TRUNK_BOTTOM_Y = (int)(Main.rockLayer + (Main.maxTilesY - Main.rockLayer) / 7);
-        private int TRUNK_TOP_Y = (POINT_Y - (Main.maxTilesY - POINT_Y) / 8);
-
-        private float CURVE_FREQUENCY = Main.rand.NextFloat(-0.0765f, 0.0765f);
-        private const int CURVE_AMPLITUDE = 4;
-
-        private const int MaxDepth = 5; // Maximum recursion depth
-        private const float LengthReductionFactor = 0.7f; // Factor by which branch length is reduced
-        private const float AngleChange = MathHelper.Pi / 6; // Angle change for branching
-
-        public static void GenerateTree(Vector2 position, float length, float angle, int depth)
+        public class Reverie2Pass : GenPass
         {
-            if (depth <= 0)
+            private int treeWood = TileID.LivingWood;
+            private int treeLeaves = TileID.LeafBlock;
+            private int canopyGrass = ModContent.TileType<WoodlandGrassTile>();
+            public Reverie2Pass(string name, float loadWeight) : base(name, loadWeight)
             {
-                return;
             }
 
-            float endX = position.X + length * (float)Math.Cos(angle);
-            float endY = position.Y + length * (float)Math.Sin(angle);
+            protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
+            {
+                progress.Message = "Manifesting Reverie";
 
-            GenerateTree(new Vector2(endX, endY), length * LengthReductionFactor, angle - AngleChange, depth - 1);
+                int trunkX = GetTrunkX(out int trunkTopY, out int trunkBottomY);
+                GenerateTrunk(trunkX, trunkTopY, trunkBottomY);
 
-            GenerateTree(new Vector2(endX, endY), length * LengthReductionFactor, angle + AngleChange, depth - 1);
-        }
-
-        public void GenTrunk()
-        {
-            int trunkX;
-            int distance = (Main.maxTilesX - POINT_X) / 20;
-            
-            int trunkWidth = 10;
-            if (trunkDir == 0) {
-                trunkX = POINT_X - distance;
+                int centerX = trunkX;
+                int centerY = trunkBottomY + (Main.maxTilesY - trunkBottomY) / 4;
+                GenerateBiome(centerX, centerY);
             }
-            else {
-                trunkX = POINT_X + distance;
+
+            private int GetTrunkX(out int trunkTopY, out int trunkBottomY)
+            {
+                int trunkDir = Main.rand.Next(2);
+                int spawnX = Main.maxTilesX / 2;
+                int spawnY = (int)Main.worldSurface - (Main.maxTilesY / 12);
+                int distance = (Main.maxTilesX - spawnX) / 20;
+                int trunkX = trunkDir == 0 ? spawnX - distance : spawnX + distance;
+                trunkX = Math.Clamp(trunkX, 0, Main.maxTilesX - 1); // Safety
+
+                trunkTopY = (int)(spawnY - (Main.maxTilesY - spawnY) / 8);
+                trunkBottomY = (int)(Main.rockLayer + (Main.maxTilesY - Main.rockLayer) / 8);
+
+                return trunkX;
             }
-            
-            trunkX = Math.Clamp(trunkX, 0, Main.maxTilesX - 1);
-            for (int yBottom = TRUNK_BOTTOM_Y; yBottom <= TRUNK_BOTTOM_Y; yBottom++) {
-                
-                int curWidth = trunkWidth + (yBottom % 5 == 0 ? 2 : 0);
-                int curveOffset = (int)(Math.Sin(yBottom * CURVE_FREQUENCY) * CURVE_AMPLITUDE);
 
-                int leftBound = trunkX - curWidth / 2 + curveOffset;
-                int rightBound = trunkX + curWidth / 2 + curveOffset;
+            private void GenerateTrunk(int trunkX, int trunkTopY, int trunkBottomY)
+            {
+                int trunkWidth = 10;
+                const float curveFrequency = 0.0765f;
+                const int curveAmplitude = 4;
 
-                for (int xBottom = leftBound; xBottom <= rightBound; xBottom++)
+                for (int j = trunkTopY; j <= trunkBottomY; j++)
                 {
-                    WorldGen.KillWall(xBottom, yBottom);
-                    WorldGen.PlaceTile(xBottom, yBottom, TileID.LivingWood, forced: true);
+                    int currentTrunkWidth = trunkWidth + (j % 5 == 0 ? 2 : 0);
+                    int curveOffset = (int)(Math.Sin(j * curveFrequency) * curveAmplitude);
+
+                    int leftBound = trunkX - currentTrunkWidth / 2 + curveOffset;
+                    int rightBound = trunkX + currentTrunkWidth / 2 + curveOffset;
+
+                    for (int i = leftBound; i <= rightBound; i++)
+                    {
+                        WorldGen.KillWall(i, j);
+                        WorldGen.PlaceTile(i, j, treeWood, forced: true);
+                    }
+                }
+
+                for (int y = trunkTopY; y <= trunkBottomY; y++)
+                {
+                    int tunnelTrunkWidth = (trunkWidth / 2) + (y % 5 == 0 ? 2 : 0);
+                    int tunnelOffset = (int)(Math.Sin(y * curveFrequency) * curveAmplitude);
+                    int leftBound = trunkX - tunnelTrunkWidth / 2 + tunnelOffset;
+                    int rightBound = trunkX + tunnelTrunkWidth / 2 + tunnelOffset;
+
+                    for (int x = leftBound; x <= rightBound; x++)
+                    {
+                        WorldGen.KillTile(x, y);
+                        WorldGen.PlaceWall(x, y, WallID.LivingWoodUnsafe);
+                    }
+                }
+
+                GenerateLeaves(trunkX, trunkTopY, 4);
+            }
+
+            private void GenerateLeaves(int trunkX, int trunkY, int thickness)
+            {
+                float[] angles = new float[] { MathHelper.ToRadians(-120), MathHelper.ToRadians(-90), MathHelper.ToRadians(-45), MathHelper.ToRadians(45), MathHelper.ToRadians(90), MathHelper.ToRadians(120) };
+                int branchLength = 32;
+
+                foreach (float angle in angles)
+                {
+                    for (int j = 0; j < branchLength; j++)
+                    {
+                        float curve = (float)Math.Sin(j * 0.09f) * 3f;
+                        int posX = trunkX + (int)(j * Math.Cos(angle + curve));
+                        int posY = trunkY - (int)(j * Math.Sin(angle + curve));
+
+                        for (int tx = -thickness; tx <= thickness; tx++)
+                        {
+                            for (int ty = -thickness; ty <= thickness; ty++)
+                            {
+                                if (tx * tx + ty * ty <= thickness * thickness)
+                                {
+                                    WorldGen.TileRunner(posX + tx, posY + ty, 30, 30, treeLeaves, true, 1, 1);
+                                }
+                            }
+                        }
+                    }
                 }
             }
-            for (int yTop = TRUNK_TOP_Y; yTop <= TRUNK_BOTTOM_Y; yTop++)
+
+            private void GenerateBiome(int centerX, int centerY)
             {
-                int tunnelWidth = (trunkWidth / 2) + (yTop % 5 == 0 ? 2 : 0);
-                int tunnelOffset = (int)(Math.Sin(yTop * CURVE_FREQUENCY) * CURVE_AMPLITUDE);
-                int leftBound = trunkX - tunnelWidth / 2 + tunnelOffset;
-                int rightBound = trunkX + tunnelWidth / 2 + tunnelOffset;
-                for (int xTop = leftBound; xTop <= rightBound; xTop++)
-                {
-                    WorldGen.KillTile(xTop, yTop);
-                    WorldGen.PlaceWall(xTop, yTop, WallID.LivingWoodUnsafe);
-                }
+                // Your biome generation code here
             }
-        }
-
-        public void GenBranches()
-        {
-
         }
     }
 }

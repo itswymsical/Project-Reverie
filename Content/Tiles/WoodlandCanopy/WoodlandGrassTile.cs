@@ -104,9 +104,9 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
                     tileAbove.HasTile = true;
                     tileAbove.TileFrameY = 0;
                     tileAbove.TileFrameX = (short)(WorldGen.genRand.Next(8) * 18);
-                    WorldGen.SquareTileFrame(i, j + 1, true);
+                    WorldGen.SquareTileFrame(i, j - 1, true);
                     if (Main.netMode == NetmodeID.Server)
-                        NetMessage.SendTileSquare(-1, i, j - 1, 3, TileChangeType.None);
+                        NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);
                 }
             }
         }

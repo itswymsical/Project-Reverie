@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ReverieMod.Content.Tiles.WoodlandCanopy
 {
@@ -13,6 +14,7 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
         {
             TileID.Sets.VineThreads[Type] = true;
             TileID.Sets.IsVine[Type] = true;
+            TileID.Sets.SwaysInWindBasic[Type] = true;
 
             Main.tileCut[Type] = true;
             Main.tileBlockLight[Type] = true;
@@ -21,7 +23,6 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
             Main.tileNoFail[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLighted[Type] = false;
-
             HitSound = SoundID.Grass;
             DustType = DustID.Grass;
 
@@ -44,7 +45,7 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
         }
         public override void RandomUpdate(int i, int j)
         {
-            Tile tile = Framing.GetTileSafely(i, j + 1); //check for tiles below
+            Tile tile = Framing.GetTileSafely(i, j + 1);
             if (WorldGen.genRand.NextBool(10) && !tile.HasTile && !(tile.LiquidType == LiquidID.Lava))
             {
                 tile.HasTile = false;
@@ -68,6 +69,13 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
                 WorldGen.KillTile(i, j + 1);
             }
         }
-        
+        public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
+        {
+            Tile tile = Framing.GetTileSafely(i, j);
+            Texture2D glow = ModContent.Request<Texture2D>("ReverieMod" + (Assets.Tiles.WoodlandCanopy + Name) + "_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
+            spriteBatch.Draw(glow, new Vector2(i * 16, j * 16 + 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX - 108, 0, 16, 16), default);
+
+        }
     }
 }

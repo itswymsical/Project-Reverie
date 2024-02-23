@@ -1,9 +1,9 @@
 ﻿using Terraria.ModLoader;
 using System.Collections.Generic;
 using Terraria.WorldBuilding;
-using static ReverieMod.ReverieSystem;
+using static ReverieMod.Common.Systems.ReverieTreeSystem;
 
-namespace ReverieMod
+namespace ReverieMod.Common.Systems
 {
     public class WorldGenerationSystem : ModSystem
     {

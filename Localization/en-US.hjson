@@ -110,6 +110,7 @@ Mods: {
 		Projectiles: {
 			FungoreSlam.DisplayName: Fungore Slam
 			FungoreSmoke.DisplayName: Fungore Smoke
+			FrostbarkClaymoreProjectile.DisplayName: Frostbark Claymore Projectile
 		}
 	}
 }

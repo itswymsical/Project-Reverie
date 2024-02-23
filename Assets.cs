@@ -36,8 +36,6 @@
 
 			public const string Tools = Directory + "Tools/";
 
-			public const string Fish = Directory + "Fish/";
-
 			public const string Shovels = Tools + "Shovels/";
 
 			#region Boss
@@ -53,13 +51,11 @@
 		{
 			public const string Directory = TextureDirectory + "Items/Armor/";
 
-			public const string BloomRose = Directory + "BloomRose/";
-
 			public const string Sandcrawler = Directory + "Sandcrawler/";
 
 			public const string Wildlife = Directory + "Wildlife/";
 
-			public const string Viking = Directory + "Viking/";
+			public const string Frostbark = Directory + "Frostbark/";
 		}
 		internal class Vanity
 		{
@@ -71,15 +67,9 @@
 		{
 			public const string Directory = TextureDirectory + "Items/Weapons/";
 
-			public const string BloomRose = Directory + "BloomRose/";
-
 			public const string Sandcrawler = Directory + "Sandcrawler/";
 
-			public const string Brass = Directory + "Brass/";
-
-			public const string Nut = Directory + "Nut/";
-
-			public const string Viking = Directory + "Viking/";
+			public const string Frostbark = Directory + "Frostbark/";
 
 			public const string Melee = Directory + "Melee/";
 
@@ -130,7 +120,9 @@
 
 			public const string Melee = Directory + "Melee/";
 
-			public const string Ranged = Directory + "Ranged/";
+            public const string Frostbark = Directory + "Frostbark/";
+
+            public const string Ranged = Directory + "Ranged/";
 
 			public const string Magic = Directory + "Magic/";
 

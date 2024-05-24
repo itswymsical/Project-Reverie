@@ -20,7 +20,6 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
             Main.tileMerge[Type][Type] = true;
 
             TileID.Sets.Grass[Type] = true;
-            //TileID.Sets.Conversion.Grass[Type] = true;
             TileID.Sets.CanBeDugByShovel[Type] = true;
             MineResist = 0.1f;
             DustType = 39;

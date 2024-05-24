@@ -23,7 +23,6 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
 
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
             TileObjectData.newTile.Style = 0;
-            //TileMaterials.SetForTileId(Type, TileMaterials._materialsByName["Plant"]);
 
             for (int i = 0; i < 7; i++)
             {

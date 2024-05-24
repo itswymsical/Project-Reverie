@@ -1,5 +1,5 @@
 Items: {
-	TestItem: {
+	SubworldItem: {
 		DisplayName: Test Item
 		Tooltip: This is a Test Item.
 	}

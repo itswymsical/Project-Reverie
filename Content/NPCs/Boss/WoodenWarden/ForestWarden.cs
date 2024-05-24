@@ -19,7 +19,6 @@ namespace ReverieMod.Content.NPCs.Boss.WoodenWarden
         {
             Moving,
             SlamPhase,
-            SpawnArms
         }
         private AIState State
         {
@@ -31,17 +30,19 @@ namespace ReverieMod.Content.NPCs.Boss.WoodenWarden
             get => NPC.ai[1];
             set => NPC.ai[1] = value;
         }
-        bool handsSpawned;
         private bool slamming;
-        private Player target;
+        private bool firstSpawn;
+
+        private Player player;
+
         private float alpha;
         private float alphaTimer;
-        private int count;
+
         private int bossDefense = 17;
         public override string Texture => Assets.NPCs.WoodenWarden + Name;
         public override void SetDefaults()
         {
-            NPC.damage = 1;
+            NPC.damage = 0;
             NPC.defense = bossDefense;
             NPC.lifeMax = 3765;
 
@@ -50,7 +51,6 @@ namespace ReverieMod.Content.NPCs.Boss.WoodenWarden
             NPC.width = 200;
             NPC.height = 184;
             NPC.aiStyle = -1;
-            AIType = -1;
 
             NPC.value = Item.buyPrice(gold: 4);
             NPC.boss = true;
@@ -83,10 +83,9 @@ namespace ReverieMod.Content.NPCs.Boss.WoodenWarden
         }
         public override void AI()
         {
-            State = AIState.Moving;
-            target = Main.player[NPC.target];
-            NPC.TargetClosest(true);       
-            if (target.dead || !target.active)
+            player = Main.player[NPC.target];
+            NPC.TargetClosest();
+            if (player.dead || !player.active)
             {
                 NPC.TargetClosest(false);
                 NPC.velocity = new Vector2(0f, -10f);
@@ -96,58 +95,28 @@ namespace ReverieMod.Content.NPCs.Boss.WoodenWarden
                     NPC.active = false;
                 }
             }
-            if (!handsSpawned)
-            {
-                var Left = NPC.NewNPC(default, (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<WardenArmLeft>());
-                Main.npc[Left].ai[0] = NPC.whoAmI;
-                var Right = NPC.NewNPC(default, (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<WardenArmRight>());
-                Main.npc[Right].ai[0] = NPC.whoAmI;
-                handsSpawned = true;
-            }
-            if (NPC.AnyNPCs(ModContent.NPCType<WardenArmLeft>()) || NPC.AnyNPCs(ModContent.NPCType<WardenArmRight>()))
-            {
-                NPC.defense = 100;
-            }
-            else
-            {
-                NPC.defense = bossDefense;
-                State = AIState.SlamPhase;
-            }
-            if (State == AIState.Moving)
-            {
-                Movement();
-            }
-            if (State == AIState.SlamPhase)
-            {
+            SpawnLimbs();
+            var position = new Vector2(player.Center.X, player.Center.Y - 320);
 
-                AITimer++;
-                if (AITimer < 240)
-                {
-                    Movement();
-                }
-                if (AITimer >= 190 && AITimer <= 380)
-                {
-                    Slam();
-                }
-                if (AITimer >= 380)
-                {
-                    AITimer = 0;
-                    count += 1;
-                }
-                if (count == 5)
-                {
-                    State = AIState.SpawnArms;
-                }
-            }
-            if (State == AIState.SpawnArms)
+            float speed = Vector2.Distance(NPC.Center, position);
+            speed = MathHelper.Clamp(speed, -9f, 9f);
+            Move(position, speed);
+            NPC.rotation = Utils.AngleLerp(NPC.rotation, NPC.velocity.X * 0.01f, 0.1f);
+        }
+     
+        private void SpawnLimbs()
+        {
+            if (!NPC.AnyNPCs(ModContent.NPCType<WardenArmLeft>()) && !NPC.AnyNPCs(ModContent.NPCType<WardenArmRight>()) && !firstSpawn)
             {
+                firstSpawn = true;
                 var Left = NPC.NewNPC(default, (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<WardenArmLeft>());
                 Main.npc[Left].ai[0] = NPC.whoAmI;
+
                 var Right = NPC.NewNPC(default, (int)NPC.Center.X, (int)NPC.Center.Y, ModContent.NPCType<WardenArmRight>());
                 Main.npc[Right].ai[0] = NPC.whoAmI;
-                State = AIState.Moving;
             }
         }
+
         private void Move(Vector2 position, float speed)
         {
             Vector2 direction = NPC.DirectionTo(position);
@@ -156,57 +125,7 @@ namespace ReverieMod.Content.NPCs.Boss.WoodenWarden
 
             NPC.velocity = Vector2.SmoothStep(NPC.velocity, velocity, 0.2f);
         }
-        private void Movement()
-        {
-            NPC.noTileCollide = true;
-            var position = new Vector2(target.Center.X, target.Center.Y - 320);
-            float speed = Vector2.Distance(NPC.Center, position);
-            speed = MathHelper.Clamp(speed, -8f, 8f);
-            Move(position, speed);
-            NPC.rotation = Utils.AngleLerp(NPC.rotation, NPC.velocity.X * 0.01f, 0.1f);
-        }
-        private void Slam()
-        {
-            NPC.noTileCollide = false;
-
-            if (!slamming)
-            {
-                NPC.damage = 0;
-                NPC.ai[2]++;
-                NPC.velocity.X = 0;
-                if (NPC.position.Y > NPC.Center.Y)
-                {
-                    NPC.velocity.Y -= 0.1f;
-                }
-                else
-                {
-                    NPC.velocity.Y *= 0.8f;
-                }
-                slamming = true;
-                NPC.ai[2] = 0;
-            }
-            else
-            {
-                NPC.damage = 100;
-                NPC.ai[2] += 0.09f;
-
-                NPC.velocity.Y += NPC.ai[2];
-            }
-            if (NPC.collideY && NPC.position.Y == NPC.oldPosition.Y)
-            {
-                if (slamming)
-                {
-                    SoundEngine.PlaySound(SoundID.Item74, NPC.position);
-                }
-                CheckPlatform(target);
-                Collision.HitTiles(NPC.position, NPC.velocity, NPC.width, NPC.height);
-                NPC.ai[2] = 0;
-                slamming = false;
-                State = AIState.Moving;
-                Main.player[NPC.target].GetModPlayer<ReveriePlayer>().ScreenShakeIntensity = Math.Abs(NPC.velocity.Y * 3.85f);
-            }
-        }
-        private void CheckPlatform(Player player) // Spirit Mod :kek:
+        private void CheckPlatform(Player player) // Spirit Mod, :sex: - (naka, 2021)
         {
             bool onplatform = true;
             for (int i = (int)NPC.position.X; i < NPC.position.X + NPC.width; i += NPC.height / 2)
@@ -224,7 +143,7 @@ namespace ReverieMod.Content.NPCs.Boss.WoodenWarden
         private void HandleScreenText(SpriteBatch spriteBatch)
         {
             var position = new Vector2(Main.screenWidth / 2f, 200f);
-
+            var position2 = new Vector2(Main.screenWidth / 2f, -400f);
             Color color = Color.White * alpha;
 
             alphaTimer++;
@@ -238,11 +157,9 @@ namespace ReverieMod.Content.NPCs.Boss.WoodenWarden
                 alpha -= 0.025f;
             }
 
-            Helper.DrawText(spriteBatch, position, "- Wooden Warden -" +
-                "\n" +
-                "\n" +
-                "\n" +
-                "\nProtector of the forest", color);
+            // do these actually disappear? could be an issue for memory usage.
+            Helper.DrawText(spriteBatch, position, "- Wooden Warden -", color);
+            Helper.DrawText(spriteBatch, position2, "- Protector of the Canopy -", color);
         }
     }
 }

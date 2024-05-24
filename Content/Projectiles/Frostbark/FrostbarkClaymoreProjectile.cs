@@ -25,7 +25,7 @@ namespace ReverieMod.Content.Projectiles.Melee
 			set => Projectile.ai[0] = (int)value;
 		}
 		private bool IsMaxCharge;
-		private readonly float MaxChargeTime = 27f;
+		private readonly float MaxChargeTime = 32f;
 		private float RotationStart => MathHelper.PiOver2 + (Projectile.direction == -1 ? MathHelper.Pi : 0);
 		private float RotationOffset => Projectile.direction == 1 ? 0 : MathHelper.PiOver2;
 		public override void SetDefaults()
@@ -41,7 +41,6 @@ namespace ReverieMod.Content.Projectiles.Melee
 
 			Projectile.tileCollide = IsMaxCharge = false;
 		}
-		private Player player;
 		public override bool PreAI()
 		{
 			Player owner = Main.player[Projectile.owner];
@@ -91,17 +90,16 @@ namespace ReverieMod.Content.Projectiles.Melee
 		}
 		public override void OnKill(int timeLeft)
 		{
-			player = Main.player[Projectile.owner];
-			SoundEngine.PlaySound(SoundID.Item18);
-			if (IsMaxCharge && Main.myPlayer == Projectile.owner)
+            Player player = Main.player[Projectile.owner];
+            SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact);
+            if (IsMaxCharge && Main.myPlayer == Projectile.owner)
 			{
 				for (int i = 0; i < 3; ++i)
 				{
 					Projectile.NewProjectile(default, Projectile.Center, -Vector2.UnitY.RotatedByRandom(MathHelper.PiOver2) * 8f, ProjectileID.IceBolt, (int)(Projectile.damage * 0.5f), 0.5f, Projectile.owner);
 				}
 			}
-			player.GetModPlayer<ReveriePlayer>().ScreenShakeIntensity = .2f;
-			Helper.SpawnDustCloud(Projectile.position, Projectile.width, Projectile.height, DustID.Ice, 50);
+			Helper.SpawnDustCloud(Projectile.position, Projectile.width, Projectile.height, DustID.Frost, 50);
 		}
 
 		private void SetProjectilePosition(Player owner)

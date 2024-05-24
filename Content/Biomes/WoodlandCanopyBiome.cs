@@ -15,8 +15,8 @@ namespace ReverieMod.Content.Biomes
 
         public static int trunkTopY = (int)(spawnY - (Main.maxTilesY - spawnY) / 8);
         public static int trunkBottomY = (int)(Main.rockLayer + (Main.maxTilesY - Main.rockLayer) / 7);
-
-        public override int Music => MusicLoader.GetMusicSlot(Mod, Assets.Music + "Ruins");
+        public override ModUndergroundBackgroundStyle UndergroundBackgroundStyle => ModContent.GetInstance<CanopyBackgroundStyle>();
+        public override int Music => MusicLoader.GetMusicSlot(Mod, Assets.Music + "Woodhaven");
         public override SceneEffectPriority Priority => SceneEffectPriority.BiomeLow; // We have set the SceneEffectPriority to be BiomeLow for purpose of example, however default behavior is BiomeLow.
 
 		public override string BestiaryIcon => base.BestiaryIcon;

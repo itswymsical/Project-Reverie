@@ -58,8 +58,8 @@ Mods: {
 				Tooltip: ""
 			}
 
-			TestItem: {
-				DisplayName: Test Item
+			SubworldItem: {
+				DisplayName: Test Subworld Item
 				Tooltip: ""
 			}
 
@@ -105,6 +105,8 @@ Mods: {
 			WoodenWardenBoss.DisplayName: Wooden Warden Boss
 			WardenArmLeft.DisplayName: Warden Arm Left
 			WardenArmRight.DisplayName: Warden Arm Right
+			Shelledrake.DisplayName: Shelledrake
+			ShelledrakeClome.DisplayName: Shelledrake Clome
 		}
 
 		Projectiles: {

@@ -1,4 +1,3 @@
 displayName = [c/73d5ff:Reverie]
 author = wymsical
 version = 0.1
-modReferences = SubworldLibrary

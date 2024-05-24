@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using ReverieMod.Helpers;
 using ReverieMod.Content.NPCs.Boss.WoodenWarden;
+using ReverieMod.Core.Mechanics;
 
 namespace ReverieMod.Content.NPCs.Bosses.WoodenWarden
 {
@@ -49,6 +50,8 @@ namespace ReverieMod.Content.NPCs.Bosses.WoodenWarden
 			NPC.knockBackResist = 0f;
 			NPC.HitSound = SoundID.DD2_CrystalCartImpact;
 			NPC.DeathSound = SoundID.Item14;
+
+            NPC.scale = 1.15f;
 		}
 		private int AITimer;
 		private int BeamTimer;
@@ -69,7 +72,20 @@ namespace ReverieMod.Content.NPCs.Bosses.WoodenWarden
 				NPC.frame.Y = 0 * frameHeight;
 			}
 		}
-		public override void AI()
+        public static Vector2 CalculatePoint(float t, Vector2 p0, Vector2 p1, Vector2 p2)
+        {
+            float u = 1 - t;
+            float tt = t * t;
+            float uu = u * u;
+
+            Vector2 p = uu * p0;
+            p += 2 * u * t * p1;
+            p += tt * p2;
+
+            return p;
+        }
+
+        public override void AI()
 		{
 			Player target = Main.player[NPC.target];
 			NPC boss = Main.npc[(int)NPC.ai[0]];
@@ -84,14 +100,17 @@ namespace ReverieMod.Content.NPCs.Bosses.WoodenWarden
 				}
 			}
 			AITimer++;
-			if (AITimer == 300)
+			if (AITimer == 500)
 				State = AIState.Dash;
 
 			if (AITimer == 900)
 				State = AIState.Beam;
 
-			if (AITimer == 1200)
-				AITimer = 0;
+			if (AITimer >= 1200)
+            {
+                State = AIState.Idle;
+                AITimer = 0;
+            }        
 
 			if (State == AIState.Idle)
 			{
@@ -148,8 +167,13 @@ namespace ReverieMod.Content.NPCs.Bosses.WoodenWarden
 					NPC.TargetClosest();
 					NPC.netUpdate = true;
 					Vector2 PlayerPosition = new Vector2(target.Center.X - NPC.Center.X, target.Center.Y - NPC.Center.Y);
-					PlayerPosition.Normalize();
-					NPC.velocity = PlayerPosition * 8f;
+                    for (float t = 0; t <= 1; t += 0.01f)
+                    {
+                        PlayerPosition.Normalize();
+                        Vector2 point = CalculatePoint(t, target.Center, NPC.Center, PlayerPosition);
+                        NPC.velocity = point * 8f;
+                    }
+                    
 					DashTimer = 0;
 				}
 				if (NPC.life < NPC.lifeMax * 0.20f)
@@ -236,6 +260,8 @@ namespace ReverieMod.Content.NPCs.Bosses.WoodenWarden
             NPC.knockBackResist = 0f;
             NPC.HitSound = SoundID.DD2_CrystalCartImpact;
             NPC.DeathSound = SoundID.Item14;
+
+            NPC.scale = 1.15f;
         }
         private int AITimer;
         private int BeamTimer;
@@ -277,8 +303,11 @@ namespace ReverieMod.Content.NPCs.Bosses.WoodenWarden
             if (AITimer == 900)
                 State = AIState.Beam;
 
-            if (AITimer == 1200)
+            if (AITimer >= 1200)
+            {
+                State = AIState.Idle;
                 AITimer = 0;
+            }
 
             if (State == AIState.Idle)
             {

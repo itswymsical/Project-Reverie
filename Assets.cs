@@ -100,7 +100,7 @@
 
             public const string FoodLegion = Boss + "FoodLegion/";
 
-			//public const string Cumulor = Boss + "Cumulor/";
+			public const string Shelledrake = Boss + "Shelledrake/";
 
 			public const string Critters = Directory + "Critters/";
 

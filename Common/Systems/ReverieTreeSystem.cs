@@ -16,7 +16,7 @@ namespace ReverieMod.Common.Systems
     {
         public static int treeWood = TileID.LivingWood;
         public static int treeWall = WallID.LivingWoodUnsafe;
-        public static int canopyWall = WallID.LivingLeaf;
+        public static int canopyWall = WallID.FlowerUnsafe;
         public static int treeLeaves = TileID.LeafBlock;
         public static int canopyGrass = ModContent.TileType<WoodlandGrassTile>();
 
@@ -218,15 +218,15 @@ namespace ReverieMod.Common.Systems
                     TRUNK_X = SPAWN_X + SPAWN_DISTANCE;
                 }
 
-                int TRUNK_WIDTH = 11;
+                int TRUNK_WIDTH = 13;
                 int TRUNK_TOP = (int)(SPAWN_Y - (Main.maxTilesY - SPAWN_Y) / 14);
-                int TRUNK_BOTTOM = (int)(Main.rockLayer - (Main.maxTilesY - Main.rockLayer) / 16);
+                int TRUNK_BOTTOM = (int)(Main.rockLayer + (Main.maxTilesY - Main.maxTilesY) / 16);
 
                 int CANOPY_CENTER_X = TRUNK_X;
                 int CANOPY_CENTER_Y = TRUNK_BOTTOM;
 
-                int CANOPY_RADIUS_H = (int)(Main.maxTilesX * 0.045f);
-                int CANOPY_RADIUS_V = (int)(Main.maxTilesY * 0.125f);
+                int CANOPY_RADIUS_H = (int)(Main.maxTilesX * 0.032f);
+                int CANOPY_RADIUS_V = (int)(Main.maxTilesY * 0.127f);
 
                 TRUNK_X = Math.Clamp(TRUNK_X, 0, Main.maxTilesX - 1); //safety
 
@@ -265,7 +265,7 @@ namespace ReverieMod.Common.Systems
                 int cellX = CANOPY_RADIUS_H - (CANOPY_RADIUS_H / 48);
                 int cellY = CANOPY_RADIUS_V - (CANOPY_RADIUS_V / 48);
 
-                Gen_CaveNoiseMap(CANOPY_CENTER_X, CANOPY_CENTER_Y, cellX, cellY, 49, 9, true, 0, false);
+                Gen_CaveNoiseMap(CANOPY_CENTER_X, CANOPY_CENTER_Y, cellX, cellY, 50, 9, true, 0, false);
                 Gen_CaveNoiseMap_Wall(CANOPY_CENTER_X, CANOPY_CENTER_Y, cellX, cellY, 50, 8);
 
                         GenerateLeaves(TRUNK_X, TRUNK_TOP, 4);

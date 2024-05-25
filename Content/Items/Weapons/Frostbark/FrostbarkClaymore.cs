@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using ReverieMod.Content.Projectiles.Melee;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -24,23 +23,14 @@ namespace ReverieMod.Content.Items.Weapons.Frostbark
             Item.rare = ItemRarityID.White;
             Item.value = Item.sellPrice(silver: 2);
 
-            Item.width = Item.height = 34;
-            Item.shoot = ModContent.ProjectileType<FrostbarkClaymoreProjectile>();
-            Item.UseSound = SoundID.DD2_MonkStaffSwing;
+            Item.width = Item.height = 55;
         }
-        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            int direction = player.direction;
-            if (direction == 0)
+            if (Main.rand.NextBool(10))
             {
-                direction = 1;
+                target.AddBuff(BuffID.Frostburn, 90);
             }
-
-            Projectile projectile = Projectile.NewProjectileDirect(default, position, Vector2.Zero, type, damage, knockback, player.whoAmI);
-            projectile.netUpdate = true;
-            projectile.direction = direction;
-
-            return false;
         }
 
         public override void AddRecipes()

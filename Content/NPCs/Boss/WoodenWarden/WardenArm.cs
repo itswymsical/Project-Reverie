@@ -27,7 +27,7 @@ namespace ReverieMod.Content.NPCs.Bosses.WoodenWarden
         public override void SetStaticDefaults()
         {
             NPCID.Sets.TrailCacheLength[NPC.type] = 5;
-            NPCID.Sets.TrailingMode[NPC.type] = 0;
+            NPCID.Sets.TrailingMode[NPC.type] = 4;
 
             Main.npcFrameCount[NPC.type] = 3;
         }
@@ -149,7 +149,7 @@ namespace ReverieMod.Content.NPCs.Bosses.WoodenWarden
 					NPC.netUpdate = true;
 					Vector2 PlayerPosition = new Vector2(target.Center.X - NPC.Center.X, target.Center.Y - NPC.Center.Y);
 					PlayerPosition.Normalize();
-					NPC.velocity = PlayerPosition * 8f;
+					NPC.velocity = PlayerPosition * 9.5f;
 					DashTimer = 0;
 				}
 				if (NPC.life < NPC.lifeMax * 0.20f)
@@ -160,7 +160,7 @@ namespace ReverieMod.Content.NPCs.Bosses.WoodenWarden
 						NPC.netUpdate = true;
 						Vector2 PlayerPosition = new Vector2(target.Center.X - NPC.Center.X, target.Center.Y - NPC.Center.Y);
 						PlayerPosition.Normalize();
-						NPC.velocity = PlayerPosition * 10.5f;
+						NPC.velocity = PlayerPosition * 13.5f;
 						DashTimer = 0;
 					}
 				}
@@ -214,7 +214,7 @@ namespace ReverieMod.Content.NPCs.Bosses.WoodenWarden
         public override void SetStaticDefaults()
         {
             NPCID.Sets.TrailCacheLength[NPC.type] = 5;
-            NPCID.Sets.TrailingMode[NPC.type] = 0;
+            NPCID.Sets.TrailingMode[NPC.type] = 4;
 
             Main.npcFrameCount[NPC.type] = 3;
         }
@@ -336,7 +336,7 @@ namespace ReverieMod.Content.NPCs.Bosses.WoodenWarden
                     NPC.netUpdate = true;
                     Vector2 PlayerPosition = new Vector2(target.Center.X - NPC.Center.X, target.Center.Y - NPC.Center.Y);
                     PlayerPosition.Normalize();
-                    NPC.velocity = PlayerPosition * 8f;
+                    NPC.velocity = PlayerPosition * 9.5f;
                     DashTimer = 0;
                 }
                 if (NPC.life < NPC.lifeMax * 0.20f)
@@ -347,7 +347,7 @@ namespace ReverieMod.Content.NPCs.Bosses.WoodenWarden
                         NPC.netUpdate = true;
                         Vector2 PlayerPosition = new Vector2(target.Center.X - NPC.Center.X, target.Center.Y - NPC.Center.Y);
                         PlayerPosition.Normalize();
-                        NPC.velocity = PlayerPosition * 10.5f;
+                        NPC.velocity = PlayerPosition * 13.5f;
                         DashTimer = 0;
                     }
                 }

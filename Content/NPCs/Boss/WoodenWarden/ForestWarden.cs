@@ -159,11 +159,15 @@ namespace ReverieMod.Content.NPCs.Boss.WoodenWarden
         private void Movement()
         {
             NPC.noTileCollide = true;
-            var position = new Vector2(target.Center.X, target.Center.Y - 320);
+            var position = new Vector2(target.Center.X, target.Center.Y - 290);
+            if (NPC.AnyNPCs(ModContent.NPCType<WardenArmLeft>()) || NPC.AnyNPCs(ModContent.NPCType<WardenArmRight>()))
+            {
+                position = new Vector2(target.Center.X, target.Center.Y - 320);
+            }
             float speed = Vector2.Distance(NPC.Center, position);
-            speed = MathHelper.Clamp(speed, -8f, 8f);
+            speed = MathHelper.Clamp(speed, -6f, 6f);
             Move(position, speed);
-            NPC.rotation = Utils.AngleLerp(NPC.rotation, NPC.velocity.X * 0.01f, 0.1f);
+            NPC.rotation = Utils.AngleLerp(NPC.rotation, NPC.velocity.X * 0.01f, 0.07f);
         }
         private void Slam()
         {

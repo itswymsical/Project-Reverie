@@ -1,0 +1,173 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\systems\\reverietreesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\systems\\reverietreesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\content\\npcs\\boss\\woodenwarden\\forestwarden.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:content\\npcs\\boss\\woodenwarden\\forestwarden.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\systems\\worldgenerationsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\systems\\worldgenerationsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\content\\npcs\\boss\\woodenwarden\\wardenarm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:content\\npcs\\boss\\woodenwarden\\wardenarm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\content\\items\\armor\\frostbark\\frostbarkhelm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:content\\items\\armor\\frostbark\\frostbarkhelm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\content\\items\\weapons\\frostbark\\frostbarkclaymore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:content\\items\\weapons\\frostbark\\frostbarkclaymore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\content\\items\\armor\\frostbark\\frostbarkgreaves.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:content\\items\\armor\\frostbark\\frostbarkgreaves.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\content\\items\\armor\\frostbark\\frostbarkhauberk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:content\\items\\armor\\frostbark\\frostbarkhauberk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\assets.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:assets.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "WardenArm.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\NPCs\\Boss\\WoodenWarden\\WardenArm.cs",
+              "RelativeDocumentMoniker": "Content\\NPCs\\Boss\\WoodenWarden\\WardenArm.cs",
+              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\NPCs\\Boss\\WoodenWarden\\WardenArm.cs",
+              "RelativeToolTip": "Content\\NPCs\\Boss\\WoodenWarden\\WardenArm.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAYwB0AAAAxAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-25T08:28:08.799Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ForestWarden.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\NPCs\\Boss\\WoodenWarden\\ForestWarden.cs",
+              "RelativeDocumentMoniker": "Content\\NPCs\\Boss\\WoodenWarden\\ForestWarden.cs",
+              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\NPCs\\Boss\\WoodenWarden\\ForestWarden.cs",
+              "RelativeToolTip": "Content\\NPCs\\Boss\\WoodenWarden\\ForestWarden.cs",
+              "ViewState": "AQIAACMAAAAAAAAAAAAgwKQAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-25T08:27:27.601Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "WorldGenerationSystem.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\WorldGenerationSystem.cs",
+              "RelativeDocumentMoniker": "Common\\Systems\\WorldGenerationSystem.cs",
+              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\WorldGenerationSystem.cs",
+              "RelativeToolTip": "Common\\Systems\\WorldGenerationSystem.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAABhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-25T08:19:38.438Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ReverieTreeSystem.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\ReverieTreeSystem.cs",
+              "RelativeDocumentMoniker": "Common\\Systems\\ReverieTreeSystem.cs",
+              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\ReverieTreeSystem.cs",
+              "RelativeToolTip": "Common\\Systems\\ReverieTreeSystem.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-25T07:22:13.512Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FrostbarkHelm.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Items\\Armor\\Frostbark\\FrostbarkHelm.cs",
+              "RelativeDocumentMoniker": "Content\\Items\\Armor\\Frostbark\\FrostbarkHelm.cs",
+              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Items\\Armor\\Frostbark\\FrostbarkHelm.cs",
+              "RelativeToolTip": "Content\\Items\\Armor\\Frostbark\\FrostbarkHelm.cs",
+              "ViewState": "AQIAABwAAAAAAAAAAAA5wCkAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-25T07:18:52.256Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "FrostbarkGreaves.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Items\\Armor\\Frostbark\\FrostbarkGreaves.cs",
+              "RelativeDocumentMoniker": "Content\\Items\\Armor\\Frostbark\\FrostbarkGreaves.cs",
+              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Items\\Armor\\Frostbark\\FrostbarkGreaves.cs",
+              "RelativeToolTip": "Content\\Items\\Armor\\Frostbark\\FrostbarkGreaves.cs",
+              "ViewState": "AQIAABcAAAAAAAAAAAA3wAsAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-25T07:08:41.055Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "FrostbarkHauberk.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Items\\Armor\\Frostbark\\FrostbarkHauberk.cs",
+              "RelativeDocumentMoniker": "Content\\Items\\Armor\\Frostbark\\FrostbarkHauberk.cs",
+              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Items\\Armor\\Frostbark\\FrostbarkHauberk.cs",
+              "RelativeToolTip": "Content\\Items\\Armor\\Frostbark\\FrostbarkHauberk.cs",
+              "ViewState": "AQIAABcAAAAAAAAAAAAawBYAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-25T06:31:49.214Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "FrostbarkClaymore.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Items\\Weapons\\Frostbark\\FrostbarkClaymore.cs",
+              "RelativeDocumentMoniker": "Content\\Items\\Weapons\\Frostbark\\FrostbarkClaymore.cs",
+              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Items\\Weapons\\Frostbark\\FrostbarkClaymore.cs",
+              "RelativeToolTip": "Content\\Items\\Weapons\\Frostbark\\FrostbarkClaymore.cs",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAYwB4AAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T21:20:32.863Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Assets.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Assets.cs",
+              "RelativeDocumentMoniker": "Assets.cs",
+              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Assets.cs",
+              "RelativeToolTip": "Assets.cs",
+              "ViewState": "AQIAADUAAAAAAAAAAAAEwEEAAAACAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T20:45:24.164Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

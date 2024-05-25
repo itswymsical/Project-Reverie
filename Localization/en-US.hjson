@@ -97,6 +97,21 @@ Mods: {
 				DisplayName: Woodland Dirt
 				Tooltip: ""
 			}
+
+			FrostbarkGreaves: {
+				Tooltip: ""
+				DisplayName: Frostbark Greaves
+			}
+
+			FrostbarkHauberk: {
+				DisplayName: Frostbark Hauberk
+				Tooltip: ""
+			}
+
+			FrostbarkHelm: {
+				DisplayName: Frostbark Helm
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {

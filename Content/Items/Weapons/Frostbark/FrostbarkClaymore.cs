@@ -29,7 +29,7 @@ namespace ReverieMod.Content.Items.Weapons.Frostbark
         {
             if (Main.rand.NextBool(10))
             {
-                target.AddBuff(BuffID.Frostburn, 90);
+                target.AddBuff(BuffID.Frostburn, 90); //1.5 seconds, 60 ticks per sec
             }
         }
 

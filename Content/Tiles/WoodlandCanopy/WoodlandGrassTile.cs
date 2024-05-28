@@ -1,8 +1,5 @@
 using Microsoft.Xna.Framework;
-using ReLogic.Content;
 using ReverieMod.Common.Systems;
-using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -61,7 +58,7 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
                     for (int y = CANOPY_CENTER_Y - CANOPY_RADIUS_V; y <= CANOPY_CENTER_Y + CANOPY_RADIUS_V; y++)
                     {
 
-                        if (ReverieTreeSystem.InsideCanopyRadius(x, y, CANOPY_CENTER_X, CANOPY_CENTER_Y, CANOPY_RADIUS_H, CANOPY_RADIUS_V))
+                        if (CanopyWorldGen.InsideCanopy(x, y, CANOPY_CENTER_X, CANOPY_CENTER_Y, CANOPY_RADIUS_H, CANOPY_RADIUS_V))
                         {
                             for (int grassX = i - 1; grassX <= i + 1; grassX++)
                             {
@@ -83,7 +80,7 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
                 }
             }
 
-            if (WorldGen.genRand.NextBool(10) && !tileBelow.HasTile && !(tileBelow.LiquidType == LiquidID.Lava))
+            if (WorldGen.genRand.NextBool() && !tileBelow.HasTile && !(tileBelow.LiquidType == LiquidID.Lava))
             {
                 if (!tile.BottomSlope)
                 {

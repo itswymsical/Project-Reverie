@@ -1,7 +1,7 @@
 Items: {
 	TestItem: {
-		DisplayName: Test Item
-		Tooltip: This is a Test Item.
+		DisplayName: Dirt World
+		Tooltip: ""
 	}
 
 	CopperShovel: {
@@ -56,21 +56,6 @@ Items: {
 
 	AlluviumOre: {
 		DisplayName: Alluvium Ore
-		Tooltip: ""
-	}
-
-	Loam: {
-		DisplayName: Loam
-		Tooltip: ""
-	}
-
-	LoamGrassSeeds: {
-		DisplayName: Loam Grass Seeds
-		Tooltip: ""
-	}
-
-	Slate: {
-		DisplayName: Slate
 		Tooltip: ""
 	}
 }

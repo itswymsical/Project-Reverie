@@ -59,7 +59,7 @@ Mods: {
 			}
 
 			TestItem: {
-				DisplayName: Test Item
+				DisplayName: Dirt World
 				Tooltip: ""
 			}
 
@@ -68,33 +68,8 @@ Mods: {
 				Tooltip: ""
 			}
 
-			Loam: {
-				DisplayName: Loam
-				Tooltip: ""
-			}
-
-			LoamGrassSeeds: {
-				DisplayName: Loam Grass Seeds
-				Tooltip: ""
-			}
-
-			Slate: {
-				DisplayName: Slate
-				Tooltip: ""
-			}
-
 			FrostbarkClaymore: {
 				DisplayName: Frostbark Claymore
-				Tooltip: ""
-			}
-
-			WoodlandGrassSeeds: {
-				DisplayName: Woodland Grass Seeds
-				Tooltip: ""
-			}
-
-			WoodlandDirt: {
-				DisplayName: Woodland Dirt
 				Tooltip: ""
 			}
 

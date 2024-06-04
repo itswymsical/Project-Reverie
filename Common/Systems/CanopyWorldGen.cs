@@ -196,7 +196,7 @@ namespace ReverieMod.Common.Systems
                 int TRUNK_BOTTOM = (int)(Main.worldSurface + (Main.maxTilesY - Main.maxTilesY) / 12);
 
                 int CANOPY_X = TRUNK_X;
-                int CANOPY_Y = TRUNK_BOTTOM;
+                int CANOPY_Y = TRUNK_BOTTOM + (TRUNK_BOTTOM / 2);
 
                 //Horizontal and Vertical Radius of the Elipse
                 int CANOPY_H = (int)(Main.maxTilesX * 0.035f);
@@ -309,7 +309,7 @@ namespace ReverieMod.Common.Systems
                 int TRUNK_BOTTOM = (int)(Main.worldSurface + (Main.maxTilesY - Main.maxTilesY) / 12);
 
                 int CANOPY_X = TRUNK_X;
-                int CANOPY_Y = TRUNK_BOTTOM;
+                int CANOPY_Y = TRUNK_BOTTOM + (TRUNK_BOTTOM / 2);
 
                 //Horizontal and Vertical Radius of the Elipse
                 int CANOPY_H = (int)(Main.maxTilesX * 0.035f);
@@ -358,27 +358,9 @@ namespace ReverieMod.Common.Systems
 
                         if (InsideCanopy(x, y, CANOPY_X, CANOPY_Y, CANOPY_H, CANOPY_V))
                         {
-                            int vineLeft = 0;
-                            CanopyFoliage(x, ref y, ref vineLeft, (ushort)canopyVines);
-
                             Tile tile = Framing.GetTileSafely(x, y);
                             Tile tileBelow = Framing.GetTileSafely(x, y + 1);
                             Tile tileAbove = Framing.GetTileSafely(x, y - 1);
-                            for (int grassX = x - 1; grassX <= x + 1; grassX++)
-                            {
-                                for (int grassY = y - 1; grassY <= y + 1; grassY++)
-                                {
-                                    Tile tile2 = Framing.GetTileSafely(grassX, grassY);
-                                    if (!tile2.HasTile)
-                                    {
-                                        if (tile.TileType == TileID.Dirt)
-                                            tile.TileType = (ushort)canopyGrass;
-
-                                        if (tile.HasTile && tile2.WallType == 0)
-                                            tile.WallType = 0;
-                                    }
-                                }
-                            }
                             if (!tileAbove.HasTile && !(tileAbove.LiquidType == LiquidID.Lava) && !(tileAbove.LiquidType == LiquidID.Water))
                             {
                                 if (!tile.BottomSlope)
@@ -392,31 +374,50 @@ namespace ReverieMod.Common.Systems
                                     }
                                 }
                             }
+                            for (int grassX = x - 1; grassX <= x + 1; grassX++)
+                            {
+                                if (!tileBelow.HasTile && !(tileBelow.LiquidType == LiquidID.Lava) && !(tileBelow.LiquidType == LiquidID.Water))
+                                {
+                                    if (!tile.BottomSlope)
+                                    {
+                                        tileBelow.TileType = (ushort)ModContent.TileType<CanopyVine>();
+                                        tileBelow.HasTile = true;
+                                        WorldGen.SquareTileFrame(x, y + 1, true);
+                                        if (Main.netMode == NetmodeID.Server)
+                                        {
+                                            NetMessage.SendTileSquare(-1, x, y + 1, 1, 0);
+                                        }
+                                    }
+                                }
+                                if (!tileAbove.HasTile && !(tileAbove.LiquidType == LiquidID.Lava) && !(tileAbove.LiquidType == LiquidID.Water))
+                                {
+                                    if (!tile.BottomSlope)
+                                    {
+                                        tileAbove.TileType = (ushort)ModContent.TileType<CanopyGrassFoliageTile>();
+                                        tileAbove.HasTile = true;
+                                        WorldGen.SquareTileFrame(x, y - 1, true);
+                                        if (Main.netMode == NetmodeID.Server)
+                                        {
+                                            NetMessage.SendTileSquare(-1, x, y - 1, 1, 0);
+                                        }
+                                    }
+                                }
+                                for (int grassY = y - 1; grassY <= y + 1; grassY++)
+                                {
+                                    Tile tile2 = Framing.GetTileSafely(grassX, grassY);
+                                    if (!tile2.HasTile)
+                                    {
+                                        if (tile.TileType == TileID.Dirt || TileID.Sets.Grass[tile.TileType])
+                                            tile.TileType = (ushort)canopyGrass;
+
+                                        if (tile.HasTile && tile2.WallType == 0)
+                                            tile.WallType = 0;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
-            }
-            
-
-            private void CanopyFoliage(int i, ref int j, ref int vineLeft, ushort vineType)
-            {
-                Tile tile = Framing.GetTileSafely(i, j);
-                Tile tileBelow = Framing.GetTileSafely(i, j + 1);
-
-                //try vines
-                if (vineLeft > 0 && !tile.HasTile)
-                {
-                    tile.HasTile = true;
-                    tile.TileType = vineType;
-                    vineLeft--;
-                }
-                else
-                    vineLeft = 0;
-
-                if (tile.HasTile && !tile.BottomSlope && tile.TileType == canopyGrass && WorldGen.genRand.NextBool(3, 5))
-                    vineLeft = WorldGen.genRand.Next(1, 10);
-
-                j++;
             }
         }
     }

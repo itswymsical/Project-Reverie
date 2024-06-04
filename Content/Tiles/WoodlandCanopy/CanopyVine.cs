@@ -22,7 +22,7 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
 
             Main.tileNoFail[Type] = true;
             Main.tileNoAttach[Type] = true;
-            Main.tileLighted[Type] = false;
+            Main.tileLighted[Type] = true;
             HitSound = SoundID.Grass;
             DustType = DustID.Grass;
 
@@ -69,12 +69,16 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
                 WorldGen.KillTile(i, j + 1);
             }
         }
+        public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
+        {
+            return true;
+        }
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             Tile tile = Framing.GetTileSafely(i, j);
             Texture2D glow = ModContent.Request<Texture2D>("ReverieMod" + (Assets.Tiles.WoodlandCanopy + Name) + "_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
-            spriteBatch.Draw(glow, new Vector2(i * 16, j * 16 + 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX - 108, 0, 16, 16), default);
+            spriteBatch.Draw(glow, new Vector2(i * 16, j * 16 + 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX - 108, 0, 16, 16), Color.Aquamarine);
 
         }
     }

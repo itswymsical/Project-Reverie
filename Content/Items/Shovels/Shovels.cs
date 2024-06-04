@@ -13,9 +13,6 @@ namespace ReverieMod.Content.Items.Shovels
 
     public abstract class ShovelItem : ModItem
     {
-        // Constants
-        protected const int DefaultShovelRange = 5;
-
         protected override bool CloneNewInstances => false;
 
         public void DiggingPower(int digPower)
@@ -27,7 +24,9 @@ namespace ReverieMod.Content.Items.Shovels
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             TooltipLine tooltipLine = new TooltipLine(Mod, "ReverieMod:Digging Power", $"{Item.GetGlobalItem<ReverieGlobalItem>().digPower}% digging power");
+            //TooltipLine tooltipLine1 = new TooltipLine(Mod, "ReverieMod:Shovel Info", "Digs a 'plus-shaped' crater");
             tooltips.Add(tooltipLine);
+            //tooltips.Add(tooltipLine1);
         }
 
         public static int GetDigPower(int shovel)
@@ -49,7 +48,7 @@ namespace ReverieMod.Content.Items.Shovels
         }
         public override bool? UseItem(Player player)
         {
-            UseShovel(player, DefaultShovelRange);
+            UseShovel(player, player.blockRange);
             return true;
         }
 
@@ -86,9 +85,9 @@ namespace ReverieMod.Content.Items.Shovels
                 DiggingPower(28);
                 Item.DamageType = DamageClass.Melee;               
                 Item.damage = 2;
-                Item.useTime = Item.useAnimation = 25;
+                Item.useTime = Item.useAnimation = 24;
                 Item.width = Item.height = 32;
-
+                
                 Item.autoReuse = Item.useTurn = true;
 
                 Item.value = Item.sellPrice(copper: 5);             
@@ -111,7 +110,7 @@ namespace ReverieMod.Content.Items.Shovels
                 DiggingPower(32);
                 Item.DamageType = DamageClass.Melee;
                 Item.damage = 3;
-                Item.useTime = Item.useAnimation = 25;
+                Item.useTime = Item.useAnimation = 24;
                 Item.width = Item.height = 32;
 
                 Item.autoReuse = Item.useTurn = true;
@@ -139,7 +138,7 @@ namespace ReverieMod.Content.Items.Shovels
 
                 Item.DamageType = DamageClass.Melee;
                 Item.damage = 2;
-                Item.useTime = Item.useAnimation = 25;
+                Item.useTime = Item.useAnimation = 24;
                 Item.width = Item.height = 32;
 
                 Item.autoReuse = Item.useTurn = true;
@@ -223,7 +222,7 @@ namespace ReverieMod.Content.Items.Shovels
 
                 Item.DamageType = DamageClass.Melee;
                 Item.damage = 3;
-                Item.useTime = Item.useAnimation = 21;
+                Item.useTime = Item.useAnimation = 22;
                 Item.width = Item.height = 32;
 
                 Item.autoReuse = Item.useTurn = true;
@@ -251,7 +250,7 @@ namespace ReverieMod.Content.Items.Shovels
 
                 Item.DamageType = DamageClass.Melee;
                 Item.damage = 4;
-                Item.useTime = Item.useAnimation = 20;
+                Item.useTime = Item.useAnimation = 21;
                 Item.width = Item.height = 32;
 
                 Item.autoReuse = Item.useTurn = true;

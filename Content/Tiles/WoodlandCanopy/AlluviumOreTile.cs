@@ -15,7 +15,6 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
 
             Main.tileBlockLight[Type] = true;
             Main.tileLighted[Type] = true;
-
             DustType = 151;
             MineResist = 0.35f;
             MinPick = 50;

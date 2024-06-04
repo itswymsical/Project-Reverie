@@ -93,7 +93,7 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
                     }
                 }
             }
-            if (WorldGen.genRand.NextBool(3) && !tileAbove.HasTile && !(tileBelow.LiquidType == LiquidID.Lava))
+            if (WorldGen.genRand.NextBool() && !tileAbove.HasTile && !(tileBelow.LiquidType == LiquidID.Lava))
             {
                 if (!tile.BottomSlope && !tile.TopSlope && !tile.IsHalfBlock && !tile.TopSlope)
                 {
@@ -101,6 +101,17 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
                     tileAbove.HasTile = true;
                     tileAbove.TileFrameY = 0;
                     tileAbove.TileFrameX = (short)(WorldGen.genRand.Next(8) * 18);
+                    WorldGen.SquareTileFrame(i, j - 1, true);
+                    if (Main.netMode == NetmodeID.Server)
+                        NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);
+                }
+            }
+            if (WorldGen.genRand.NextBool() && !tileAbove.HasTile && !(tileBelow.LiquidType == LiquidID.Lava))
+            {
+                if (!tile.BottomSlope && !tile.TopSlope && !tile.IsHalfBlock && !tile.TopSlope)
+                {
+                    tileAbove.TileType = (ushort)ModContent.TileType<AlderwoodSapling>();
+                    tileAbove.HasTile = true;
                     WorldGen.SquareTileFrame(i, j - 1, true);
                     if (Main.netMode == NetmodeID.Server)
                         NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);

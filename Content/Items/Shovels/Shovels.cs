@@ -13,6 +13,7 @@ namespace ReverieMod.Content.Items.Shovels
 
     public abstract class ShovelItem : ModItem
     {
+        protected int DefaultShovelRange = 5;
         protected override bool CloneNewInstances => false;
 
         public void DiggingPower(int digPower)
@@ -48,7 +49,7 @@ namespace ReverieMod.Content.Items.Shovels
         }
         public override bool? UseItem(Player player)
         {
-            UseShovel(player, player.blockRange);
+            UseShovel(player, DefaultShovelRange);
             return true;
         }
 
@@ -90,8 +91,9 @@ namespace ReverieMod.Content.Items.Shovels
                 
                 Item.autoReuse = Item.useTurn = true;
 
-                Item.value = Item.sellPrice(copper: 5);             
-                Item.useStyle = ItemUseStyleID.Swing;
+                Item.value = Item.sellPrice(copper: 5);
+                Item.holdStyle = ItemHoldStyleID.HoldGolfClub;
+                Item.useStyle = ItemUseStyleID.GolfPlay;
                 Item.UseSound = SoundID.Item18;
             }
             public override void AddRecipes()

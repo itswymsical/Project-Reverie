@@ -14,7 +14,7 @@ namespace ReverieMod.Common.Systems
         public static int TRUNK_X;
         public static int treeWood = TileID.LivingWood;
         public static int treeWall = WallID.LivingWoodUnsafe;
-        public static int canopyWall = WallID.FlowerUnsafe;
+        public static int canopyWall = WallID.LivingLeaf;
         public static int treeLeaves = TileID.LeafBlock;
         public static int canopyGrass = ModContent.TileType<WoodlandGrassTile>();
         public static int canopyVines = ModContent.TileType<CanopyVine>();
@@ -125,7 +125,7 @@ namespace ReverieMod.Common.Systems
 
                     if (solidNeighbors > 4)
                         newMap[x, y] = true;
-                    else if (solidNeighbors < 4)
+                    else if (solidNeighbors <= 4)
                         newMap[x, y] = false;
                     else
                         newMap[x, y] = map[x, y];
@@ -166,7 +166,7 @@ namespace ReverieMod.Common.Systems
 
             return count;
         }
-       
+
         //TODO: Create a fractal Tree or use L-systems to procedurally generate a detailed tree.
         public class CanopyPass : GenPass
         {
@@ -205,14 +205,23 @@ namespace ReverieMod.Common.Systems
                 TRUNK_X = Math.Clamp(TRUNK_X, 0, Main.maxTilesX - 1); //safety
                 #endregion
 
+                int numTrees = 10; // Number of willow trees to generate
+                int width = Main.maxTilesX;
+
+                for (int i = 0; i < numTrees; i++)
+                {
+                    int x = WorldGen.genRand.Next(100, width - 100);
+                    int y = FindGroundLevel(x);
+
+                    if (y != -1)
+                    {
+                        GenerateWillowTree(x, y);
+                    }
+                }
                 for (int x = CANOPY_X - CANOPY_H; x <= CANOPY_X + CANOPY_H; x++)
                 {
                     for (int y = CANOPY_Y - CANOPY_V; y <= CANOPY_Y + CANOPY_V; y++)
                     {
-                        progress.Set(x / (float)((float)(CANOPY_X * 1.1f) - 1)); 
-                        // Controls the progress bar, should only be set between 0f and 1f
-                        // TODO: make the progress bar accurately calculate the the percentage from the first block generated to the last within the elipse.
-
                         if (InsideCanopy(x, y, CANOPY_X, CANOPY_Y, CANOPY_H, CANOPY_V))
                         {
                             WorldGen.KillWall(x, y);
@@ -236,11 +245,12 @@ namespace ReverieMod.Common.Systems
                                 }
                             }
                         }
+                        progress.Set((float)((x - (CANOPY_X - CANOPY_H)) * (2 * CANOPY_V) + (y - (CANOPY_Y - CANOPY_V))) / ((2 * CANOPY_H) * (2 * CANOPY_V)));
                     }
                 }
 
-                Gen_NoiseMap(CANOPY_X, CANOPY_Y, CANOPY_H - (CANOPY_H / 56), CANOPY_V - (CANOPY_V / 48), 50, 9, true, 0, false);
-                Gen_NoiseMap_Walls(CANOPY_X, CANOPY_Y, CANOPY_H - (CANOPY_H / 56), CANOPY_V - (CANOPY_V / 48), 50, 8);
+                Gen_NoiseMap(CANOPY_X, CANOPY_Y, CANOPY_H - (CANOPY_H / 128), CANOPY_V - (CANOPY_V / 128), 63, 15, true, 0, false);
+                Gen_NoiseMap_Walls(CANOPY_X, CANOPY_Y, CANOPY_H - (CANOPY_H / 128), CANOPY_V - (CANOPY_V / 128), 62, 15);
 
                 GenerateLeaves(TRUNK_X, TRUNK_TOP, 4);
                 if (Main.netMode == NetmodeID.Server)
@@ -279,7 +289,62 @@ namespace ReverieMod.Common.Systems
                     }
                 }
             }
+
+            private int FindGroundLevel(int x)
+            {
+                for (int y = 0; y < Main.maxTilesY; y++)
+                {
+                    if (Main.tile[x, y].HasTile && Main.tileSolid[Main.tile[x, y].TileType])
+                    {
+                        return y;
+                    }
+                }
+                return -1; // No ground found
+            }
+
+            private void GenerateWillowTree(int x, int groundY)
+            {
+                int trunkHeight = WorldGen.genRand.Next(8, 15);
+                int leafRadius = WorldGen.genRand.Next(5, 8);
+
+                // Generate trunk
+                for (int y = groundY - trunkHeight; y <= groundY; y++)
+                {
+                    WorldGen.PlaceWall(x, y, WallID.LivingWood);
+                }
+
+                // Generate leaves
+                for (int dx = -leafRadius; dx <= leafRadius; dx++)
+                {
+                    for (int dy = -leafRadius; dy <= leafRadius; dy++)
+                    {
+                        int leafX = x + dx;
+                        int leafY = groundY - trunkHeight + dy;
+
+                        if (Math.Abs(dx) + Math.Abs(dy) < leafRadius + WorldGen.genRand.Next(-1, 2))
+                        {
+                            WorldGen.PlaceWall(leafX, leafY, WallID.LivingLeaf);
+                        }
+                    }
+                }
+
+                // Generate drooping leaves
+                for (int dx = -leafRadius / 2; dx <= leafRadius / 2; dx++)
+                {
+                    for (int dy = 0; dy <= leafRadius; dy++)
+                    {
+                        int leafX = x + dx;
+                        int leafY = groundY - trunkHeight + dy;
+
+                        if (WorldGen.genRand.NextFloat() < 0.3f)
+                        {
+                            WorldGen.PlaceWall(leafX, leafY, WallID.LivingLeaf);
+                        }
+                    }
+                }
+            }
         }
+
         public class ReverieTreePass : GenPass
         {
             public ReverieTreePass(string name, float loadWeight) : base(name, loadWeight)

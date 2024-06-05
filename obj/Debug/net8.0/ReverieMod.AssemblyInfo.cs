@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ReverieMod")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5d1a4f4f66f323a17c27145e83a7e80901727171")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+41504525d331f2461533bb9ff85593de555793b2")]
 [assembly: System.Reflection.AssemblyProductAttribute("ReverieMod")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ReverieMod")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

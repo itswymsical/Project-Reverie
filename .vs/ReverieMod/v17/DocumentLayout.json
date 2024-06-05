@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\content\\tiles\\woodlandcanopy\\canopyvine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:content\\tiles\\woodlandcanopy\\canopyvine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\systems\\canopyworldgen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\systems\\canopyworldgen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\content\\tiles\\woodlandcanopy\\alluviumoretile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:content\\tiles\\woodlandcanopy\\alluviumoretile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\content\\items\\shovels\\shovels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:content\\items\\shovels\\shovels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\utils\\perlinnoise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:utils\\perlinnoise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\content\\tiles\\woodlandcanopy\\canopyvine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:content\\tiles\\woodlandcanopy\\canopyvine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +26,58 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Shovels.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Items\\Shovels\\Shovels.cs",
+              "RelativeDocumentMoniker": "Content\\Items\\Shovels\\Shovels.cs",
+              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Items\\Shovels\\Shovels.cs",
+              "RelativeToolTip": "Content\\Items\\Shovels\\Shovels.cs",
+              "ViewState": "AQIAAE8AAAAAAAAAAADwvzMAAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-04T23:09:37.276Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PerlinNoise.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Utils\\PerlinNoise.cs",
+              "RelativeDocumentMoniker": "Utils\\PerlinNoise.cs",
+              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Utils\\PerlinNoise.cs",
+              "RelativeToolTip": "Utils\\PerlinNoise.cs",
+              "ViewState": "AQIAADUAAAAAAAAAAAAgwAgAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-04T20:16:58.07Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "CanopyWorldGen.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\CanopyWorldGen.cs",
+              "RelativeDocumentMoniker": "Common\\Systems\\CanopyWorldGen.cs",
+              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\CanopyWorldGen.cs",
+              "RelativeToolTip": "Common\\Systems\\CanopyWorldGen.cs",
+              "ViewState": "AQIAAO4AAAAAAAAAAAAAwPwAAABzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-04T20:13:13.794Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "CanopyVine.cs",
               "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Tiles\\WoodlandCanopy\\CanopyVine.cs",
               "RelativeDocumentMoniker": "Content\\Tiles\\WoodlandCanopy\\CanopyVine.cs",
               "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Tiles\\WoodlandCanopy\\CanopyVine.cs",
               "RelativeToolTip": "Content\\Tiles\\WoodlandCanopy\\CanopyVine.cs",
-              "ViewState": "AQIAACwAAAAAAAAAAAAgwFAAAACiAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-30T09:20:05.792Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AlluviumOreTile.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Tiles\\WoodlandCanopy\\AlluviumOreTile.cs",
-              "RelativeDocumentMoniker": "Content\\Tiles\\WoodlandCanopy\\AlluviumOreTile.cs",
-              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Tiles\\WoodlandCanopy\\AlluviumOreTile.cs",
-              "RelativeToolTip": "Content\\Tiles\\WoodlandCanopy\\AlluviumOreTile.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAABAAAAAqAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-28T15:17:48.246Z",
               "EditorCaption": ""
             }
           ]

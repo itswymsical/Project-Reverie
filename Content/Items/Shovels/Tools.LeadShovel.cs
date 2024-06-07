@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using ReverieMod.Content.Items.ClassTypes;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 

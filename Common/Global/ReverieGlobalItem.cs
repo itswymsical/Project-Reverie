@@ -1,8 +1,5 @@
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using ReverieMod.Common.Players;
 
 namespace ReverieMod.Common.Global
 {

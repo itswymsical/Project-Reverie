@@ -5,21 +5,21 @@ using Terraria.ModLoader;
 
 namespace ReverieMod.Content.Items.Shovels
 {
-    public class TungstenShovel : ShovelItem
+    public class PlatinumShovel : ShovelItem
     {
         public override string Texture => Assets.Items.Shovels + Name;
         public override void SetDefaults()
         {
-            DiggingPower(50);
+            DiggingPower(59);
             Item.DamageType = DamageClass.Melee;
-            Item.damage = 5;
-            Item.useTime = Item.useAnimation = 18;
+            Item.damage = 6;
+            Item.useTime = Item.useAnimation = 15;
             Item.width = Item.height = 32;
-            Item.knockBack = 6;
+            Item.knockBack = 5;
 
             Item.autoReuse = Item.useTurn = true;
 
-            Item.value = Item.sellPrice(silver: 15);
+            Item.value = Item.sellPrice(silver: 30);
 
             Item.useStyle = ItemUseStyleID.Swing;
             Item.UseSound = SoundID.Item18;
@@ -28,7 +28,7 @@ namespace ReverieMod.Content.Items.Shovels
         {
             Recipe recipe = CreateRecipe();
             recipe.AddIngredient(ItemID.Wood, 4);
-            recipe.AddIngredient(ItemID.TungstenBar, 9);
+            recipe.AddIngredient(ItemID.PlatinumBar, 9);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();
         }

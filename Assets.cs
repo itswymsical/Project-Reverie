@@ -13,7 +13,7 @@
 
         public const string Music = "Assets/Music/";
 
-        public const string PlaceholderTexture = TextureDirectory + "Unloaded";
+        public const string PlaceholderTexture = TextureDirectory + "UnrenderedTexture";
 
 		public const string Icon = "ReverieMod/icon";
 

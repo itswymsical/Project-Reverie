@@ -87,6 +87,11 @@ Mods: {
 				DisplayName: Frostbark Helm
 				Tooltip: ""
 			}
+
+			PearlwoodShovel: {
+				DisplayName: Pearlwood Shovel
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -101,6 +106,7 @@ Mods: {
 			FungoreSlam.DisplayName: Fungore Slam
 			FungoreSmoke.DisplayName: Fungore Smoke
 			FrostbarkClaymoreProjectile.DisplayName: Frostbark Claymore Projectile
+			CopperShovelSwung.DisplayName: Copper Shovel Swung
 		}
 	}
 }

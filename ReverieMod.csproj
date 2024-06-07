@@ -6,21 +6,12 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <AdditionalFiles Remove="Common\Systems\NewFolder\**" />
-    <Compile Remove="Common\Systems\NewFolder\**" />
-    <EmbeddedResource Remove="Common\Systems\NewFolder\**" />
-    <None Remove="Common\Systems\NewFolder\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Content\Items\Armor\Frostbark\FrostbarkHauberk.cs~RF32449b86.TMP" />
     <None Remove="Content\Items\Shovels\Shovels.cs~RF7b713434.TMP" />
     <None Remove="Helpers\DustHelpers.cs~RF7d9f0961.TMP" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Common\Configuration\" />
-    <Folder Include="Common\Cutscenes\" />
-    <Folder Include="Common\Items\" />
-    <Folder Include="Content\Projectiles\Frostbark\" />
+    <Folder Include="Content\Projectiles\" />
+    <Folder Include="Content\Tiles\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="SubworldLibrary">

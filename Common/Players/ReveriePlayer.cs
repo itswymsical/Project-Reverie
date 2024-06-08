@@ -7,6 +7,8 @@ using Terraria.ModLoader;
 
 using ReverieMod.Helpers;
 using Terraria.ID;
+using ReverieMod.Common.Global;
+using ReverieMod.Common.Tiles;
 
 namespace ReverieMod.Common.Players
 {
@@ -32,6 +34,7 @@ namespace ReverieMod.Common.Players
         public int toadstoolCount;
 
         public bool mushroomHeal;
+        public bool Harvest;
 
         // BIOMES
         public bool ZoneWoodlandCanopy;

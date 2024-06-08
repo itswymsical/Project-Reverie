@@ -2,7 +2,7 @@ Mods: {
 	ReverieMod: {
 		Biomes: {
 			WoodlandCanopyBiome: {
-				TownNPCDialogueName: the Woodland Canopy Biome
+				TownNPCDialogueName: the Canopy
 				DisplayName: Woodland Canopy Biome
 			}
 		}
@@ -58,11 +58,6 @@ Mods: {
 				Tooltip: ""
 			}
 
-			TestItem: {
-				DisplayName: Dirt World
-				Tooltip: ""
-			}
-
 			AlluviumOre: {
 				DisplayName: Alluvium Ore
 				Tooltip: ""
@@ -88,9 +83,9 @@ Mods: {
 				Tooltip: ""
 			}
 
-			PearlwoodShovel: {
-				DisplayName: Pearlwood Shovel
-				Tooltip: ""
+			Microlith: {
+				DisplayName: Microlith
+				Tooltip: Naturally generated shinnies have a small chance to drop extra items
 			}
 		}
 

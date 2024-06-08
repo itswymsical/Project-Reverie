@@ -11,7 +11,7 @@ namespace ReverieMod.Content.Items.Shovels
         public override string Texture => Assets.Items.Shovels + Name;
         public override void SetDefaults()
         {
-            DiggingPower(35);
+            DiggingPower(30);
             Item.DamageType = DamageClass.Melee;
             Item.damage = 2;
             Item.useTime = Item.useAnimation = 20;

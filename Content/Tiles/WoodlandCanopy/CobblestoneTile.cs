@@ -15,7 +15,6 @@ namespace ReverieMod.Content.Tiles
             Main.tileMergeDirt[Type] = true;
             Main.tileBlockLight[Type] = true;
             Main.tileLighted[Type] = true;
-
             MineResist = 1.2f;
             HitSound = SoundID.Tink;
 

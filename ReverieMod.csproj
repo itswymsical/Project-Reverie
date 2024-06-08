@@ -10,6 +10,7 @@
     <None Remove="Helpers\DustHelpers.cs~RF7d9f0961.TMP" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\Items\NewFolder\" />
     <Folder Include="Content\Projectiles\" />
     <Folder Include="Content\Tiles\" />
   </ItemGroup>

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.GameContent.Biomes;
+using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Utilities;
@@ -28,6 +29,10 @@ namespace ReverieMod.Content.Items.ClassTypes
             TooltipLine power = new TooltipLine(Mod, "ReverieMod:Shovel Power", $"{Item.GetGlobalItem<ReverieGlobalItem>().digPower}% digging power");
             tooltips.Add(power);
 
+            TooltipLine message = new TooltipLine(Mod, "ReverieMod:Shovel Info", "Stronger on soft tiles" +
+                "\nSmart cursor utilizes 1x1 digging");
+            tooltips.Add(message);
+
             if (Item.pick <= 0)
                 return;
 
@@ -41,12 +46,6 @@ namespace ReverieMod.Content.Items.ClassTypes
                 tooltips.Add(veinMine);
             }*/      
         }
-
-        public static int GetDigPower(int shovel)
-        {
-            Item i = ModContent.GetModItem(shovel).Item;
-            return i.GetGlobalItem<ReverieGlobalItem>().digPower;
-        }
         public static void UseShovel(Player player, int rangeinBlocks)
         {
             //Vector2 pos = new Vector2(Main.MouseWorld.ToTileCoordinates16().X, Main.MouseWorld.ToTileCoordinates16().Y);
@@ -55,7 +54,7 @@ namespace ReverieMod.Content.Items.ClassTypes
         }
         public override bool? UseItem(Player player)
         {
-            if (!player.controlSmart || Main.cSmartCursorModeIsToggleAndNotHold && !player.controlSmart)
+            if (!Main.SmartCursorWanted)
             {
                 UseShovel(player, ShovelRange + Item.tileBoost);
             }

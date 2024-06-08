@@ -28,6 +28,10 @@ namespace ReverieMod.Common.Players
             if (!IsExcludedTile(i, j))
             {
                 Player.PickTile(i, j, digTile);
+                if (IsSoftTile(i, j))
+                {
+                    Player.PickTile(i, j, digTile + (digTile / 5)); //20%
+                }
             }
         }
         

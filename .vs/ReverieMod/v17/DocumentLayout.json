@@ -3,16 +3,19 @@
   "WorkspaceRootPath": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\global\\reverieglobalitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\global\\reverieglobalitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\systems\\canopyworldgen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\systems\\canopyworldgen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\players\\shovelplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\players\\shovelplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\systems\\worldgenerationsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\systems\\worldgenerationsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\content\\items\\classtypes\\shovel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:content\\items\\classtypes\\shovel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\cobal\\Downloads\\REVERIE\\BriarGeneration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\content\\tiles\\woodlandcanopy\\woodlandgrasstile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:content\\tiles\\woodlandcanopy\\woodlandgrasstile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,46 +25,57 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ShovelPlayer.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Players\\ShovelPlayer.cs",
-              "RelativeDocumentMoniker": "Common\\Players\\ShovelPlayer.cs",
-              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Players\\ShovelPlayer.cs",
-              "RelativeToolTip": "Common\\Players\\ShovelPlayer.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "DocumentIndex": 3,
+              "Title": "WoodlandGrassTile.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Tiles\\WoodlandCanopy\\WoodlandGrassTile.cs",
+              "RelativeDocumentMoniker": "Content\\Tiles\\WoodlandCanopy\\WoodlandGrassTile.cs",
+              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Tiles\\WoodlandCanopy\\WoodlandGrassTile.cs",
+              "RelativeToolTip": "Content\\Tiles\\WoodlandCanopy\\WoodlandGrassTile.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAYwB8AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T14:49:44.029Z",
-              "IsPinned": true
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ReverieGlobalItem.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Global\\ReverieGlobalItem.cs",
-              "RelativeDocumentMoniker": "Common\\Global\\ReverieGlobalItem.cs",
-              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Global\\ReverieGlobalItem.cs",
-              "RelativeToolTip": "Common\\Global\\ReverieGlobalItem.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T14:47:35.522Z",
-              "IsPinned": true,
+              "WhenOpened": "2024-06-08T04:51:34.793Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Shovel.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Items\\ClassTypes\\Shovel.cs",
-              "RelativeDocumentMoniker": "Content\\Items\\ClassTypes\\Shovel.cs",
-              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Items\\ClassTypes\\Shovel.cs",
-              "RelativeToolTip": "Content\\Items\\ClassTypes\\Shovel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAC0AAAAJAAAA",
+              "Title": "BriarGeneration.cs",
+              "DocumentMoniker": "C:\\Users\\cobal\\Downloads\\REVERIE\\BriarGeneration.cs",
+              "ToolTip": "C:\\Users\\cobal\\Downloads\\REVERIE\\BriarGeneration.cs",
+              "ViewState": "AQIAAPsHAAAAAAAAAAAkwBUIAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-06T23:59:39.771Z"
+              "WhenOpened": "2024-06-08T03:53:53.034Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CanopyWorldGen.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\CanopyWorldGen.cs",
+              "RelativeDocumentMoniker": "Common\\Systems\\CanopyWorldGen.cs",
+              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\CanopyWorldGen.cs",
+              "RelativeToolTip": "Common\\Systems\\CanopyWorldGen.cs",
+              "ViewState": "AQIAAIwAAAAAAAAAAAA7wOgAAABQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-08T02:57:26.591Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "WorldGenerationSystem.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\WorldGenerationSystem.cs",
+              "RelativeDocumentMoniker": "Common\\Systems\\WorldGenerationSystem.cs",
+              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\WorldGenerationSystem.cs",
+              "RelativeToolTip": "Common\\Systems\\WorldGenerationSystem.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB0AAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-08T00:53:18.957Z",
+              "EditorCaption": ""
             }
           ]
         }

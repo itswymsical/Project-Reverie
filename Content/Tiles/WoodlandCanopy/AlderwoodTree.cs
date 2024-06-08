@@ -31,7 +31,7 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
 
 		public override int SaplingGrowthType(ref int style) {
 			style = 0;
-			return ModContent.TileType<WoodlandCanopy.AlderwoodSapling>();
+			return ModContent.TileType<AlderwoodSapling>();
 		}
 
 		public override void SetTreeFoliageSettings(Tile tile, ref int xoffset, ref int treeFrame, ref int floorY, ref int topTextureFrameWidth, ref int topTextureFrameHeight) {

@@ -49,11 +49,6 @@ Items: {
 		Tooltip: ""
 	}
 
-	WoodShovel: {
-		DisplayName: Wood Shovel
-		Tooltip: ""
-	}
-
 	AlluviumOre: {
 		DisplayName: Alluvium Ore
 		Tooltip: ""
@@ -70,6 +65,6 @@ Projectiles: {
 Biomes: {
 	WoodlandCanopyBiome: {
 		DisplayName: Woodland Canopy
-		TownNPCDialogueName: the Woodland Canopy
+		TownNPCDialogueName: the Canopy
 	}
 }

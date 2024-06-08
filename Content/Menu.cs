@@ -27,7 +27,7 @@ namespace ReverieMod.Content
         }
         public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
         {
-            backgroundTexture = (Texture2D)ModContent.Request<Texture2D>("ReverieMod/Assets/Textures/pixel");
+            backgroundTexture = (Texture2D)ModContent.Request<Texture2D>("ReverieMod/Assets/Textures/Segment");
             spriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black);
             Main.dayTime = false;
             logoRotation = 0f;

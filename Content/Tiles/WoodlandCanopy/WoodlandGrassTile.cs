@@ -29,56 +29,6 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
             Tile tile = Framing.GetTileSafely(i, j);
             Tile tileAbove = Framing.GetTileSafely(i, j);
             Tile tileBelow = Framing.GetTileSafely(i, j + 1);
-            int TRUNK_X;
-            int TRUNK_DIR = Main.rand.Next(2);
-
-            int SPAWN_X = Main.maxTilesX / 2;
-            int SPAWN_DISTANCE = (Main.maxTilesX - SPAWN_X) / 20;
-            if (TRUNK_DIR == 0)
-            {
-                TRUNK_X = SPAWN_X - SPAWN_DISTANCE;
-            }
-            else
-            {
-                TRUNK_X = SPAWN_X + SPAWN_DISTANCE;
-            }
-
-            int TRUNK_BOTTOM = (int)(Main.rockLayer + (Main.maxTilesY - Main.rockLayer) / 6);
-
-            int CANOPY_CENTER_X = TRUNK_X;
-            int CANOPY_CENTER_Y = TRUNK_BOTTOM + (Main.maxTilesY - TRUNK_BOTTOM) / 4;
-
-            int CANOPY_RADIUS_H = (int)(Main.maxTilesX * 0.035f);
-            int CANOPY_RADIUS_V = (int)(Main.maxTilesY * 0.175f);
-
-            if (WorldGen.genRand.NextBool(15))
-            {
-                for (int x = CANOPY_CENTER_X - CANOPY_RADIUS_H; x <= CANOPY_CENTER_X + CANOPY_RADIUS_H; x++)
-                {
-                    for (int y = CANOPY_CENTER_Y - CANOPY_RADIUS_V; y <= CANOPY_CENTER_Y + CANOPY_RADIUS_V; y++)
-                    {
-
-                        if (CanopyWorldGen.InsideCanopy(x, y, CANOPY_CENTER_X, CANOPY_CENTER_Y, CANOPY_RADIUS_H, CANOPY_RADIUS_V))
-                        {
-                            for (int grassX = i - 1; grassX <= i + 1; grassX++)
-                            {
-                                for (int grassY = j - 1; grassY <= j + 1; grassY++)
-                                {
-                                    Tile tile2 = Framing.GetTileSafely(grassX, grassY);
-                                    if (!tile2.HasTile)
-                                    {
-                                        if (tile.TileType == TileID.Dirt || TileID.Sets.Grass[tile.TileType])
-                                            tile.TileType = Type;
-
-                                        if (tile.HasTile && tile2.WallType == 0)
-                                            tile.WallType = 0;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
 
             if (WorldGen.genRand.NextBool() && !tileBelow.HasTile && !(tileBelow.LiquidType == LiquidID.Lava))
             {

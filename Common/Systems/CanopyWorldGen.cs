@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ReverieMod.Content.Tiles.WoodlandCanopy;
+using ReverieMod.Utilities;
 using System;
 using Terraria;
 using Terraria.ID;
@@ -14,30 +15,11 @@ namespace ReverieMod.Common.Systems
         public static int TRUNK_X;
         public static int treeWood = TileID.LivingWood;
         public static int treeWall = WallID.LivingWoodUnsafe;
-        public static int canopyWall = WallID.LivingLeaf;
+        public static int canopyWall = WallID.FlowerUnsafe;
         public static int treeLeaves = TileID.LeafBlock;
-        public static int canopyGrass = ModContent.TileType<WoodlandGrassTile>();
-        public static int canopyVines = ModContent.TileType<CanopyVine>();
+        public static int canopyGrass = TileID.Grass; //ModContent.TileType<WoodlandGrassTile>();
+        public static int canopyVines = TileID.Vines; //ModContent.TileType<CanopyVine>();
 
-
-        public static bool InsideCanopy(int x, int y, int centerX, int centerY, int horizontalRadius, int verticalRadius)
-        {
-            // This is the interior/base shape that generates prior to each other pass. We've created an elipse shape.
-            // ((x - centerX)^2 / horizontalRadius^2) + ((y - centerY)^2 / verticalRadius^2) <= 1
-            // If the point (x, y) satisfies this inequality, it's inside the ellipse.
-
-            float dx = (x - centerX);
-            float dy = (y - centerY);
-            return (dx * dx) / (horizontalRadius * horizontalRadius) + (dy * dy) / (verticalRadius * verticalRadius) <= 1;
-        }
-        public static bool OutsideCanopy(int x, int y, int centerX, int centerY, int horizontalRadius, int verticalRadius, float threshold = 0.1f)
-        {
-            float dx = (float)(x - centerX) / horizontalRadius;
-            float dy = (float)(y - centerY) / verticalRadius;
-            float distance = dx * dx + dy * dy;
-
-            return distance >= (1.0f - threshold) && distance <= (1.0f + threshold);
-        }
         public static void Gen_NoiseMap(int cX, int cY, int hR, int vR, int density, int iterations, bool killTile, int type, bool forced)
         {
             bool[,] caveMap = new bool[hR * 2, vR * 2];
@@ -45,14 +27,8 @@ namespace ReverieMod.Common.Systems
             {
                 for (int y = 0; y < vR * 2; y++)
                 {
-                    if (InsideCanopy(x + cX - hR, y + cY - vR, cX, cY, hR, vR))
-                    {
-                        caveMap[x, y] = Main.rand.Next(100) < density;
-                    }
-                    else
-                    {
-                        caveMap[x, y] = false;
-                    }
+                    caveMap[x, y] = Main.rand.Next(100) < density;
+
                 }
             }
             for (int iteration = 0; iteration < iterations; iteration++)
@@ -87,14 +63,8 @@ namespace ReverieMod.Common.Systems
             {
                 for (int y = 0; y < vR * 2; y++)
                 {
-                    if (InsideCanopy(x + cX - hR, y + cY - vR, cX, cY, hR, vR))
-                    {
-                        caveMap[x, y] = Main.rand.Next(100) < density;
-                    }
-                    else
-                    {
-                        caveMap[x, y] = false;
-                    }
+
+                    caveMap[x, y] = Main.rand.Next(100) < density;
                 }
             }
             for (int iteration = 0; iteration < iterations; iteration++)
@@ -125,7 +95,7 @@ namespace ReverieMod.Common.Systems
 
                     if (solidNeighbors > 4)
                         newMap[x, y] = true;
-                    else if (solidNeighbors <= 4)
+                    else if (solidNeighbors < 4)
                         newMap[x, y] = false;
                     else
                         newMap[x, y] = map[x, y];
@@ -180,7 +150,7 @@ namespace ReverieMod.Common.Systems
                 int TRUNK_DIR = Main.rand.Next(2);
 
                 int SPAWN_X = Main.maxTilesX / 2;
-                int SPAWN_Y = (int)Main.worldSurface - (Main.maxTilesY / 12);
+                int SPAWN_Y = (int)Main.worldSurface;
                 int SPAWN_DISTANCE = (Main.maxTilesX - SPAWN_X) / 20;
                 if (TRUNK_DIR == 0)
                 {
@@ -190,161 +160,93 @@ namespace ReverieMod.Common.Systems
                 {
                     TRUNK_X = SPAWN_X + SPAWN_DISTANCE;
                 }
-
-                int TRUNK_WIDTH = 13;
-                int TRUNK_TOP = (int)(SPAWN_Y - (Main.maxTilesY - SPAWN_Y) / 14);
-                int TRUNK_BOTTOM = (int)(Main.worldSurface + (Main.maxTilesY - Main.maxTilesY) / 12);
+                int TRUNK_BOTTOM = (int)(SPAWN_Y + (SPAWN_Y / 2));
 
                 int CANOPY_X = TRUNK_X;
-                int CANOPY_Y = TRUNK_BOTTOM + (TRUNK_BOTTOM / 2);
+                int CANOPY_Y = TRUNK_BOTTOM;
 
-                //Horizontal and Vertical Radius of the Elipse
-                int CANOPY_H = (int)(Main.maxTilesX * 0.035f);
-                int CANOPY_V = (int)(Main.maxTilesY * 0.128f);
+                //Horizontal and Vertical Radius
+                int CANOPY_H = (int)(Main.maxTilesX * 0.055f);
+                int CANOPY_V = (int)(Main.maxTilesY * 0.100f);
 
                 TRUNK_X = Math.Clamp(TRUNK_X, 0, Main.maxTilesX - 1); //safety
                 #endregion
 
-                int numTrees = 10; // Number of willow trees to generate
-                int width = Main.maxTilesX;
-
-                for (int i = 0; i < numTrees; i++)
-                {
-                    int x = WorldGen.genRand.Next(100, width - 100);
-                    int y = FindGroundLevel(x);
-
-                    if (y != -1)
-                    {
-                        GenerateWillowTree(x, y);
-                    }
-                }
+                //calculate the area and radius of the oval
                 for (int x = CANOPY_X - CANOPY_H; x <= CANOPY_X + CANOPY_H; x++)
                 {
                     for (int y = CANOPY_Y - CANOPY_V; y <= CANOPY_Y + CANOPY_V; y++)
                     {
-                        if (InsideCanopy(x, y, CANOPY_X, CANOPY_Y, CANOPY_H, CANOPY_V))
+                        WorldGen.KillWall(x, y);
+                        WorldGen.PlaceWall(x, y, canopyWall);
+                        WorldGen.PlaceTile(x, y, 0, forced: true);
+                        
+                        if (Main.rand.NextFloat() < 0.8f)
                         {
-                            WorldGen.KillWall(x, y);
-                            WorldGen.PlaceWall(x, y, canopyWall);
-                            WorldGen.PlaceTile(x, y, 0, forced: true);
-                        }
-
-                        else if (OutsideCanopy(x, y, CANOPY_X, CANOPY_Y, CANOPY_H, CANOPY_V))
-                        {
-                            if (Main.rand.NextFloat() < 0.8f)
+                            int border = Main.rand.Next(21, 30);
+                            for (int i = 0; i < border; i++)
                             {
-                                int border = Main.rand.Next(21, 30);
-                                for (int i = 0; i < border; i++)
+                                int borderX = x + Main.rand.Next(-2, 4);
+                                int borderY = y + Main.rand.Next(-2, 4);
+                                //check for valid tiles or !empty tiles
+                                if (!WorldGen.TileEmpty(borderX, borderY))
                                 {
-                                    int borderX = x + Main.rand.Next(-2, 4);
-                                    int borderY = y + Main.rand.Next(-2, 4);
-                                    if (!WorldGen.TileEmpty(borderX, borderY))
-                                    {
-                                        WorldGen.PlaceTile(borderX + Main.rand.Next(-2, 4), borderY + Main.rand.Next(-2, 4), 0, forced: true); //this is a blend effect emulating noise around the biome
-                                    }
+                                    WorldGen.PlaceTile(borderX + Main.rand.Next(-2, 4), borderY + Main.rand.Next(-2, 4), 0, forced: true); //this is a blend effect emulating noise around the biome
                                 }
                             }
                         }
+                        //this is the blue progress bar that tracks the actual speed of the generation
                         progress.Set((float)((x - (CANOPY_X - CANOPY_H)) * (2 * CANOPY_V) + (y - (CANOPY_Y - CANOPY_V))) / ((2 * CANOPY_H) * (2 * CANOPY_V)));
                     }
                 }
+                FastNoiseLite noise = new FastNoiseLite();
+                noise.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2);
+                noise.SetFractalType(FastNoiseLite.FractalType.Ridged);
+                noise.SetFractalGain(0.300f);
+                noise.SetFractalOctaves(4);
+                noise.SetFrequency(0.019f);
 
-                Gen_NoiseMap(CANOPY_X, CANOPY_Y, CANOPY_H - (CANOPY_H / 128), CANOPY_V - (CANOPY_V / 128), 63, 15, true, 0, false);
-                Gen_NoiseMap_Walls(CANOPY_X, CANOPY_Y, CANOPY_H - (CANOPY_H / 128), CANOPY_V - (CANOPY_V / 128), 62, 15);
-
-                GenerateLeaves(TRUNK_X, TRUNK_TOP, 4);
-                if (Main.netMode == NetmodeID.Server)
-                    NetMessage.SendTileSquare(-1, TRUNK_X, TRUNK_TOP, TRUNK_WIDTH, TRUNK_BOTTOM - TRUNK_TOP + 1);
-            }
-            //TODO: Rewrite the leaves with the new fractal tree
-            public static void GenerateLeaves(int TRUNK_X, int trunkY, int thickness)
-            {
-                float[] angles = new float[] { MathHelper.ToRadians(-120), MathHelper.ToRadians(-90), MathHelper.ToRadians(-45), MathHelper.ToRadians(45), MathHelper.ToRadians(90), MathHelper.ToRadians(120) };
-
-                int numBranches = angles.Length;
-                for (int i = 0; i < numBranches; i++)
+                int posx = CANOPY_H * 2;
+                int posy = CANOPY_V * 2;
+                float threshold = 0.1f; // Define your noise threshold
+                                        // Gather noise data
+                float[,] noiseData = new float[posx, posy];
+                for (int x = 0; x < posx; x++)
                 {
-                    float angle = angles[i];
-                    int branchLength = 32;
-
-                    for (int j = 0; j < branchLength; j++)
+                    for (int y = 0; y < posy; y++)
                     {
-                        int controlPointOffsetX = Main.rand.Next(-40, 40); // Random horizontal offset
-                        int controlPointOffsetY = Main.rand.Next(-20, 0);  // Random vertical offset, upwards
+                        int worldX = x + (CANOPY_X - CANOPY_H);
+                        int worldY = y + (CANOPY_Y - CANOPY_V);
 
-                        float curve = (float)Math.Sin(j * 0.09f) * 3f;
-                        int posX = TRUNK_X + (int)(j * Math.Cos(angle + curve));
-                        int posY = trunkY - (int)(j * Math.Sin(angle + curve));
+                        noiseData[x, y] = noise.GetNoise(worldX, worldY);
+                    }
+                }
 
-                        for (int tx = -thickness; tx <= thickness; tx++)
+                // Apply noise data to world coordinates within the canopy
+                for (int x = 0; x < posx; x++)
+                {
+                    for (int y = 0; y < posy; y++)
+                    {
+                        int worldX = x + (CANOPY_X - CANOPY_H);
+                        int worldY = y + (CANOPY_Y - CANOPY_V);
+
+                        if (noiseData[x, y] > threshold) // '>' will make small connected caves, '<' will make large enclosed caves
                         {
-                            for (int ty = -thickness; ty <= thickness; ty++)
+                            if (Main.tile[worldX, worldY].HasTile)
                             {
-                                if (tx * tx + ty * ty <= thickness * thickness)
-                                {
-                                    WorldGen.TileRunner(posX + tx, posY + ty, 30, 30, TileID.LeafBlock, true, 1, 1);
-                                }
+                                WorldGen.KillTile(worldX, worldY);
                             }
                         }
+
+                        // Update progress
+                        float progressPercentage = (float)((x * posy + y) + (posx * posy)) / (2 * posx * posy);
+                        progress.Set(progressPercentage);
                     }
                 }
+                Gen_NoiseMap_Walls(CANOPY_X, CANOPY_Y, CANOPY_H - (CANOPY_H / 128), CANOPY_V - (CANOPY_V / 128), 50, 8);
             }
-
-            private int FindGroundLevel(int x)
-            {
-                for (int y = 0; y < Main.maxTilesY; y++)
-                {
-                    if (Main.tile[x, y].HasTile && Main.tileSolid[Main.tile[x, y].TileType])
-                    {
-                        return y;
-                    }
-                }
-                return -1; // No ground found
-            }
-
-            private void GenerateWillowTree(int x, int groundY)
-            {
-                int trunkHeight = WorldGen.genRand.Next(8, 15);
-                int leafRadius = WorldGen.genRand.Next(5, 8);
-
-                // Generate trunk
-                for (int y = groundY - trunkHeight; y <= groundY; y++)
-                {
-                    WorldGen.PlaceWall(x, y, WallID.LivingWood);
-                }
-
-                // Generate leaves
-                for (int dx = -leafRadius; dx <= leafRadius; dx++)
-                {
-                    for (int dy = -leafRadius; dy <= leafRadius; dy++)
-                    {
-                        int leafX = x + dx;
-                        int leafY = groundY - trunkHeight + dy;
-
-                        if (Math.Abs(dx) + Math.Abs(dy) < leafRadius + WorldGen.genRand.Next(-1, 2))
-                        {
-                            WorldGen.PlaceWall(leafX, leafY, WallID.LivingLeaf);
-                        }
-                    }
-                }
-
-                // Generate drooping leaves
-                for (int dx = -leafRadius / 2; dx <= leafRadius / 2; dx++)
-                {
-                    for (int dy = 0; dy <= leafRadius; dy++)
-                    {
-                        int leafX = x + dx;
-                        int leafY = groundY - trunkHeight + dy;
-
-                        if (WorldGen.genRand.NextFloat() < 0.3f)
-                        {
-                            WorldGen.PlaceWall(leafX, leafY, WallID.LivingLeaf);
-                        }
-                    }
-                }
-            }
+            //TODO: Rewrite the leaves with the new fractal tree
         }
-
         public class ReverieTreePass : GenPass
         {
             public ReverieTreePass(string name, float loadWeight) : base(name, loadWeight)
@@ -354,11 +256,10 @@ namespace ReverieMod.Common.Systems
             {
                 progress.Message = "Weathering forest caverns";
                 #region VARIABLES
-
                 int TRUNK_DIR = Main.rand.Next(2);
 
                 int SPAWN_X = Main.maxTilesX / 2;
-                int SPAWN_Y = (int)Main.worldSurface - (Main.maxTilesY / 12);
+                int SPAWN_Y = (int)Main.worldSurface;
                 int SPAWN_DISTANCE = (Main.maxTilesX - SPAWN_X) / 20;
                 if (TRUNK_DIR == 0)
                 {
@@ -368,24 +269,24 @@ namespace ReverieMod.Common.Systems
                 {
                     TRUNK_X = SPAWN_X + SPAWN_DISTANCE;
                 }
-
-                int TRUNK_WIDTH = 13;
-                int TRUNK_TOP = (int)(SPAWN_Y - (Main.maxTilesY - SPAWN_Y) / 14);
-                int TRUNK_BOTTOM = (int)(Main.worldSurface + (Main.maxTilesY - Main.maxTilesY) / 12);
+                int TRUNK_WIDTH = 12;
+                int TRUNK_TOP = (int)(SPAWN_Y - (SPAWN_Y / 16));
+                int TRUNK_BOTTOM = (int)(SPAWN_Y + (SPAWN_Y / 16));
 
                 int CANOPY_X = TRUNK_X;
-                int CANOPY_Y = TRUNK_BOTTOM + (TRUNK_BOTTOM / 2);
+                int CANOPY_Y = TRUNK_BOTTOM;
 
-                //Horizontal and Vertical Radius of the Elipse
-                int CANOPY_H = (int)(Main.maxTilesX * 0.035f);
-                int CANOPY_V = (int)(Main.maxTilesY * 0.128f);
+                //Horizontal and Vertical Radius
+                int CANOPY_H = (int)(Main.maxTilesX * 0.065f);
+                int CANOPY_V = (int)(Main.maxTilesY * 0.100f);
 
                 TRUNK_X = Math.Clamp(TRUNK_X, 0, Main.maxTilesX - 1); //safety
                 #endregion
 
+                //setting the sine wave variables
                 const float TRUNK_CURVE_FREQUENCY = 0.0765f;
                 const int TRUNK_CURVE_AMPLITUDE = 4;
-
+                //GenerateCaverns(CANOPY_X, CANOPY_Y);
                 //Placing trunk wood
                 for (int y = TRUNK_TOP; y <= TRUNK_BOTTOM; y++)
                 {
@@ -415,69 +316,76 @@ namespace ReverieMod.Common.Systems
                         WorldGen.PlaceWall(x2, y2, treeWall);
                     }
                 }
+                //the tree top of reverie
+                GenerateLeaves(TRUNK_X, TRUNK_TOP, 4);
+                if (Main.netMode == NetmodeID.Server)
+                    NetMessage.SendTileSquare(-1, TRUNK_X, TRUNK_TOP, TRUNK_WIDTH, TRUNK_BOTTOM - TRUNK_TOP + 1); //tile rect sync
+
                 //Growing grass, vines, etc (manually)
                 for (int x = CANOPY_X - CANOPY_H; x <= CANOPY_X + CANOPY_H; x++)
                 {
                     for (int y = CANOPY_Y - CANOPY_V; y <= CANOPY_Y + CANOPY_V; y++)
                     {
-
-                        if (InsideCanopy(x, y, CANOPY_X, CANOPY_Y, CANOPY_H, CANOPY_V))
+                        Tile tile = Framing.GetTileSafely(x, y);
+                        Tile tileBelow = Framing.GetTileSafely(x, y + 1);
+                        Tile tileAbove = Framing.GetTileSafely(x, y - 1);
+                        if (!tileAbove.HasTile && !(tileAbove.LiquidType == LiquidID.Lava) && !(tileAbove.LiquidType == LiquidID.Water))
                         {
-                            Tile tile = Framing.GetTileSafely(x, y);
-                            Tile tileBelow = Framing.GetTileSafely(x, y + 1);
-                            Tile tileAbove = Framing.GetTileSafely(x, y - 1);
-                            if (!tileAbove.HasTile && !(tileAbove.LiquidType == LiquidID.Lava) && !(tileAbove.LiquidType == LiquidID.Water))
+                            if (!tile.BottomSlope)
                             {
-                                if (!tile.BottomSlope)
+                                tileAbove.TileType = (ushort)ModContent.TileType<AlderwoodSapling>(); //tree sapling
+                                tileAbove.HasTile = true;
+                                WorldGen.SquareTileFrame(x, y - 1, true);
+                                if (Main.netMode == NetmodeID.Server)
                                 {
-                                    tileAbove.TileType = (ushort)ModContent.TileType<AlderwoodSapling>();
-                                    tileAbove.HasTile = true;
-                                    WorldGen.SquareTileFrame(x, y - 1, true);
-                                    if (Main.netMode == NetmodeID.Server)
-                                    {
-                                        NetMessage.SendTileSquare(-1, x, y - 1, 1, 0);
-                                    }
+                                    NetMessage.SendTileSquare(-1, x, y - 1, 1, 0);
                                 }
                             }
-                            for (int grassX = x - 1; grassX <= x + 1; grassX++)
+                        }
+                        for (int grassX = x - 1; grassX <= x + 1; grassX++)
+                        {
+                            for (int grassY = y - 1; grassY <= y + 1; grassY++)
                             {
-                                if (!tileBelow.HasTile && !(tileBelow.LiquidType == LiquidID.Lava) && !(tileBelow.LiquidType == LiquidID.Water))
+                                Tile tile2 = Framing.GetTileSafely(grassX, grassY);
+                                if (!tile2.HasTile)
                                 {
-                                    if (!tile.BottomSlope)
-                                    {
-                                        tileBelow.TileType = (ushort)ModContent.TileType<CanopyVine>();
-                                        tileBelow.HasTile = true;
-                                        WorldGen.SquareTileFrame(x, y + 1, true);
-                                        if (Main.netMode == NetmodeID.Server)
-                                        {
-                                            NetMessage.SendTileSquare(-1, x, y + 1, 1, 0);
-                                        }
-                                    }
-                                }
-                                if (!tileAbove.HasTile && !(tileAbove.LiquidType == LiquidID.Lava) && !(tileAbove.LiquidType == LiquidID.Water))
-                                {
-                                    if (!tile.BottomSlope)
-                                    {
-                                        tileAbove.TileType = (ushort)ModContent.TileType<CanopyGrassFoliageTile>();
-                                        tileAbove.HasTile = true;
-                                        WorldGen.SquareTileFrame(x, y - 1, true);
-                                        if (Main.netMode == NetmodeID.Server)
-                                        {
-                                            NetMessage.SendTileSquare(-1, x, y - 1, 1, 0);
-                                        }
-                                    }
-                                }
-                                for (int grassY = y - 1; grassY <= y + 1; grassY++)
-                                {
-                                    Tile tile2 = Framing.GetTileSafely(grassX, grassY);
-                                    if (!tile2.HasTile)
-                                    {
-                                        if (tile.TileType == TileID.Dirt || TileID.Sets.Grass[tile.TileType])
-                                            tile.TileType = (ushort)canopyGrass;
+                                    if (tile.TileType == TileID.Dirt || TileID.Sets.Grass[tile.TileType])
+                                        tile.TileType = (ushort)canopyGrass;
 
-                                        if (tile.HasTile && tile2.WallType == 0)
-                                            tile.WallType = 0;
-                                    }
+                                    if (tile.HasTile && tile2.WallType == 0)
+                                        tile.WallType = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            public static void GenerateLeaves(int TRUNK_X, int trunkY, int thickness)
+            {
+                float[] angles = new float[] { MathHelper.ToRadians(-120), MathHelper.ToRadians(-90), MathHelper.ToRadians(-45), MathHelper.ToRadians(45), MathHelper.ToRadians(90), MathHelper.ToRadians(120) };
+
+                int numBranches = angles.Length;
+                for (int i = 0; i < numBranches; i++)
+                {
+                    float angle = angles[i];
+                    int branchLength = 32;
+
+                    for (int j = 0; j < branchLength; j++)
+                    {
+                        int controlPointOffsetX = Main.rand.Next(-40, 40); // Random horizontal offset
+                        int controlPointOffsetY = Main.rand.Next(-20, 0);  // Random vertical offset, upwards
+
+                        float curve = (float)Math.Sin(j * 0.09f) * 3f;
+                        int posX = TRUNK_X + (int)(j * Math.Cos(angle + curve));
+                        int posY = trunkY - (int)(j * Math.Sin(angle + curve));
+
+                        for (int tx = -thickness; tx <= thickness; tx++)
+                        {
+                            for (int ty = -thickness; ty <= thickness; ty++)
+                            {
+                                if (tx * tx + ty * ty <= thickness * thickness)
+                                {
+                                    WorldGen.TileRunner(posX + tx, posY + ty, 30, 30, TileID.LeafBlock, true, 1, 1);
                                 }
                             }
                         }

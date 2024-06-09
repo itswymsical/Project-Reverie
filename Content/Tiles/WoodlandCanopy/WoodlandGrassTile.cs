@@ -13,15 +13,15 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
         public override void SetStaticDefaults()
         {
             Main.tileSolid[Type] = true;
-            Main.tileMerge[TileID.Dirt][Type] = true;
+            Main.tileMerge[TileID.LivingWood][Type] = true;
+            TileID.Sets.NeedsGrassFramingDirt[Type] = TileID.LivingWood;
             Main.tileMerge[Type][Type] = true;
-
             TileID.Sets.Grass[Type] = true;
             //TileID.Sets.Conversion.Grass[Type] = true;
             TileID.Sets.CanBeDugByShovel[Type] = true;
-            MineResist = 0.1f;
+            MineResist = 0.3f;
             DustType = 39;
-            AddMapEntry(new Color(111, 155, 37));
+            AddMapEntry(Color.RosyBrown);
         }
         public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;
         public override void RandomUpdate(int i, int j)
@@ -30,7 +30,7 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
             Tile tileAbove = Framing.GetTileSafely(i, j);
             Tile tileBelow = Framing.GetTileSafely(i, j + 1);
 
-            if (WorldGen.genRand.NextBool() && !tileBelow.HasTile && !(tileBelow.LiquidType == LiquidID.Lava))
+            if (WorldGen.genRand.NextBool(2) && !tileBelow.HasTile && !(tileBelow.LiquidType == LiquidID.Lava))
             {
                 if (!tile.BottomSlope)
                 {
@@ -43,17 +43,17 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
                     }
                 }
             }
-            if (WorldGen.genRand.NextBool() && !tileAbove.HasTile && !(tileBelow.LiquidType == LiquidID.Lava))
+            if (WorldGen.genRand.NextBool(2) && !tileAbove.HasTile && !(tileBelow.LiquidType == LiquidID.Lava))
             {
                 if (!tile.BottomSlope && !tile.TopSlope && !tile.IsHalfBlock && !tile.TopSlope)
                 {
-                    tileAbove.TileType = (ushort)ModContent.TileType<CanopyGrassFoliageTile>();
+                    tileAbove.TileType = (ushort)ModContent.TileType<CanopyFoliage>();
                     tileAbove.HasTile = true;
                     tileAbove.TileFrameY = 0;
                     tileAbove.TileFrameX = (short)(WorldGen.genRand.Next(8) * 18);
-                    WorldGen.SquareTileFrame(i, j - 1, true);
+                    WorldGen.SquareTileFrame(i, j + 1, true);
                     if (Main.netMode == NetmodeID.Server)
-                        NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);
+                        NetMessage.SendTileSquare(-1, i, j - 1, 3, TileChangeType.None);
                 }
             }
             if (WorldGen.genRand.NextBool() && !tileAbove.HasTile && !(tileBelow.LiquidType == LiquidID.Lava))
@@ -62,9 +62,11 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
                 {
                     tileAbove.TileType = (ushort)ModContent.TileType<AlderwoodSapling>();
                     tileAbove.HasTile = true;
-                    WorldGen.SquareTileFrame(i, j - 1, true);
+                    tileAbove.TileFrameY = 0;
+                    tileAbove.TileFrameX = (short)(WorldGen.genRand.Next(8) * 18);
+                    WorldGen.SquareTileFrame(i, j + 1, true);
                     if (Main.netMode == NetmodeID.Server)
-                        NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);
+                        NetMessage.SendTileSquare(-1, i, j - 1, 3, TileChangeType.None);
                 }
             }
         }
@@ -78,7 +80,7 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
             if (!fail)
             {
                 fail = true;
-                Framing.GetTileSafely(i, j).TileType = TileID.Dirt;
+                Framing.GetTileSafely(i, j).TileType = TileID.LivingWood;
             }
         }
     }

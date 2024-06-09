@@ -35,7 +35,8 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
 			TileObjectData.newTile.RandomStyleRange = 3;
 			TileObjectData.newTile.StyleMultiplier = 3;
 
-			TileObjectData.addTile(Type);
+
+            TileObjectData.addTile(Type);
 
 			AddMapEntry(new Color(200, 200, 200), Language.GetText("MapObject.Sapling"));
 

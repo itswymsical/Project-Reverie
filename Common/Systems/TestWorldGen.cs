@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.ID;
 using Terraria.IO;
 using Terraria.WorldBuilding;
 
@@ -32,11 +33,11 @@ namespace ReverieMod.Common.Systems
 
                 int posx = Main.maxTilesX / 3;
                 int posy = Main.maxTilesY / 3;
-                float threshold = 0.1f; // Define your noise threshold
+                float threshold = 0.7f; // Define your noise threshold
                 // Gather noise data
                 float[,] noiseData = new float[posx, posy];
 
-                for (int x = 0; x < posx; x++)
+                for (int x = 0; x < posx / 2; x++)
                 {
                     for (int y = 0; y < posy; y++)
                     {
@@ -52,12 +53,7 @@ namespace ReverieMod.Common.Systems
                         {
                             int worldX = x + posx;
                             int worldY = y + posy;
-
-                            // Break the tile at (worldX, worldY)
-                            if (Main.tile[worldX, worldY].HasTile)
-                            {
-                                WorldGen.KillTile(worldX, worldY);
-                            }
+                            WorldGen.PlaceTile(worldX, worldY, TileID.Adamantite, forced: true);
                         }
                         float progressPercentage = (float)((x * posy + y) + (posx * posy)) / (2 * posx * posy);
                         progress.Set(progressPercentage);

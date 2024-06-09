@@ -87,6 +87,11 @@ Mods: {
 				DisplayName: Microlith
 				Tooltip: Naturally generated shinnies have a small chance to drop extra items
 			}
+
+			SubworldTool: {
+				DisplayName: Subworld Tool
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {

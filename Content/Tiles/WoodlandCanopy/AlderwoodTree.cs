@@ -35,7 +35,8 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
 		}
 
 		public override void SetTreeFoliageSettings(Tile tile, ref int xoffset, ref int treeFrame, ref int floorY, ref int topTextureFrameWidth, ref int topTextureFrameHeight) {
-			// This is where fancy code could go, but let's save that for an advanced example
+			topTextureFrameWidth = 126;
+			topTextureFrameHeight = 100;
 		}
 
 		// Branch Textures

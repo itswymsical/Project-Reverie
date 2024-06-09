@@ -7,25 +7,37 @@ using Terraria.ObjectData;
 
 namespace ReverieMod.Content.Tiles.WoodlandCanopy
 {
-    public class CanopyGrassFoliageTile : ModTile
+    public class CanopyFoliage : ModTile
     {
         public override string Texture => Assets.Tiles.WoodlandCanopy + Name;
         public override void SetStaticDefaults()
         {
-
+            Main.tileFrameImportant[Type] = true;
             Main.tileCut[Type] = true;
-            Main.tileLighted[Type] = true;
-            Main.tileLavaDeath[Type] = true;
-            Main.tileWaterDeath[Type] = true;
+            Main.tileSolid[Type] = false;
+            Main.tileMergeDirt[Type] = true;
+            Main.tileLighted[Type] = false;
 
+            DustType = DustID.GrassBlades;
             HitSound = SoundID.Grass;
-            DustType = DustID.Grass;
+
+            TileMaterials.SetForTileId(Type,TileMaterials._materialsByName["Plant"]);
+            TileID.Sets.SwaysInWindBasic[Type] = true;
 
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
+            TileObjectData.newTile.LavaDeath = true;
+            TileObjectData.newTile.WaterDeath = false;
+            TileObjectData.newTile.CoordinatePadding = 2;
+            TileObjectData.newTile.CoordinateWidth = 16;
+            TileObjectData.newTile.CoordinateHeights = new int[] { 20 };
+            TileObjectData.newTile.DrawYOffset = -2;
             TileObjectData.newTile.Style = 0;
-            //TileMaterials.SetForTileId(Type, TileMaterials._materialsByName["Plant"]);
+            TileObjectData.newTile.StyleHorizontal = true;
+            TileObjectData.newTile.UsesCustomCanPlace = true;
+            TileObjectData.newTile.AnchorValidTiles = new int[] { ModContent.TileType<WoodlandGrassTile>() };
+            TileObjectData.newTile.AnchorAlternateTiles = new int[] { TileID.ClayPot, TileID.PlanterBox };
 
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 8; i++)
             {
                 TileObjectData.newSubTile.CopyFrom(TileObjectData.newTile);
                 TileObjectData.addSubTile(TileObjectData.newSubTile.Style);

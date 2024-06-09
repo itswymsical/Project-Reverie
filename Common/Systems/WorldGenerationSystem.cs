@@ -23,10 +23,10 @@ namespace ReverieMod.Common.Systems
             {
                 tasks.Insert(CanopyIndex + 1, new CanopyPass("Woodland Canopy", 100f));
             }
-            int ReverieExtrasIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Smooth World"));
+            int ReverieExtrasIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Settle Liquids"));
             if (ReverieExtrasIndex != 1)
             {
-                tasks.Insert(ReverieExtrasIndex + 1, new ReverieTreePass("Reverie Extras", 74f));
+                tasks.Insert(ReverieExtrasIndex + 2, new ReverieTreePass("Reverie Extras", 74f));
             }
         }    
     }

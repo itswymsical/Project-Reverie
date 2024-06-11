@@ -3,27 +3,16 @@
   "WorkspaceRootPath": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\content\\tiles\\woodlandcanopy\\woodlandgrasstile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:content\\tiles\\woodlandcanopy\\woodlandgrasstile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\systems\\canopyworldgen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\systems\\canopyworldgen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModReader\\ExampleMod\\Common\\Systems\\RubbleWorldGen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\content\\tiles\\canopy\\woodgrass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:content\\tiles\\canopy\\woodgrass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\systems\\subworlds\\testsubworld.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\systems\\subworlds\\testsubworld.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\content\\items\\misc.subworldtool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:content\\items\\misc.subworldtool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|d:\\onedrive\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\systems\\worldgenerationsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\systems\\worldgenerationsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -33,43 +22,30 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Woodgrass.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Tiles\\Canopy\\Woodgrass.cs",
+              "RelativeDocumentMoniker": "Content\\Tiles\\Canopy\\Woodgrass.cs",
+              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Tiles\\Canopy\\Woodgrass.cs",
+              "RelativeToolTip": "Content\\Tiles\\Canopy\\Woodgrass.cs",
+              "ViewState": "AQIAABkAAAAAAAAAAAAQwBsAAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-10T22:40:11.027Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "RubbleWorldGen.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModReader\\ExampleMod\\Common\\Systems\\RubbleWorldGen.cs",
-              "RelativeDocumentMoniker": "..\\..\\ModReader\\ExampleMod\\Common\\Systems\\RubbleWorldGen.cs",
-              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModReader\\ExampleMod\\Common\\Systems\\RubbleWorldGen.cs",
-              "RelativeToolTip": "..\\..\\ModReader\\ExampleMod\\Common\\Systems\\RubbleWorldGen.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAABwAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-09T15:01:35.075Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Misc.SubworldTool.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Items\\Misc.SubworldTool.cs",
-              "RelativeDocumentMoniker": "Content\\Items\\Misc.SubworldTool.cs",
-              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Items\\Misc.SubworldTool.cs",
-              "RelativeToolTip": "Content\\Items\\Misc.SubworldTool.cs",
-              "ViewState": "AQIAAA8AAAAAAAAAAAA7wA0AAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-08T20:40:07.7Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "TestSubworld.cs",
               "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\Subworlds\\TestSubworld.cs",
               "RelativeDocumentMoniker": "Common\\Systems\\Subworlds\\TestSubworld.cs",
               "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\Subworlds\\TestSubworld.cs",
               "RelativeToolTip": "Common\\Systems\\Subworlds\\TestSubworld.cs",
-              "ViewState": "AQIAAC0AAAAAAAAAAAAIwC8AAAAyAAAA",
+              "ViewState": "AQIAACoAAAAAAAAAAAAywD0AAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-08T20:18:47.95Z",
               "EditorCaption": ""
@@ -77,40 +53,15 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "WoodlandGrassTile.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Tiles\\WoodlandCanopy\\WoodlandGrassTile.cs",
-              "RelativeDocumentMoniker": "Content\\Tiles\\WoodlandCanopy\\WoodlandGrassTile.cs",
-              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Tiles\\WoodlandCanopy\\WoodlandGrassTile.cs",
-              "RelativeToolTip": "Content\\Tiles\\WoodlandCanopy\\WoodlandGrassTile.cs",
-              "ViewState": "AQIAADEAAAAAAAAAAAAkwBcAAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-08T19:34:43.65Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "CanopyWorldGen.cs",
               "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\CanopyWorldGen.cs",
               "RelativeDocumentMoniker": "Common\\Systems\\CanopyWorldGen.cs",
               "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\CanopyWorldGen.cs",
               "RelativeToolTip": "Common\\Systems\\CanopyWorldGen.cs",
-              "ViewState": "AQIAAC0BAAAAAAAAAAAIwAcBAAAQAAAA",
+              "ViewState": "AQIAAEcBAAAAAAAAAAAIwFcBAABEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-08T02:57:26.591Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "WorldGenerationSystem.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\WorldGenerationSystem.cs",
-              "RelativeDocumentMoniker": "Common\\Systems\\WorldGenerationSystem.cs",
-              "ToolTip": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\WorldGenerationSystem.cs",
-              "RelativeToolTip": "Common\\Systems\\WorldGenerationSystem.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAwwBwAAAAzAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-08T00:53:18.957Z"
             }
           ]
         }

@@ -12,7 +12,6 @@
   <ItemGroup>
     <Folder Include="Content\Items\NewFolder\" />
     <Folder Include="Content\Projectiles\" />
-    <Folder Include="Content\Tiles\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="SubworldLibrary">

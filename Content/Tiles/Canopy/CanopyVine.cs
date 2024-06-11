@@ -5,11 +5,11 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace ReverieMod.Content.Tiles.WoodlandCanopy
+namespace ReverieMod.Content.Tiles.Canopy
 {
     public class CanopyVine : ModTile
     {
-        public override string Texture => Assets.Tiles.WoodlandCanopy + Name;
+        public override string Texture => Assets.Tiles.Canopy + Name;
         public override void SetStaticDefaults()
         {
             TileID.Sets.VineThreads[Type] = true;
@@ -36,7 +36,7 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
             if (tile.HasTile && !tile.BottomSlope)
                 type = tile.TileType;
 
-            if (type == ModContent.TileType<WoodlandGrassTile>() || type == Type) {
+            if (type == ModContent.TileType<Woodgrass>() || type == TileID.LivingWood || type == Type) {
                 return true;
             }
 
@@ -76,7 +76,7 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             Tile tile = Framing.GetTileSafely(i, j);
-            Texture2D glow = ModContent.Request<Texture2D>("ReverieMod" + (Assets.Tiles.WoodlandCanopy + Name) + "_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Texture2D glow = ModContent.Request<Texture2D>("ReverieMod" + (Assets.Tiles.Canopy + Name) + "_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
             Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
             spriteBatch.Draw(glow, new Vector2(i * 16, j * 16 + 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX - 108, 0, 16, 16), Color.Aquamarine);
 

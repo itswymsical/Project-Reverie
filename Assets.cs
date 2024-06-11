@@ -25,6 +25,9 @@
 			public const string Misc = Directory + "Misc/";
 
             public const string Tiles = Directory + "Tiles/";
+            #region Tiles
+            public const string CanopyTiles = Tiles + "Canopy/";
+            #endregion
 
             public const string Accessory = Directory + "Accessory/";
 
@@ -38,12 +41,11 @@
 
 			public const string Shovels = Tools + "Shovels/";
 
-			#region Boss
-			public const string Boss = Directory + "Boss/";
-
-			public const string Fungore = Boss + "Fungore/";
-            public const string FG = Boss + "ForestGuardian/";
-            public const string Legion = Boss + "FoodLegion/";
+            public const string Boss = Directory + "Boss/";
+            #region Boss
+            public const string Fungore = Boss + "Fungore/";
+            public const string Warden = Boss + "WoodenWarden/";
+            public const string FoodLegion = Boss + "FoodLegion/";
             public const string Shelledrake = Boss + "Shelledrake/";
             #endregion
         }
@@ -136,7 +138,7 @@
 
 			public const string Ores = Directory + "Ores/";
 
-			public const string WoodlandCanopy = Directory + "WoodlandCanopy/";
+			public const string Canopy = Directory + "Canopy/";
 
             public const string Furniture = Directory + "Furniture/";
 

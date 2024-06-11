@@ -3,11 +3,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ReverieMod.Content.Tiles.WoodlandCanopy
+namespace ReverieMod.Content.Tiles.Canopy
 {
-    public class AlluviumOreTile : ModTile
+    public class AlluviumOre : ModTile
     {
-        public override string Texture => Assets.Tiles.WoodlandCanopy + "AlluviumOreTile";
+        public override string Texture => Assets.Tiles.Canopy + Name;
         public override void SetStaticDefaults()
         {
             Main.tileSolid[Type] = true;

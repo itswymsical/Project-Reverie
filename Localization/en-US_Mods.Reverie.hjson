@@ -1,9 +1,4 @@
 Items: {
-	TestItem: {
-		DisplayName: Dirt World
-		Tooltip: ""
-	}
-
 	CopperShovel: {
 		DisplayName: Copper Shovel
 		Tooltip: ""
@@ -37,6 +32,11 @@ Items: {
 	SilverShovel: {
 		DisplayName: Silver Shovel
 		Tooltip: ""
+	}
+
+	SubworldTool: {
+		DisplayName: Subworld Tool
+		Tooltip: Teleports you to a subworld
 	}
 
 	TinShovel: {

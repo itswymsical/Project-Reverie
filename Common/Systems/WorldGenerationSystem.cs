@@ -22,11 +22,8 @@ namespace ReverieMod.Common.Systems
             if (CanopyIndex != 1)
             {
                 tasks.Insert(CanopyIndex + 1, new CanopyPass("Woodland Canopy", 100f));
-            }
-            int ReverieExtrasIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Settle Liquids"));
-            if (ReverieExtrasIndex != 1)
-            {
-                tasks.Insert(ReverieExtrasIndex + 2, new ReverieTreePass("Reverie Extras", 74f));
+                tasks.Insert(CanopyIndex + 2, new CanopyRootPass("Canopy Cave System", 100f));
+                tasks.Insert(CanopyIndex + 3, new ReverieTreePass("Reverie Extras", 74f));
             }
         }    
     }

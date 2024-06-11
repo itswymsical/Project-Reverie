@@ -9,11 +9,11 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
-namespace ReverieMod.Content.Tiles.WoodlandCanopy
+namespace ReverieMod.Content.Tiles.Canopy
 {
 	public class AlderwoodSapling : ModTile
 	{
-        public override string Texture => Assets.Tiles.WoodlandCanopy + "AlderwoodSapling";
+        public override string Texture => Assets.Tiles.Canopy + "AlderwoodSapling";
         public override void SetStaticDefaults() {
 			Main.tileFrameImportant[Type] = true;
 			Main.tileNoAttach[Type] = true;
@@ -27,7 +27,7 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
 			TileObjectData.newTile.CoordinateHeights = new[] { 16, 18 };
 			TileObjectData.newTile.CoordinateWidth = 16;
 			TileObjectData.newTile.CoordinatePadding = 2;
-			TileObjectData.newTile.AnchorValidTiles = new[] { ModContent.TileType<WoodlandGrassTile>() };
+			TileObjectData.newTile.AnchorValidTiles = new[] { ModContent.TileType<Woodgrass>() };
 			TileObjectData.newTile.StyleHorizontal = true;
 			TileObjectData.newTile.DrawFlipHorizontal = true;
 			TileObjectData.newTile.WaterPlacement = LiquidPlacement.NotAllowed;
@@ -47,15 +47,14 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
 
 			DustType = 0;
 
-			AdjTiles = new int[] { TileID.Saplings };
+			AdjTiles = [TileID.Saplings];
 		}
 
-		public override void NumDust(int i, int j, bool fail, ref int num) {
-			num = fail ? 1 : 3;
-		}
+		public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;
+		
 
 		public override void RandomUpdate(int i, int j) {
-            if (WorldGen.genRand.NextBool(20))
+            if (WorldGen.genRand.NextBool(12))
             {
                 bool isPlayerNear = WorldGen.PlayerLOS(i, j);
                 bool success = WorldGen.GrowTree(i, j);

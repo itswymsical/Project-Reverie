@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ReverieMod.Content.Tiles.WoodlandCanopy;
+using ReverieMod.Content.Tiles.Canopy;
 using ReverieMod.Utilities;
 using System;
 using Terraria;
@@ -14,13 +14,45 @@ namespace ReverieMod.Common.Systems
     public class CanopyWorldGen : ModSystem
     {
         public static int TRUNK_X;
+
+        public static int SPAWN_X = Main.maxTilesX / 2;
+        public static int SPAWN_Y = (int)Main.worldSurface;
+
+        public static int TRUNK_BOTTOM = (SPAWN_Y + (SPAWN_Y / 2));
+
+        public static int CANOPY_X = SPAWN_X;
+        public static int CANOPY_Y = TRUNK_BOTTOM + (TRUNK_BOTTOM / 4);
+
+        public static int CANOPY_H = (int)(Main.maxTilesX * 0.02975f);
+        public static int CANOPY_V = (int)(Main.maxTilesY * 0.170f);
+
         public static int treeWood = TileID.LivingWood;
         public static int treeWall = WallID.LivingWoodUnsafe;
-        public static int canopyWall = WallID.DirtUnsafe3;
+        public static int canopyWall = WallID.DirtUnsafe4;
+        public static int canopyWall_Alt = WallID.DirtUnsafe1;
         public static int treeLeaves = TileID.LeafBlock;
-        public static int canopyGrass = ModContent.TileType<WoodlandGrassTile>();
+        public static int canopyGrass = ModContent.TileType<Woodgrass>();
         public static int canopyVines = ModContent.TileType<CanopyVine>();
+        public static bool InsideTrapezoid(int px, int py, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4)
+        {
+            // Check if point is inside the bounding box of the trapezoid
+            if (px < Math.Min(x1, x4) || px > Math.Max(x2, x3) || py < Math.Min(y1, y2) || py > Math.Max(y3, y4))
+            {
+                return false;
+            }
 
+            // Calculate area of the trapezoid using Shoelace formula
+            float trapezoidArea = Math.Abs(x1 * y2 + x2 * y3 + x3 * y4 + x4 * y1 - y1 * x2 - y2 * x3 - y3 * x4 - y4 * x1) / 2.0f;
+
+            // Calculate areas of triangles formed with the point and trapezoid vertices
+            float area1 = Math.Abs(px * y1 + x1 * y2 + x2 * py - y1 * x2 - y2 * px - py * x1) / 2.0f;
+            float area2 = Math.Abs(px * y2 + x2 * y3 + x3 * py - y2 * x3 - y3 * px - py * x2) / 2.0f;
+            float area3 = Math.Abs(px * y3 + x3 * y4 + x4 * py - y3 * x4 - y4 * px - py * x3) / 2.0f;
+            float area4 = Math.Abs(px * y4 + x4 * y1 + x1 * py - y4 * x1 - y1 * px - py * x4) / 2.0f;
+
+            // Sum of areas of the triangles should equal the area of the trapezoid
+            return Math.Abs((area1 + area2 + area3 + area4) - trapezoidArea) < 0.01f;
+        }
         public static void Gen_NoiseMap(int cX, int cY, int hR, int vR, int density, int iterations, bool killTile, int type, bool forced)
         {
             bool[,] caveMap = new bool[hR * 2, vR * 2];
@@ -57,6 +89,8 @@ namespace ReverieMod.Common.Systems
             }
 
         }
+        // These "NoiseMap"'s are actually just Cellular Automata using Conway's rules.
+        // Replaced with FastNoiseLite, but keeping for the wall design.
         public static void Gen_NoiseMap_Walls(int cX, int cY, int hR, int vR, int density, int iterations)
         {
             bool[,] caveMap = new bool[hR * 2, vR * 2];
@@ -137,8 +171,6 @@ namespace ReverieMod.Common.Systems
 
             return count;
         }
-
-        //TODO: Create a fractal Tree or use L-systems to procedurally generate a detailed tree.
         public class CanopyPass : GenPass
         {
             public CanopyPass(string name, float loadWeight) : base(name, loadWeight)
@@ -146,44 +178,24 @@ namespace ReverieMod.Common.Systems
             }
             protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
             {
-                progress.Message = "Soiling the underground";
-                #region VARIABLES
+                progress.Message = "Growing Reverie";
                 int TRUNK_DIR = Main.rand.Next(2);
-
-                int SPAWN_X = Main.maxTilesX / 2;
-                int SPAWN_Y = (int)Main.worldSurface;
                 int SPAWN_DISTANCE = (Main.maxTilesX - SPAWN_X) / 20;
-                if (TRUNK_DIR == 0)
-                {
-                    TRUNK_X = SPAWN_X - SPAWN_DISTANCE;
-                }
-                else
-                {
-                    TRUNK_X = SPAWN_X + SPAWN_DISTANCE;
-                }
-                int TRUNK_BOTTOM = (int)(SPAWN_Y + (SPAWN_Y / 2));
 
-                int CANOPY_X = SPAWN_X;
-                int CANOPY_Y = TRUNK_BOTTOM;
+                TRUNK_X = (TRUNK_DIR == 0) ? SPAWN_X - SPAWN_DISTANCE : SPAWN_X + SPAWN_DISTANCE;
+                TRUNK_X = Math.Clamp(TRUNK_X, 0, Main.maxTilesX - 1); // Dunnno why this is here.
 
-                //Horizontal and Vertical Radius
-                int CANOPY_H = (int)(Main.maxTilesX * 0.035f);
-                int CANOPY_V = (int)(Main.maxTilesY * 0.140f);
+                int wallType = Main.rand.NextBool(2) ? canopyWall_Alt : canopyWall; // Swap the walls with an alternate version.
 
-                TRUNK_X = Math.Clamp(TRUNK_X, 0, Main.maxTilesX - 1); //safety
-                #endregion
-
-                int[] protectedTiles = new int[] { TileID.Sand, TileID.Sandstone, TileID.HardenedSand};
-
-                //calculate the area and radius
+                // Setting the area for the canopy coordinates.
                 for (int x = CANOPY_X - CANOPY_H; x <= CANOPY_X + CANOPY_H; x++)
                 {
                     for (int y = CANOPY_Y - CANOPY_V; y <= CANOPY_Y + CANOPY_V; y++)
-                    {
+                    {                    
                         WorldGen.KillWall(x, y);
-                        WorldGen.PlaceWall(x, y, canopyWall);
+                        WorldGen.PlaceWall(x, y, wallType);                  
                         WorldGen.TileRunner(x, y, 20, 5, treeWood, true, 0, 0, false, true);
-                        //WorldGen.PlaceTile(x, y, treeWood, forced: true);
+                        // Creating a dithering outline effect via shitcode. - wym/sig
                         if (Main.rand.NextFloat() < 0.8f)
                         {
                             int border = Main.rand.Next(21, 30);
@@ -191,27 +203,41 @@ namespace ReverieMod.Common.Systems
                             {
                                 int borderX = x + Main.rand.Next(-2, 4);
                                 int borderY = y + Main.rand.Next(-2, 4);
-                               
+
                                 WorldGen.PlaceTile(borderX + Main.rand.Next(-2, 4), borderY + Main.rand.Next(-2, 4), treeWood, forced: true); //this is a blend effect emulating noise around the biome
 
                             }
                         }
-                        //this is the blue progress bar that tracks the actual speed of the generation
+
+                        // This is the blue progress bar that tracks the actual speed of the generation.
                         progress.Set((float)((x - (CANOPY_X - CANOPY_H)) * (2 * CANOPY_V) + (y - (CANOPY_Y - CANOPY_V))) / ((2 * CANOPY_H) * (2 * CANOPY_V)));
                     }
                 }
+            }
+        }
+        public class CanopyRootPass : GenPass
+        {
+            public CanopyRootPass(string name, float loadWeight) : base(name, loadWeight)
+            {
+            }
+            protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
+            {
+                progress.Message = "Overgrowing tree roots";
                 FastNoiseLite noise = new FastNoiseLite();
                 noise.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2S);
                 noise.SetFractalType(FastNoiseLite.FractalType.Ridged);
                 noise.SetFractalGain(0.325f);
-                noise.SetFractalOctaves(5);
-                noise.SetFrequency(0.022f);
+                noise.SetFractalOctaves(5); // Since this is fractal noise, our noise map is almost infinite.
+                // '<' value zooms out of the noise grid (many, small caves), '>' value zooms in (bigger caves)
 
+                noise.SetFrequency(0.042f); //.042 is medium sized, i think its a good value.
                 int posx = CANOPY_H * 2;
                 int posy = CANOPY_V * 2;
-                float threshold = 0.47f; // Define your noise threshold
-                                        // Gather noise data
                 float[,] noiseData = new float[posx, posy];
+                float threshold = 0.47f; // This is basically which noise values are we going to ignore/kill.
+                // Not entirely sure, but i believe positive values calculate the bright values.
+
+                // Locating canopy & making noise map.
                 for (int x = 0; x < posx; x++)
                 {
                     for (int y = 0; y < posy; y++)
@@ -223,14 +249,9 @@ namespace ReverieMod.Common.Systems
                     }
                 }
 
-                // Apply noise data to world coordinates within the canopy
+                // Iterates through Canopy Coordinates, kills tiles under a specific threshold value.
                 for (int x = 0; x < posx; x++)
                 {
-                    if (x >= 0 && x <= 1)
-                    {
-                        progress.Message = "Overgrowing tree roots";
-                    }
-
                     for (int y = 0; y < posy; y++)
                     {
                         int worldX = x + (CANOPY_X - CANOPY_H);
@@ -249,9 +270,9 @@ namespace ReverieMod.Common.Systems
                         progress.Set(progressPercentage);
                     }
                 }
-                Gen_NoiseMap_Walls(CANOPY_X, CANOPY_Y, CANOPY_H - (CANOPY_H / 128), CANOPY_V - (CANOPY_V / 128), 46, 8);
+
+                Gen_NoiseMap_Walls(CANOPY_X, CANOPY_Y, CANOPY_H, CANOPY_V, 48, 10);
             }
-            //TODO: Rewrite the leaves with the new fractal tree
         }
         public class ReverieTreePass : GenPass
         {
@@ -260,40 +281,21 @@ namespace ReverieMod.Common.Systems
             }
             protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
             {
-                progress.Message = "Weathering forest caverns";
-                #region VARIABLES
+                progress.Message = "Weathering tree roots";
                 int TRUNK_DIR = Main.rand.Next(2);
-
-                int SPAWN_X = Main.maxTilesX / 2;
-                int SPAWN_Y = (int)Main.worldSurface;
                 int SPAWN_DISTANCE = (Main.maxTilesX - SPAWN_X) / 20;
-                if (TRUNK_DIR == 0)
-                {
-                    TRUNK_X = SPAWN_X - SPAWN_DISTANCE;
-                }
-                else
-                {
-                    TRUNK_X = SPAWN_X + SPAWN_DISTANCE;
-                }
+
+                TRUNK_X = (TRUNK_DIR == 0) ? SPAWN_X - SPAWN_DISTANCE : SPAWN_X + SPAWN_DISTANCE;
+                TRUNK_X = Math.Clamp(TRUNK_X, 0, Main.maxTilesX - 1);
+
                 int TRUNK_WIDTH = 12;
-                int TRUNK_TOP = (int)(SPAWN_Y - (SPAWN_Y / 2));
-                int TRUNK_BOTTOM = (int)(SPAWN_Y + (SPAWN_Y / 4));
+                int TRUNK_TOP = (SPAWN_Y - (SPAWN_Y / 2));
 
-                int CANOPY_X = SPAWN_X;
-                int CANOPY_Y = TRUNK_BOTTOM;
-
-                //Horizontal and Vertical Radius
-                int CANOPY_H = (int)(Main.maxTilesX * 0.035f);
-                int CANOPY_V = (int)(Main.maxTilesY * 0.140f);
-
-                TRUNK_X = Math.Clamp(TRUNK_X, 0, Main.maxTilesX - 1); //safety
-                #endregion
-
-                //setting the sine wave variables
+                // Sine wave shit for the tree.
                 const float TRUNK_CURVE_FREQUENCY = 0.0765f;
                 const int TRUNK_CURVE_AMPLITUDE = 4;
-                //GenerateCaverns(CANOPY_X, CANOPY_Y);
-                //Placing trunk wood
+
+                // Placing trunk wood.
                 for (int y = TRUNK_TOP; y <= TRUNK_BOTTOM; y++)
                 {
                     int currentTRUNK_WIDTH = TRUNK_WIDTH + (y % 5 == 0 ? 2 : 0);
@@ -309,7 +311,8 @@ namespace ReverieMod.Common.Systems
 
                     }
                 }
-                //Placing trunk wall
+
+                // Placing trunk wall.
                 for (int y2 = TRUNK_TOP; y2 <= TRUNK_BOTTOM; y2++)
                 {
                     int tunnelTRUNK_WIDTH = (TRUNK_WIDTH / 2) + (y2 % 5 == 0 ? 2 : 0);
@@ -322,12 +325,13 @@ namespace ReverieMod.Common.Systems
                         WorldGen.PlaceWall(x2, y2, treeWall);
                     }
                 }
-                //the tree top of reverie
+
+                // The tree top of Reverie.
                 GenerateLeaves(TRUNK_X, TRUNK_TOP, 4);
                 if (Main.netMode == NetmodeID.Server)
-                    NetMessage.SendTileSquare(-1, TRUNK_X, TRUNK_TOP, TRUNK_WIDTH, TRUNK_BOTTOM - TRUNK_TOP + 1); //tile rect sync
+                    NetMessage.SendTileSquare(-1, TRUNK_X, TRUNK_TOP, TRUNK_WIDTH, TRUNK_BOTTOM - TRUNK_TOP + 1); // Some netcode shit, I don't know.
 
-                //Growing grass, vines, etc (manually)
+                // Growing woodgrass on the wood blocks.
                 for (int x = CANOPY_X - CANOPY_H; x <= CANOPY_X + CANOPY_H; x++)
                 {
                     for (int y = CANOPY_Y - CANOPY_V; y <= CANOPY_Y + CANOPY_V; y++)
@@ -338,7 +342,7 @@ namespace ReverieMod.Common.Systems
                             for (int grassY = y - 1; grassY <= y + 1; grassY++)
                             {
                                 Tile tile2 = Framing.GetTileSafely(grassX, grassY);
-                                if (!tile2.HasTile)
+                                if (!tile2.HasTile && WorldGen.genRand.NextBool(5)) // Places less grass because yucky.
                                 {
                                     if (tile.TileType == TileID.LivingWood || TileID.Sets.Grass[tile.TileType])
                                         tile.TileType = (ushort)canopyGrass;

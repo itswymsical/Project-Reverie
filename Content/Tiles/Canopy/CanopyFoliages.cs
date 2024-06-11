@@ -10,11 +10,11 @@ using Terraria.ObjectData;
 using Microsoft.Xna.Framework;
 using Humanizer;
 
-namespace ReverieMod.Content.Tiles.WoodlandCanopy
+namespace ReverieMod.Content.Tiles.Canopy
 {
     public class LogFoliageTile : ModTile
     {
-        public override string Texture => Assets.Tiles.WoodlandCanopy + Name;
+        public override string Texture => Assets.Tiles.Canopy + Name;
         public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
@@ -34,7 +34,7 @@ namespace ReverieMod.Content.Tiles.WoodlandCanopy
     }
     public class RockFoliageTile : ModTile
     {
-        public override string Texture => Assets.Tiles.WoodlandCanopy + Name;
+        public override string Texture => Assets.Tiles.Canopy + Name;
         public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;

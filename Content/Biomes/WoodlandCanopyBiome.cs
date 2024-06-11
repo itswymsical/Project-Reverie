@@ -16,7 +16,7 @@ namespace ReverieMod.Content.Biomes
 		public override string BackgroundPath => base.BackgroundPath;
 		public override Color? BackgroundColor => base.BackgroundColor;
 
-		public override bool IsBiomeActive(Player player) => ModContent.GetInstance<TileCountSystem>().canopyBlockCount >= 50;
+		public override bool IsBiomeActive(Player player) => (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight) && ModContent.GetInstance<TileCountSystem>().canopyBlockCount >= 50;
         	
 	}
 }

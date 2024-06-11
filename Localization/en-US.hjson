@@ -90,6 +90,11 @@ Mods: {
 
 			SubworldTool: {
 				DisplayName: Subworld Tool
+				Tooltip: Teleports you to a subworld
+			}
+
+			WoodgrassSeeds: {
+				DisplayName: Woodgrass Seeds
 				Tooltip: ""
 			}
 		}

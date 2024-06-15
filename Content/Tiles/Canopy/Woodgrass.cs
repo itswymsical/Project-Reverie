@@ -25,13 +25,13 @@ namespace ReverieMod.Content.Tiles.Canopy
 
             MineResist = 0.3f;
             DustType = DustID.t_LivingWood;
-            AddMapEntry(new Color(151, 107, 75));
+            AddMapEntry(new Color(95, 143, 65));
         }
         public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;
         public override void RandomUpdate(int i, int j)
         {
             Tile tile = Framing.GetTileSafely(i, j);
-            Tile tileAbove = Framing.GetTileSafely(i, j);
+            Tile tileAbove = Framing.GetTileSafely(i, j - 1);
             Tile tileBelow = Framing.GetTileSafely(i, j + 1);
 
             if (WorldGen.genRand.NextBool(15) && !tileBelow.HasTile && !(tileBelow.LiquidType == LiquidID.Lava))
@@ -47,17 +47,16 @@ namespace ReverieMod.Content.Tiles.Canopy
                     }
                 }
             }
-            if (WorldGen.genRand.NextBool(15) && !tileAbove.HasTile && !(tileBelow.LiquidType == LiquidID.Lava))
+
+            if (WorldGen.genRand.NextBool() && !tileAbove.HasTile && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock)
             {
-                if (!tile.BottomSlope && !tile.TopSlope && !tile.IsHalfBlock && !tile.TopSlope)
+                WorldGen.PlaceTile(i, j - 1, (ushort)ModContent.TileType<CanopyFoliage>());
+                tileAbove.TileFrameY = 0;
+                tileAbove.TileFrameX = (short)(WorldGen.genRand.Next(10) * 18);
+                WorldGen.SquareTileFrame(i, j + 1, true);
+                if (Main.netMode == NetmodeID.Server)
                 {
-                    tileAbove.TileType = (ushort)ModContent.TileType<CanopyFoliage>();
-                    tileAbove.HasTile = true;
-                    tileAbove.TileFrameY = 0;
-                    tileAbove.TileFrameX = (short)(WorldGen.genRand.Next(8) * 18);
-                    WorldGen.SquareTileFrame(i, j + 1, true);
-                    if (Main.netMode == NetmodeID.Server)
-                        NetMessage.SendTileSquare(-1, i, j - 1, 3, TileChangeType.None);
+                    NetMessage.SendTileSquare(-1, i, j - 1, 1, TileChangeType.None);
                 }
             }
         }
@@ -68,7 +67,7 @@ namespace ReverieMod.Content.Tiles.Canopy
         }
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
-            if (Main.rand.NextBool(8))
+            if (Main.rand.NextBool(30))
                 Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 48, ModContent.ItemType<WoodgrassSeeds>());
         }
     }

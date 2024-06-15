@@ -69,15 +69,9 @@
 		{
 			public const string Directory = TextureDirectory + "Items/Weapons/";
 
-			public const string Sandcrawler = Directory + "Sandcrawler/";
+			public const string Chestnut = Directory + "Chestnut/";
 
 			public const string Frostbark = Directory + "Frostbark/";
-
-			public const string Melee = Directory + "Melee/";
-
-			public const string Magic = Directory + "Magic/";
-
-			public const string Summon = Directory + "Summon/";
 		}
 		internal class Buffs
 		{
@@ -118,17 +112,10 @@
 		{
 			public const string Directory = TextureDirectory + "Projectiles/";
 
-			public const string Typeless = Directory + "Typeless/";
-
-			public const string Melee = Directory + "Melee/";
+			public const string Chestnut = Directory + "Chestnut/";
 
             public const string Frostbark = Directory + "Frostbark/";
 
-            public const string Ranged = Directory + "Ranged/";
-
-			public const string Magic = Directory + "Magic/";
-
-			public const string Summon = Directory + "Summon/";
 		}
 		internal class Tiles
 		{

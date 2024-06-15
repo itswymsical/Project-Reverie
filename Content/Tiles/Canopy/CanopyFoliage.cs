@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.ObjectData;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ReverieMod.Content.Tiles.Canopy
 {
@@ -16,31 +17,28 @@ namespace ReverieMod.Content.Tiles.Canopy
             Main.tileCut[Type] = true;
             Main.tileSolid[Type] = false;
 
+            TileObjectData.newTile.AnchorValidTiles = [ModContent.TileType<Woodgrass>()];
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
-            TileObjectData.newTile.LavaDeath = true;
-            TileObjectData.newTile.WaterDeath = false;
-            TileObjectData.newTile.CoordinatePadding = 2;
-            TileObjectData.newTile.CoordinateWidth = 16;
-            TileObjectData.newTile.CoordinateHeights = [20];
-            TileObjectData.newTile.DrawYOffset = -2;
-            TileObjectData.newTile.Style = 0;
             TileObjectData.newTile.StyleHorizontal = true;
-            TileObjectData.newTile.UsesCustomCanPlace = true;
-
-            for (int i = 0; i < 7; i++)
-            {
-                TileObjectData.newSubTile.CopyFrom(TileObjectData.newTile);
-                TileObjectData.addSubTile(TileObjectData.newSubTile.Style);
-            }
-            TileObjectData.addTile(Type);
 
             TileID.Sets.SwaysInWindBasic[Type] = true;
+            TileID.Sets.IgnoredByGrowingSaplings[Type] = true;
+
+            TileObjectData.newTile.LavaDeath = true;
+            TileObjectData.newTile.WaterDeath = false;
+            TileObjectData.addTile(Type);
 
             DustType = DustID.BrownMoss;
             HitSound = SoundID.Grass;
-            AddMapEntry(new Color(151, 107, 75));
+            AddMapEntry(new Color(95, 143, 65));
         }
-
-        public override void NumDust(int i, int j, bool fail, ref int num) => num = DustID.JungleSpore;
+        public override void NumDust(int i, int j, bool fail, ref int num) => num = DustID.JunglePlants;
+        public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects)
+        {
+            if (i % 2 == 1)
+            {
+                spriteEffects = SpriteEffects.FlipHorizontally;
+            }
+        }
     }
 }

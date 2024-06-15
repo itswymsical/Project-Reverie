@@ -2,15 +2,15 @@ Mods: {
 	ReverieMod: {
 		Biomes: {
 			WoodlandCanopyBiome: {
-				TownNPCDialogueName: the Canopy
-				DisplayName: Woodland Canopy Biome
+				TownNPCDialogueName: Woodland Canopy
+				DisplayName: Woodland Canopy
 			}
 		}
 
 		Items: {
 			MyconidSpore: {
 				DisplayName: Myconid Spore
-				Tooltip: ""
+				Tooltip: Strangley, it has bulges with bulges...
 			}
 
 			CopperShovel: {
@@ -97,6 +97,16 @@ Mods: {
 				DisplayName: Woodgrass Seeds
 				Tooltip: ""
 			}
+
+			SharpnutSpear: {
+				DisplayName: Sharpnut Spear
+				Tooltip: ""
+			}
+
+			Craterstrike: {
+				DisplayName: Craterstrike
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -112,6 +122,8 @@ Mods: {
 			FungoreSmoke.DisplayName: Fungore Smoke
 			FrostbarkClaymoreProjectile.DisplayName: Frostbark Claymore Projectile
 			CopperShovelSwung.DisplayName: Copper Shovel Swung
+			SharpnutSpearProj.DisplayName: Sharpnut Spear Proj
+			ShovelMeteorite.DisplayName: Shovel Meteorite
 		}
 	}
 }

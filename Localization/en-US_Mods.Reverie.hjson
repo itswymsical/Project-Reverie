@@ -65,6 +65,6 @@ Projectiles: {
 Biomes: {
 	WoodlandCanopyBiome: {
 		DisplayName: Woodland Canopy
-		TownNPCDialogueName: the Canopy
+		TownNPCDialogueName: Woodland Canopy
 	}
 }

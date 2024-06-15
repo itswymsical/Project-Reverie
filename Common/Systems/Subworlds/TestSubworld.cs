@@ -16,8 +16,8 @@ namespace ReverieMod.Common.Systems.Subworlds
 {
     public class TestSubworld : Subworld
     {
-        public override int Width => 2000;
-        public override int Height => 1800;
+        public override int Width => 2200;
+        public override int Height => 1400;
 
         public override bool ShouldSave => true;
         public override bool NoPlayerSaving => false;
@@ -44,10 +44,12 @@ namespace ReverieMod.Common.Systems.Subworlds
 
         protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
         {
+            Main.rockLayer = Main.maxTilesY / 4;
+            
             progress.Message = "Loading Archaea"; // Sets the text displayed for this pass
             for (int i = 0; i < Main.maxTilesX; i++)
             {
-                for (int j = 0; j < Main.worldSurface; j++)
+                for (int j = Main.maxTilesY; j > (int)Main.worldSurface; j--)
                 {
                     progress.Set((j + i * Main.maxTilesY) / (float)(Main.maxTilesX * Main.maxTilesY)); // Controls the progress bar, should only be set between 0f and 1f
                     Tile tile = Main.tile[i, j];

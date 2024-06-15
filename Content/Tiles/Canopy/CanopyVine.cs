@@ -24,10 +24,18 @@ namespace ReverieMod.Content.Tiles.Canopy
             Main.tileNoAttach[Type] = true;
             Main.tileLighted[Type] = true;
             HitSound = SoundID.Grass;
-            DustType = DustID.Grass;
+            DustType = DustID.JunglePlants;
 
             TileMaterials.SetForTileId(Type, TileMaterials._materialsByName["Plant"]);
             AddMapEntry(new Color(95, 143, 65));
+        }
+        public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
+        {
+            Tile tile = Framing.GetTileSafely(i, j + 1);
+            if (tile.HasTile && tile.TileType == Type)
+            {
+                WorldGen.KillTile(i, j + 1);
+            }
         }
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
         {
@@ -48,31 +56,38 @@ namespace ReverieMod.Content.Tiles.Canopy
             Tile tile = Framing.GetTileSafely(i, j + 1);
             if (WorldGen.genRand.NextBool(10) && !tile.HasTile && !(tile.LiquidType == LiquidID.Lava))
             {
-                tile.HasTile = false;
-            }
-            else
-            {
-                tile.TileType = Type;
-                tile.HasTile = true;
-                WorldGen.SquareTileFrame(i, j + 1, true);
-                if (Main.netMode == NetmodeID.Server)
+                bool placed = false;
+                int Test = j;
+                while (Test > j - 10)
                 {
-                    NetMessage.SendTileSquare(-1, i, j + 1, 3, 0);
+                    Tile testTile = Framing.GetTileSafely(i, Test);
+                    if (testTile.BottomSlope)
+                    {
+                        break;
+                    }
+                    else if (!testTile.HasTile || testTile.TileType != ModContent.TileType<Woodgrass>())
+                    {
+                        Test--;
+                        continue;
+                    }
+                    placed = true;
+                    break;
+                }
+
+                if (placed)
+                {
+                    tile.TileType = Type;
+                    tile.HasTile = true;
+                    WorldGen.SquareTileFrame(i, j + 1, true);
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        NetMessage.SendTileSquare(-1, i, j + 1, 3, TileChangeType.None);
+                    }
                 }
             }
         }
-        public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
-        {
-            Tile tile = Framing.GetTileSafely(i, j + 1);
-            if (tile.HasTile && tile.TileType == Type)
-            {
-                WorldGen.KillTile(i, j + 1);
-            }
-        }
-        public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
-        {
-            return true;
-        }
+        public override bool PreDraw(int i, int j, SpriteBatch spriteBatch) => true;
+        
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             Tile tile = Framing.GetTileSafely(i, j);

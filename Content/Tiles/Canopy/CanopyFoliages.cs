@@ -22,9 +22,16 @@ namespace ReverieMod.Content.Tiles.Canopy
             Main.tileNoAttach[Type] = true;
             TileID.Sets.DisableSmartCursor[Type] = true;
             Main.tileLavaDeath[Type] = true;
+
+            TileObjectData.newTile.AnchorValidTiles = [ModContent.TileType<Woodgrass>()];
+            TileID.Sets.IgnoredByGrowingSaplings[Type] = true;
+
+            TileObjectData.newTile.LavaDeath = true;
+            TileObjectData.addTile(Type);
+
             RegisterItemDrop(ItemID.Wood);
             DustType = 39;
-            AddMapEntry(Color.DarkGreen);
+            AddMapEntry(Color.Brown);
         }
         public override void DropCritterChance(int i, int j, ref int wormChance, ref int grassHopperChance, ref int jungleGrubChance)
         {
@@ -42,6 +49,12 @@ namespace ReverieMod.Content.Tiles.Canopy
             Main.tileNoAttach[Type] = true;
             TileID.Sets.DisableSmartCursor[Type] = true;
             Main.tileLavaDeath[Type] = true;
+
+            TileObjectData.newTile.AnchorValidTiles = [ModContent.TileType<Woodgrass>()];
+            TileID.Sets.IgnoredByGrowingSaplings[Type] = true;
+
+            TileObjectData.newTile.LavaDeath = true;
+            TileObjectData.addTile(Type);
             RegisterItemDrop(ItemID.StoneBlock);
             DustType = 39;
             AddMapEntry(Color.Gray);

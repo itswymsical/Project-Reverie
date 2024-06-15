@@ -8,6 +8,7 @@ namespace ReverieMod.Content.Items.Tiles.Canopy
     public class WoodgrassSeeds : ModItem
     {
         public override string Texture => Assets.Items.CanopyTiles + Name;
+        public override void SetStaticDefaults() => ItemID.Sets.DisableAutomaticPlaceableDrop[Type] = true; 
         public override void SetDefaults()
         {
             Item.DefaultToPlaceableTile(ModContent.TileType<Woodgrass>());

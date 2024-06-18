@@ -28,9 +28,9 @@ namespace ReverieMod.Content.Items
         public override bool? UseItem(Player player)
         {
             if (Main.myPlayer == player.whoAmI)
-                SubworldSystem.Enter<TestSubworld>();
+                SubworldSystem.Enter<ArchaeaSubworld>();
 
-            if (SubworldSystem.IsActive<TestSubworld>())
+            if (SubworldSystem.IsActive<ArchaeaSubworld>())
                 SubworldSystem.Exit();
 
             return true;

@@ -1,9 +1,3 @@
-D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\obj\Debug\net8.0\ReverieMod.csproj.AssemblyReference.cache
-D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\obj\Debug\net8.0\ReverieMod.GeneratedMSBuildEditorConfig.editorconfig
-D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\obj\Debug\net8.0\ReverieMod.AssemblyInfoInputs.cache
-D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\obj\Debug\net8.0\ReverieMod.AssemblyInfo.cs
-D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\obj\Debug\net8.0\ReverieMod.csproj.CoreCompileInputs.cache
-D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\obj\Debug\net8.0\ReverieMod.sourcelink.json
 D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\bin\Debug\net8.0\ReverieMod.deps.json
 D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\bin\Debug\net8.0\ReverieMod.dll
 D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\bin\Debug\net8.0\ReverieMod.pdb
@@ -168,6 +162,12 @@ D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\bin\Deb
 D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\obj\Debug\net8.0\ReverieMod.csproj.AssemblyReference.cache
+D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\obj\Debug\net8.0\ReverieMod.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\obj\Debug\net8.0\ReverieMod.AssemblyInfoInputs.cache
+D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\obj\Debug\net8.0\ReverieMod.AssemblyInfo.cs
+D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\obj\Debug\net8.0\ReverieMod.csproj.CoreCompileInputs.cache
+D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\obj\Debug\net8.0\ReverieMod.sourcelink.json
 D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\obj\Debug\net8.0\ReverieMod.csproj.Up2Date
 D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\obj\Debug\net8.0\ReverieMod.dll
 D:\OneDrive\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\obj\Debug\net8.0\refint\ReverieMod.dll

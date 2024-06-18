@@ -4,9 +4,11 @@ using ReverieMod.Common.Players;
 using ReverieMod.Content.NPCs.Bosses.WoodenWarden;
 using ReverieMod.Helpers;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -38,6 +40,17 @@ namespace ReverieMod.Content.NPCs.Boss.WoodenWarden
         private float alphaTimer;
         private int count;
         private int bossDefense = 17;
+        public override void SetStaticDefaults()
+        {
+            NPCID.Sets.BossBestiaryPriority.Add(Type);
+        }
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            // Sets the description of this NPC that is listed in the bestiary
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement> { new MoonLordPortraitBackgroundProviderBestiaryInfoElement(), // Plain black background
+				new FlavorTextBestiaryInfoElement("The Protector of the Ligneous Temple. The Wooden Warden is a sentient golem ordered to protect the gateways that connect to otherworlds.")
+            });
+        }
         public override string Texture => Assets.NPCs.WoodenWarden + Name;
         public override void SetDefaults()
         {
@@ -227,26 +240,20 @@ namespace ReverieMod.Content.NPCs.Boss.WoodenWarden
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) => HandleScreenText(spriteBatch);
         private void HandleScreenText(SpriteBatch spriteBatch)
         {
-            var position = new Vector2(Main.screenWidth / 2f, 200f);
-
+            var position = new Vector2(Main.screenWidth / 2f, Main.screenHeight / 8f);
+            var position2 = new Vector2(Main.screenWidth / 2f, Main.screenHeight / 1.5f);
             Color color = Color.White * alpha;
 
             alphaTimer++;
 
             if (alphaTimer < 180)
-            {
                 alpha += 0.025f;
-            }
+            
             else
-            {
                 alpha -= 0.025f;
-            }
+            
 
-            Helper.DrawText(spriteBatch, position, "- Wooden Warden -" +
-                "\n" +
-                "\n" +
-                "\n" +
-                "\nProtector of the forest", color);
+            Helper.DrawText(spriteBatch, position, "〈 Wooden Warden 〉", color);
         }
     }
 }

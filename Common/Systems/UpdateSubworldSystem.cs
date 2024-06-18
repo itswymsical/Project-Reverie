@@ -15,7 +15,7 @@ namespace ReverieMod.Common.Systems
     {
         public override void PreUpdateWorld()
         {
-            if (SubworldSystem.IsActive<TestSubworld>())
+            if (SubworldSystem.IsActive<ArchaeaSubworld>())
             {
                 // Update mechanisms
                 Wiring.UpdateMech();

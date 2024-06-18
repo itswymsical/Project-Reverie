@@ -124,6 +124,7 @@ Mods: {
 			CopperShovelSwung.DisplayName: Copper Shovel Swung
 			SharpnutSpearProj.DisplayName: Sharpnut Spear Proj
 			ShovelMeteorite.DisplayName: Shovel Meteorite
+			RedSandBall.DisplayName: Red Sand Ball
 		}
 	}
 }

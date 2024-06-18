@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using ReverieMod.Content.Tiles.Canopy;
+using ReverieMod.Helpers;
 using ReverieMod.Utilities;
 using System;
 using Terraria;
@@ -212,6 +213,7 @@ namespace ReverieMod.Common.Systems
                         int worldY = y + (CANOPY_Y - CANOPY_V);
 
                         noiseData[x, y] = noise.GetNoise(worldX, worldY);
+                        Helper.SmoothTerrain(worldX, worldY);
                     }
                 }
 
@@ -236,7 +238,7 @@ namespace ReverieMod.Common.Systems
                         progress.Set(progressPercentage);
                     }
                 }
-
+                
                 Gen_NoiseMap_Walls(CANOPY_X, CANOPY_Y, CANOPY_H, CANOPY_V, 48, 10);
             }
         }

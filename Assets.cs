@@ -116,7 +116,9 @@
 
             public const string Frostbark = Directory + "Frostbark/";
 
-		}
+			public const string Tiles = Directory + "Tiles/";
+
+        }
 		internal class Tiles
 		{
 			public const string Directory = TextureDirectory + "Tiles/";
@@ -130,6 +132,19 @@
             public const string Furniture = Directory + "Furniture/";
 
 			public const string Paintings = Furniture + "Paintings/";
-		}
-	}
+
+			public const string Archaea = Directory + "Archaea/";
+
+            public const string RedDesert = Archaea + "RedDesert/";
+
+            public const string Catacombs = Archaea + "Catacombs/";
+
+            public const string Pyramid = Archaea + "Pyramid/";
+
+            public const string ArchaeaDesert = Archaea + "Desert/";
+
+            public const string Badlands = Archaea + "Badlands/";
+
+        }
+    }
 }

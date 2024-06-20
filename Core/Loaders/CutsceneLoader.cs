@@ -1,10 +1,8 @@
-﻿using ReverieMod.Core.Mechanics;
-using ReverieMod.Core.Abstraction.Interfaces;
-
+﻿using ReverieMod.Core.Abstraction.Interfaces;
+using ReverieMod.Core.Mechanics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Terraria.UI;
 
 namespace ReverieMod.Core.Loaders

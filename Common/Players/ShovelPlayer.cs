@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using ReverieMod.Common.Global;
+using Terraria.GameInput;
 
 namespace ReverieMod.Common.Players
 {
@@ -32,6 +33,7 @@ namespace ReverieMod.Common.Players
                 {
                     Player.PickTile(i, j, digTile + (digTile / 5)); //20%
                 }
+                
             }
         }
         

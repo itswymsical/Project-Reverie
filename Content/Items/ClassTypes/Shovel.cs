@@ -23,16 +23,21 @@ namespace ReverieMod.Content.Items.ClassTypes
             Item.GetGlobalItem<ReverieGlobalItem>().digPower = digPower;
             Item.pick = digPower;
         }
+        public override void SetStaticDefaults() => ItemID.Sets.CanGetPrefixes[Type] = true;
+        
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             /*
             TooltipLine power = new TooltipLine(Mod, "ReverieMod:Shovel Power", $"{Item.GetGlobalItem<ReverieGlobalItem>().digPower}% digging power");
             tooltips.Add(power);
             */
-            TooltipLine message = new TooltipLine(Mod, "ReverieMod:Shovel Info", "Stronger on soft tiles" +
-                "\nSmart cursor utilizes 1x1 digging");
+            TooltipLine message = new TooltipLine(Mod, "ReverieMod:Shovel Info", "Stronger on soft tiles");
             tooltips.Add(message);
-
+            if (Main.SmartCursorWanted)
+            {
+                TooltipLine message1 = new TooltipLine(Mod, "ReverieMod:Smart Cursor Info", "Smart cursor disables craters");
+                tooltips.Add(message1);
+            }
             if (Item.pick <= 0)
                 return;
 
@@ -41,10 +46,9 @@ namespace ReverieMod.Content.Items.ClassTypes
         }
         public static void UseShovel(Player player, int rangeinBlocks)
         {
-            //Vector2 pos = new Vector2(Main.MouseWorld.ToTileCoordinates16().X, Main.MouseWorld.ToTileCoordinates16().Y);
-            
             if (player.Distance(Main.MouseWorld) < 16 * rangeinBlocks)
                 player.GetModPlayer<ShovelPlayer>().DigBlocks((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y);
+
         }
         public override bool? UseItem(Player player)
         {

@@ -212,8 +212,7 @@ namespace ReverieMod.Common.Systems
                         int worldX = x + (CANOPY_X - CANOPY_H);
                         int worldY = y + (CANOPY_Y - CANOPY_V);
 
-                        noiseData[x, y] = noise.GetNoise(worldX, worldY);
-                        Helper.SmoothTerrain(worldX, worldY);
+                        noiseData[x, y] = noise.GetNoise(worldX, worldY);                      
                     }
                 }
 
@@ -304,6 +303,7 @@ namespace ReverieMod.Common.Systems
                 {
                     for (int y = CANOPY_Y - CANOPY_V; y <= CANOPY_Y + CANOPY_V; y++)
                     {
+                        
                         Tile tile = Framing.GetTileSafely(x, y);
                         for (int grassX = x - 1; grassX <= x + 1; grassX++)
                         {
@@ -346,6 +346,7 @@ namespace ReverieMod.Common.Systems
                                 }
                             }
                         }
+                        //Helper.SmoothTerrain(x, y); // Broken?
                     }
                 }
             }

@@ -25,7 +25,7 @@ namespace ReverieMod.Content.Tiles.Canopy
 
             MineResist = 0.3f;
             DustType = DustID.t_LivingWood;
-            AddMapEntry(new Color(95, 143, 65));
+            AddMapEntry(Color.Brown);
         }
         public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 1 : 3;
         public override void RandomUpdate(int i, int j)
@@ -67,7 +67,7 @@ namespace ReverieMod.Content.Tiles.Canopy
         }
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
-            if (Main.rand.NextBool(30))
+            if (!fail && Main.rand.NextBool(30))
                 Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 48, ModContent.ItemType<WoodgrassSeeds>());
         }
     }

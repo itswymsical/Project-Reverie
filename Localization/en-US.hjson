@@ -112,9 +112,9 @@ Mods: {
 		NPCs: {
 			Fungore.DisplayName: Fungore
 			ForestWarden.DisplayName: Forest Warden
-			WoodenWardenBoss.DisplayName: Wooden Warden Boss
-			WardenArmLeft.DisplayName: Warden Arm Left
-			WardenArmRight.DisplayName: Warden Arm Right
+			WoodenWardenBoss.DisplayName: Wooden Warden
+			WardenArmLeft.DisplayName: Warden Arm
+			WardenArmRight.DisplayName: Warden Arm
 		}
 
 		Projectiles: {

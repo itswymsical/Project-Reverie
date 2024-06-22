@@ -1,10 +1,9 @@
-﻿using Terraria.GameContent.Metadata;
-using Terraria.ID;
-using Terraria;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Terraria.ObjectData;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.ObjectData;
 
 namespace ReverieMod.Content.Tiles.Canopy
 {
@@ -28,11 +27,11 @@ namespace ReverieMod.Content.Tiles.Canopy
             TileObjectData.newTile.WaterDeath = false;
             TileObjectData.addTile(Type);
 
-            DustType = DustID.BrownMoss;
+            DustType = DustID.JunglePlants;
             HitSound = SoundID.Grass;
-            AddMapEntry(new Color(95, 143, 65));
+            AddMapEntry(Color.SaddleBrown);
         }
-        public override void NumDust(int i, int j, bool fail, ref int num) => num = DustID.JunglePlants;
+        public override void NumDust(int i, int j, bool fail, ref int num) => num = fail ? 2 : 3;
         public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects)
         {
             if (i % 2 == 1)

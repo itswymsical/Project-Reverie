@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
 using System;
 
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
-
+using ReverieMod.Core.Mechanics;
+using System.Collections.Generic;
 
 namespace ReverieMod.Helpers
 {
@@ -314,7 +314,7 @@ namespace ReverieMod.Helpers
 
 			return true;
 		}
-		public static bool DrawNPCCenteredWithTexture(this NPC npc, Texture2D texture, SpriteBatch spriteBatch, Color color)
+        public static bool DrawNPCCenteredWithTexture(this NPC npc, Texture2D texture, SpriteBatch spriteBatch, Color color)
 		{
 			Vector2 origin = npc.frame.Size() / 2f + new Vector2(0f, npc.ModNPC.DrawOffsetY);
 

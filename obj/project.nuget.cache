@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZotbxC3vy0M=",
+  "dgSpecHash": "/MSmvS5FS4k=",
   "success": true,
-  "projectFilePath": "D:\\OneDrive\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\ReverieMod.csproj",
+  "projectFilePath": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\ReverieMod.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\cobal\\.nuget\\packages\\tmodloader.codeassist\\0.1.5\\tmodloader.codeassist.0.1.5.nupkg.sha512"
   ],

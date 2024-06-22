@@ -92,7 +92,7 @@
 
 			public const string Fungore = Boss + "Fungore/";
 
-            public const string WoodenWarden = Boss + "WoodenWarden/";
+            public const string Warden = Boss + "Warden/";
 
             public const string FoodLegion = Boss + "FoodLegion/";
 

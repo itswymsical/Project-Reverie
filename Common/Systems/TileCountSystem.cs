@@ -5,7 +5,7 @@ using Terraria.ID;
 
 namespace ReverieMod.Common.Systems
 {
-    internal class TileCountSystem :ModSystem
+    internal class TileCountSystem : ModSystem
     {
         public int canopyBlockCount;
         public override void TileCountsAvailable(ReadOnlySpan<int> tileCounts)

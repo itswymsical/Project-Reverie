@@ -5,6 +5,12 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using ReverieMod.Helpers;
 using ReverieMod.Content.NPCs.Boss.Warden;
+using Terraria.Audio;
+using System.Security.Cryptography.Xml;
+using Terraria.GameInput;
+using Terraria.DataStructures;
+using ReverieMod.Common.Players;
+using System;
 
 namespace ReverieMod.Content.NPCs.Bosses.Warden
 {
@@ -12,12 +18,13 @@ namespace ReverieMod.Content.NPCs.Bosses.Warden
 	public class WardenArm : ModNPC
 	{
         public override string Texture => Assets.NPCs.Warden + Name;
-        public enum ArmAIState
+        public enum AIState
         {
             Idle,
             Grabbing,
             Dashing,
             Laser,
+            Deterred,
             Grabbed
         }
         private enum ArmType
@@ -25,9 +32,9 @@ namespace ReverieMod.Content.NPCs.Bosses.Warden
             Left,
             Right
         }
-        private ArmAIState State
+        private AIState State
         {
-            get => (ArmAIState)NPC.ai[0];
+            get => (AIState)NPC.ai[0];
             set => NPC.ai[0] = (int)value;
         }
         public float AITimer
@@ -44,9 +51,11 @@ namespace ReverieMod.Content.NPCs.Bosses.Warden
         private bool flagged;
         private int dashCount;
         private int laserShots;
-        private Vector2[] bezierPoints; 
+        private int BeamTimer;
+        private int DashTimer; //attack intervals
         private int hitsTaken;
         private Player grabbedPlayer;
+        
         public override void SetStaticDefaults()
         {
             NPCID.Sets.TrailCacheLength[NPC.type] = 5;
@@ -60,9 +69,9 @@ namespace ReverieMod.Content.NPCs.Bosses.Warden
 			NPC.width = 62;
 			NPC.height = 96;
 
-			NPC.damage = 30;
-			NPC.defense = 8;
-			NPC.lifeMax = 240;
+			NPC.damage = 18;
+			NPC.defense = 12;
+			NPC.lifeMax = 520;
 
 			NPC.noTileCollide = true;
 			NPC.noGravity = true;
@@ -70,76 +79,99 @@ namespace ReverieMod.Content.NPCs.Bosses.Warden
 			NPC.netUpdate = true;
 
 			NPC.knockBackResist = 0f;
-			NPC.HitSound = SoundID.DD2_CrystalCartImpact;
-			NPC.DeathSound = SoundID.Item14;
+            NPC.HitSound = new SoundStyle($"{nameof(ReverieMod)}/Assets/SFX/WoodenHit")
+            {
+                Volume = 1.4f,
+                PitchVariance = 0.2f,
+                MaxInstances = 3,
+            };
+            NPC.DeathSound = SoundID.Item14;
 		}
+        public override void BossHeadRotation(ref float rotation) => rotation = NPC.rotation;
+        private void Move(Vector2 position, float speed)
+        {
+            Vector2 direction = NPC.DirectionTo(position);
 
-		public override void FindFrame(int frameHeight)
+            Vector2 velocity = direction * speed;
+
+            NPC.velocity = Vector2.SmoothStep(NPC.velocity, velocity, 0.2f);
+        }
+        public override bool CheckActive()
+        {
+            if (!NPC.AnyNPCs(ModContent.NPCType<WoodenWarden>()))
+                NPC.active = false;
+
+            return base.CheckActive();
+        }
+        public override void FindFrame(int frameHeight)
 		{
             NPC.spriteDirection = (Arm == ArmType.Left) ? -1 : 1;
-            /*
-			if (State == AIState.Dash || State == AIState.Idle)
-			{
-				NPC.frame.Y = 2 * frameHeight;
-			}
-			if (State == AIState.Beam)
+            
+			if (State == AIState.Laser)
 			{
 				NPC.frame.Y = 1 * frameHeight;
 			}
-			if (State == AIState.Grab)
+			else if (State == AIState.Grabbing)
 			{
 				NPC.frame.Y = 0 * frameHeight;
-			}*/
-        }
+			}
+            else
+            {
+                NPC.frame.Y = 2 * frameHeight;
+            }
+        } 
         public override void AI()
         {
-            if (!NPC.AnyNPCs(ModContent.NPCType<WoodenWarden>()))
-            {
-                NPC.active = false;
-                return;
-            }
-
+            NPC boss = Main.npc[(int)NPC.ai[3]];
             Player target = Main.player[NPC.target];
-
-            // Flip sprite based on arm type
-            NPC.spriteDirection = (Arm == ArmType.Left) ? -1 : 1;
-
+            NPC.TargetClosest(true); 
             switch (State)
             {
-                case ArmAIState.Idle:
+                case AIState.Idle:
                     IdleHover();
                     break;
-                case ArmAIState.Grabbing:
-                    Grabbing(target);
+                case AIState.Grabbing:
+                    Grabbing();
                     break;
-                case ArmAIState.Dashing:
-                    Dashing(target);
+                case AIState.Dashing:
+                    Dashing();
                     break;
-                case ArmAIState.Laser:
+                case AIState.Laser:
                     LaserAttack(target);
                     break;
-                case ArmAIState.Grabbed:
-                    Grabbed(target);
+                case AIState.Deterred:
+                    Deterred();
+                    break;
+                case AIState.Grabbed:
+                    CrushPlayer(target);
                     break;
             }
 
             AITimer++;
             if (AITimer >= 300) // Adjust timing as needed
             {
-                if (State == ArmAIState.Idle)
+                if (State == AIState.Idle)
                 {
                     if (Arm == ArmType.Left)
                     {
-                        State = ArmAIState.Grabbing;
+                        if (Main.rand.NextBool(2))
+                            State = AIState.Laser;
+
+                        else
+                            State = AIState.Grabbing;
                     }
-                    else if (Arm == ArmType.Right && !NPC.AnyNPCs(ModContent.NPCType<WardenArm>())) // Ensure the left arm has finished grabbing
+                    else if (Arm == ArmType.Right)
                     {
-                        State = ArmAIState.Dashing;
+                        if (Main.rand.NextBool(2))
+                            State = AIState.Laser;
+                        
+                        else
+                            State = AIState.Dashing;                       
                     }
                 }
-                else if (State == ArmAIState.Grabbing || State == ArmAIState.Laser || State == ArmAIState.Dashing)
+                else if (State == AIState.Grabbing || State == AIState.Laser || State == AIState.Dashing || State == AIState.Grabbed)
                 {
-                    State = ArmAIState.Idle;
+                    State = AIState.Idle;
                 }
                 AITimer = 0;
             }
@@ -147,163 +179,209 @@ namespace ReverieMod.Content.NPCs.Bosses.Warden
 
         private void IdleHover()
         {
-            Vector2 hoverPosition = Main.npc[NPC.target].Center + new Vector2((Arm == ArmType.Left ? -1 : 1) * 100, 0); // Hover 100 pixels to the left or right
-            NPC.velocity = (hoverPosition - NPC.Center) * 0.1f; // Smoothly move to hover position
+            Player target = Main.player[NPC.target];
+            var angle = target.Center - NPC.Center;
+            NPC.rotation = angle.ToRotation() + MathHelper.PiOver2;
+            angle.Normalize();
+            angle.X *= 3f;
+            angle.Y *= 3f;
+
+            NPC boss = Main.npc[(int)NPC.ai[3]];
+
+            var position = boss.Center - new Vector2(160, -80);
+            if (Arm == ArmType.Right)
+            {
+                position = boss.Center - new Vector2(-160, -80);
+            }
+            float speed = Vector2.Distance(NPC.Center, position);
+            speed = MathHelper.Clamp(speed, -14f, 14f);
+            Move(position, speed);
         }
 
-        private void Grabbing(Player target)
+        private void Grabbing()
         {
-            if (AITimer == 0)
+            NPC.damage = 0;
+            Player target = Main.player[NPC.target];
+            var angle = target.Center - NPC.Center;
+            Vector2 point = new Vector2(target.Center.X, target.Center.Y);
+            NPC.rotation = angle.ToRotation() + MathHelper.PiOver2;
+            angle.Normalize();
+            angle.X *= 3f;
+            angle.Y *= 3f;
+
+            float speed = Vector2.Distance(NPC.Center, point);
+            speed = MathHelper.Clamp(speed, -10f, 10f);
+            Move(point, speed);
+
+            if (AITimer >= 180)
             {
-                // Set bezier points for grabbing path
-                bezierPoints = new Vector2[4];
-                bezierPoints[0] = NPC.Center;
-                bezierPoints[1] = NPC.Center + new Vector2(-50, -50);
-                bezierPoints[2] = target.Center + new Vector2(50, -50);
-                bezierPoints[3] = target.Center;
+                NPC.knockBackResist = 0f;
+                State = AIState.Deterred;
+                ShakeEffect(5);
+                AITimer = 0;
             }
-
-            float t = AITimer / 60f; // Adjust speed as needed
-            NPC.Center = BezierCurve(t, bezierPoints);
-
-            if (AITimer >= 60)
+            if (NPC.Hitbox.Intersects(target.Hitbox))
             {
-                grabbedPlayer = target;
-                grabbedPlayer.velocity = Vector2.Zero;
-                grabbedPlayer.position = NPC.Center;
-                State = ArmAIState.Grabbed;
+                State = AIState.Grabbed;
                 AITimer = 0;
             }
         }
 
-        private void Grabbed(Player target)
+        private void Deterred()
         {
-            target.position = NPC.Center;
+            NPC.position += new Vector2(Main.rand.Next(-3, 4), Main.rand.Next(-3, 4)); // Shake effect
+            NPC.velocity.Y = 0f;
+            NPC.velocity.X = 0;
+            NPC boss = Main.npc[(int)NPC.ai[3]];
 
-            if (hitsTaken >= 3)
+            if (AITimer >= 180) // 3 seconds
             {
-                ReleasePlayer();
-                State = ArmAIState.Idle;
-                hitsTaken = 0;
+                SoundEngine.PlaySound(SoundID.Item32, NPC.position);
+                State = AIState.Idle;
+                AITimer = 0;
             }
+        }
+        public static string CrushQuotes(Player target)
+        {
+            string gender = "";
+            if (target.Male)
+                gender = "his";
+            
+            else if (!target.Male)
+                gender = "her";
+            
             else
+                gender = "their";
+            
+
+            string[] OverloadQuotes = new string[]
             {
-                AITimer++;
-                if (AITimer >= 180) // 3 seconds
+                " was crushed into a pool of blood.",
+                " was turned into a ball of bramble.",
+                " was brutally squeezed to death.",
+                " couldn't break free.",
+                " couldn't wiggle " + gender + " way out this one."
+            };
+            
+            int randomQuote = Main.rand.Next(OverloadQuotes.Length);
+
+            return OverloadQuotes[randomQuote];
+        }
+        private void CrushPlayer(Player target)
+        {
+            NPC.Center = target.Center;
+            target.velocity.Y -= 0.4f;
+            target.velocity.X *= 0f;
+
+            if (NPC.justHit)
+            {
+                hitsTaken += 1;               
+                CombatText.NewText(NPC.Hitbox, Color.Red, $"Hits: {hitsTaken}!", true);
+            }
+            if (!Main.masterMode)
+            {
+                if (hitsTaken >= 5)
                 {
-                    target.Hurt(Terraria.DataStructures.PlayerDeathReason.ByNPC(NPC.whoAmI), 150, 0);
-                    State = ArmAIState.Idle;
+                    State = AIState.Deterred;
                     hitsTaken = 0;
                 }
             }
-        }
+            else
+            {
+                if (hitsTaken >= 7)
+                {
+                    State = AIState.Deterred;
+                    hitsTaken = 0;
+                }
+            }
 
-        public override bool CheckActive()
-        {
-            return false; // Prevent despawning
+            Main.player[NPC.target].GetModPlayer<ReveriePlayer>().ScreenShakeIntensity = Math.Abs(AITimer / 48f);
+            if (AITimer > 240)
+            {              
+                if (!Main.masterMode)
+                {
+                    target.Hurt(PlayerDeathReason.ByCustomReason(target.name + CrushQuotes(target)), 100, 0);
+                }
+                else
+                {
+                    target.Hurt(PlayerDeathReason.ByCustomReason(target.name + CrushQuotes(target)), 150, 0);
+                }
+                for (int num = 0; num < 12; num++)
+                {
+                    Dust.NewDust(target.Center, NPC.width, NPC.height, DustID.Blood, newColor: Color.DarkRed, Scale: 2f);
+                }
+                SoundEngine.PlaySound(SoundID.Item14, NPC.position);
+                AITimer = 0;
+                State = AIState.Idle;
+            }
         }
-
-        public override bool? CanBeHitByItem(Player player, Item item)
+        private void ShakeEffect(int value)
         {
-            return State == ArmAIState.Grabbed;
-        }
-
-        public override bool? CanBeHitByProjectile(Projectile projectile)
-        {
-            return State == ArmAIState.Grabbed;
-        }
-        public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
-        {
-            hitsTaken++;
-            ShakeEffect();
-        }
-        public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
-        {
-            hitsTaken++;
-            ShakeEffect();
-        }
-
-        private void ShakeEffect()
-        {
-            Vector2 shakeOffset = new Vector2(Main.rand.Next(-3, 4), Main.rand.Next(-3, 4)) * hitsTaken;
+            Vector2 shakeOffset = new Vector2(Main.rand.Next(-2, 3), Main.rand.Next(-2, 3)) * value;
             NPC.position += shakeOffset;
         }
-
-        private void ReleasePlayer()
+        private void Dashing()
         {
-            grabbedPlayer.velocity = Vector2.Zero;
-            grabbedPlayer = null;
+            Player target = Main.player[NPC.target];
+            var angle = target.Center - NPC.Center;
+            NPC.rotation = angle.ToRotation() + MathHelper.PiOver2;
+            angle.Normalize();
+            angle.X *= 2f;
+            angle.Y *= 2f;
+            DashTimer++;
+            if (DashTimer >= Main.rand.Next(70, 100))
+            {
+                NPC.TargetClosest();
+                NPC.netUpdate = true;
+                Vector2 PlayerPosition = new Vector2(target.Center.X - NPC.Center.X, target.Center.Y - NPC.Center.Y);
+                PlayerPosition.Normalize();
+                NPC.velocity = PlayerPosition * 8.5f;
+                DashTimer = 0;
+            }
+            if (NPC.life < NPC.lifeMax * 0.20f)
+            {
+                if (DashTimer >= 60)
+                {
+                    NPC.TargetClosest();
+                    NPC.netUpdate = true;
+                    Vector2 PlayerPosition = new Vector2(target.Center.X - NPC.Center.X, target.Center.Y - NPC.Center.Y);
+                    PlayerPosition.Normalize();
+                    NPC.velocity = PlayerPosition * 10.5f;
+                    DashTimer = 0;
+                }
+            }
         }
-
-        private void Dashing(Player target)
-        {
-            if (AITimer < 60)
-            {
-                // Charge up
-                NPC.velocity = Vector2.Zero;
-            }
-            else if (AITimer == 60)
-            {
-                // Dash towards player
-                Vector2 dashDirection = (target.Center - NPC.Center).SafeNormalize(Vector2.UnitX);
-                NPC.velocity = dashDirection * 20f;
-            }
-            else if (AITimer > 60 && NPC.collideX)
-            {
-                // Explode into splinters on tile collide
-                Explode();
-                NPC.active = false;
-                Main.npc[ModContent.NPCType<WoodenWarden>()].localAI[3] = 1f; // Flag to spawn new arm
-            }
-        }
-
         private void LaserAttack(Player target)
         {
-            if (AITimer == 0)
+            BeamTimer++;
+            var angle = target.Center - NPC.Center;
+            NPC.rotation = angle.ToRotation() + MathHelper.PiOver2;
+            angle.Normalize();
+            angle.X *= 3f;
+            angle.Y *= 3f;
+
+            var position = target.Center - new Vector2(-200, 70);
+            if (Arm == ArmType.Right)
             {
-                // Initial tracking
-                laserShots = 0;
+                position = target.Center - new Vector2(200, 70);
             }
+            float speed = Vector2.Distance(NPC.Center, position);
+            speed = MathHelper.Clamp(speed, -14f, 14f);
 
-            if (AITimer < 60)
+            Move(position, speed);
+            if (BeamTimer >= 120)
             {
-                // Track player's Y position
-                NPC.Center = new Vector2(NPC.Center.X, target.Center.Y);
+                Projectile.NewProjectile(default, NPC.Center, angle * 2.5f, ProjectileID.EyeBeam, 5, 0f, Main.myPlayer);
+                BeamTimer = 0;
             }
-            else if (AITimer % 20 == 0 && laserShots < 5)
+            if (NPC.life < NPC.lifeMax * 0.20f)
             {
-                // Fire laser
-                Vector2 direction = Vector2.UnitX * NPC.spriteDirection;
-                Projectile.NewProjectile(default, NPC.Center, direction * 10f, ProjectileID.EyeLaser, 20, 1f, Main.myPlayer);
-                laserShots++;
+                if (BeamTimer >= 30)
+                {
+                    Projectile.NewProjectile(default, NPC.Center, angle * 2.5f, ProjectileID.EyeBeam, 6, 0f, Main.myPlayer);
+                    BeamTimer = 0;
+                }
             }
-
-            if (laserShots >= 5)
-            {
-                State = ArmAIState.Idle;
-                AITimer = 0;
-            }
-        }
-
-        private void Explode()
-        {
-            // Implement explosion effect
-        }
-
-        private Vector2 BezierCurve(float t, Vector2[] points)
-        {
-            float u = 1 - t;
-            float tt = t * t;
-            float uu = u * u;
-            float uuu = uu * u;
-            float ttt = tt * t;
-
-            Vector2 p = uuu * points[0];
-            p += 3 * uu * t * points[1];
-            p += 3 * u * tt * points[2];
-            p += ttt * points[3];
-
-            return p;
         }
     }
 }

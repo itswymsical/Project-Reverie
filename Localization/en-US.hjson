@@ -113,8 +113,10 @@ Mods: {
 			Fungore.DisplayName: Fungore
 			ForestWarden.DisplayName: Forest Warden
 			WoodenWardenBoss.DisplayName: Wooden Warden
+			WoodenWarden.DisplayName: Wooden Warden
 			WardenArmLeft.DisplayName: Warden Arm
 			WardenArmRight.DisplayName: Warden Arm
+			WardenArm.DisplayName: Warden Arm
 		}
 
 		Projectiles: {

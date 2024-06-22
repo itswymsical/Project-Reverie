@@ -21,8 +21,7 @@ namespace ReverieMod.Common.Systems.Subworlds
         public override int Height => 1400;
         public override bool ShouldSave => false;
         public override bool NoPlayerSaving => true;
-        private float alpha;
-        private float alphaTimer;
+
         public override List<GenPass> Tasks => new List<GenPass>()
         {
             new DesertPass()
@@ -58,7 +57,7 @@ namespace ReverieMod.Common.Systems.Subworlds
             noise.SetFrequency(0.01f);
 
             Main.spawnTileX = Main.maxTilesX / 2;
-            Main.spawnTileY = (int)Main.worldSurface;
+            Main.spawnTileY = (int)Main.worldSurface - 10;
             // Full Desert
             for (int x = 0; x < Main.maxTilesX; x++)
             {

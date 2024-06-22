@@ -21,7 +21,6 @@ namespace ReverieMod.Content
         public override Asset<Texture2D> SunTexture => null;
         public override Asset<Texture2D> MoonTexture => null;
         public override string DisplayName => "Reverie";
-        private Texture2D backgroundTexture;
        
         public override void OnSelected() {
             SoundEngine.PlaySound(new SoundStyle("ReverieMod/Assets/SFX/Theme_Select"));

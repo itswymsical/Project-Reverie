@@ -24,8 +24,8 @@ namespace ReverieMod.Common.Systems
         public static int CANOPY_X = SPAWN_X;
         public static int CANOPY_Y = TRUNK_BOTTOM + (TRUNK_BOTTOM / 4);
 
-        public static int CANOPY_H = (int)(Main.maxTilesX * 0.02475f);
-        public static int CANOPY_V = (int)(Main.maxTilesY * 0.170f);
+        public static int CANOPY_H = (int)(Main.maxTilesX * 0.02525f);
+        public static int CANOPY_V = (int)(Main.maxTilesY * 0.16f);
 
         public static int treeWood = TileID.LivingWood;
         public static int treeWall = WallID.LivingWoodUnsafe;
@@ -176,8 +176,7 @@ namespace ReverieMod.Common.Systems
                         WorldGen.KillWall(x, y);
                         WorldGen.PlaceWall(x, y, wallType);
                         WorldGen.TileRunner(x, y, 20, 5, treeWood, true, 0, 0, false, true);
-
-                        // This is the blue progress bar that tracks the actual speed of the generation.
+                        // This is the blue progress bar under the green one that tracks the percentage of the GenPass.
                         progress.Set((float)((x - (CANOPY_X - CANOPY_H)) * (2 * CANOPY_V) + (y - (CANOPY_Y - CANOPY_V))) / ((2 * CANOPY_H) * (2 * CANOPY_V)));
                     }
                 }
@@ -191,19 +190,25 @@ namespace ReverieMod.Common.Systems
             protected override void ApplyPass(GenerationProgress progress, GameConfiguration configuration)
             {
                 progress.Message = "Overgrowing tree roots";
-                FastNoiseLite noise = new FastNoiseLite();
-                noise.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2S);
-                noise.SetFractalType(FastNoiseLite.FractalType.Ridged);
-                noise.SetFractalGain(0.325f);
-                noise.SetFractalOctaves(5); // Since this is fractal noise, our noise map is almost infinite.
+                FastNoiseLite roots = new FastNoiseLite(Main.ActiveWorldFileData.Seed);
+                roots.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2S);
+                roots.SetFractalType(FastNoiseLite.FractalType.Ridged);
+                roots.SetFractalGain(0.325f);
+                roots.SetFractalOctaves(5); // Since this is fractal noise, our noise map is almost infinite.
                 // '<' value zooms out of the noise grid (many, small caves), '>' value zooms in (bigger caves)
-                noise.SetFrequency(0.032f); //i think this a good value.
+                roots.SetFrequency(0.032f); //i think this a good value.
                 int posx = CANOPY_H * 2;
                 int posy = CANOPY_V * 2;
-                float[,] noiseData = new float[posx, posy];
-                float threshold = 0.42f; // This is basically which noise values are we going to ignore/kill.
+                float threshold = 0.47f; // This is basically which noise values are we going to ignore/kill.
                 // Not entirely sure, but i believe positive values calculate the bright values.
+                float[,] noiseData = new float[posx, posy];
 
+                for (int x = CANOPY_X - CANOPY_H; x <= CANOPY_X + CANOPY_H; x++)
+                {
+                    for (int y = CANOPY_Y - CANOPY_V; y <= CANOPY_Y + CANOPY_V; y++)
+                    {
+                    }
+                }
                 // Locating canopy & making noise map.
                 for (int x = 0; x < posx; x++)
                 {
@@ -212,7 +217,7 @@ namespace ReverieMod.Common.Systems
                         int worldX = x + (CANOPY_X - CANOPY_H);
                         int worldY = y + (CANOPY_Y - CANOPY_V);
 
-                        noiseData[x, y] = noise.GetNoise(worldX, worldY);                      
+                        noiseData[x, y] = roots.GetNoise(worldX, worldY);
                     }
                 }
 
@@ -226,18 +231,13 @@ namespace ReverieMod.Common.Systems
 
                         if (noiseData[x, y] < threshold) // '>' = dark values, '<' = light values
                         {
-                            if (Main.tile[worldX, worldY].HasTile)
-                            {
-                                WorldGen.KillTile(worldX, worldY);
-                            }
+                            WorldGen.KillTile(worldX, worldY);
                         }
-
                         // Update progress
-                        float progressPercentage = (float)((x * posy + y) + (posx * posy)) / (2 * posx * posy);
-                        progress.Set(progressPercentage);
+                        progress.Set((float)((x * posy + y) + (posx * posy)) / (2 * posx * posy));
                     }
                 }
-                
+               
                 Gen_NoiseMap_Walls(CANOPY_X, CANOPY_Y, CANOPY_H, CANOPY_V, 48, 10);
             }
         }
@@ -302,8 +302,7 @@ namespace ReverieMod.Common.Systems
                 for (int x = CANOPY_X - CANOPY_H; x <= CANOPY_X + CANOPY_H; x++)
                 {
                     for (int y = CANOPY_Y - CANOPY_V; y <= CANOPY_Y + CANOPY_V; y++)
-                    {
-                        
+                    {                 
                         Tile tile = Framing.GetTileSafely(x, y);
                         for (int grassX = x - 1; grassX <= x + 1; grassX++)
                         {
@@ -321,7 +320,7 @@ namespace ReverieMod.Common.Systems
                             }
                         }
                         Tile tileAbove = Framing.GetTileSafely(x, y - 1);
-                        if (WorldGen.genRand.NextBool() && !tileAbove.HasTile && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock)
+                        if (WorldGen.genRand.NextBool(2) && !tileAbove.HasTile && !tile.LeftSlope && !tile.RightSlope && !tile.IsHalfBlock)
                         {
                             WorldGen.PlaceTile(x, y - 1, (ushort)ModContent.TileType<CanopyFoliage>());
                             tileAbove.TileFrameY = 0;
@@ -345,8 +344,7 @@ namespace ReverieMod.Common.Systems
                                     NetMessage.SendTileSquare(-1, x, y + 1, 3, 0);
                                 }
                             }
-                        }
-                        //Helper.SmoothTerrain(x, y); // Broken?
+                        }                      
                     }
                 }
             }

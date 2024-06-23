@@ -16,7 +16,6 @@ namespace ReverieMod.Common.Systems
                 tasks.Insert(CanopyIndex + 2, new CanopyRootPass("Canopy Cave System", 100f));
                 tasks.Insert(CanopyIndex + 3, new ReverieTreePass("Reverie Extras", 74f));
             }
-
-        }    
+        }
     }
 }

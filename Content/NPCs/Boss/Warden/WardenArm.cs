@@ -11,6 +11,8 @@ using Terraria.GameInput;
 using Terraria.DataStructures;
 using ReverieMod.Common.Players;
 using System;
+using ReLogic.Content;
+using Terraria.Graphics.Shaders;
 
 namespace ReverieMod.Content.NPCs.Bosses.Warden
 {
@@ -383,5 +385,6 @@ namespace ReverieMod.Content.NPCs.Bosses.Warden
                 }
             }
         }
+
     }
 }

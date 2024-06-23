@@ -11,6 +11,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.Bestiary;
+using Terraria.Graphics.CameraModifiers;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -49,7 +50,17 @@ namespace ReverieMod.Content.NPCs.Boss.Warden
 
         private int count;
         private int bossDefense = 12;
-        public override void SetStaticDefaults() => NPCID.Sets.BossBestiaryPriority.Add(Type);
+        public override void SetStaticDefaults()
+        {
+            NPCID.Sets.BossBestiaryPriority.Add(Type);
+            NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new NPCID.Sets.NPCBestiaryDrawModifiers()
+            {
+                CustomTexturePath = "ReverieMod/Assets/Textures/Bestiary/WardenBestiary",
+                PortraitScale = 0.6f, // Portrait refers to the full picture when clicking on the icon in the bestiary
+                PortraitPositionYOverride = 0f,
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
+        }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
             // Sets the description of this NPC that is listed in the bestiary
@@ -203,7 +214,14 @@ namespace ReverieMod.Content.NPCs.Boss.Warden
             Tile tile = Framing.GetTileSafely(new Point((int)NPC.position.X / 16, (int)(NPC.position.Y + NPC.height) / 16));
             slamming = true;
             slamTimer++;
-
+            if (Main.player[NPC.target].Top.Y > NPC.Bottom.Y)
+            {
+                NPC.noTileCollide = true;
+            }
+            else
+            {
+                NPC.noTileCollide = false;
+            }
             if (slamTimer < 40) // Shake and rise for the first 60 ticks
             {
                 NPC.position += new Vector2(Main.rand.Next(-2, 2), Main.rand.Next(-2, 2)); // Shake effect
@@ -214,15 +232,16 @@ namespace ReverieMod.Content.NPCs.Boss.Warden
             else if (slamTimer < 360) // Rapidly descend
             {
                 NPC.damage = 60;
-                NPC.noTileCollide = false;
                 NPC.velocity.Y = 22f;
-                if (NPC.collideY && ((!TileID.Sets.Platforms[tile.TileType]) || Main.tileSolid[tile.TileType])) // Check if NPC hits the ground
+                if (NPC.collideY) // Check if NPC hits the ground
                 {
-
-                    Main.player[NPC.target].GetModPlayer<ReveriePlayer>().ScreenShakeIntensity = Math.Abs(NPC.velocity.Y * 1.75f);
+                    NPC.noTileCollide = false;
+                    //Main.player[NPC.target].GetModPlayer<ReveriePlayer>().ScreenShakeIntensity = Math.Abs(NPC.velocity.Y * 1.75f);
+                    PunchCameraModifier modifier = new PunchCameraModifier(NPC.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), 20f, 6f, 20, 1000f, FullName);
+                    Main.instance.CameraModifiers.Add(modifier);
                     SoundEngine.PlaySound(new SoundStyle($"{nameof(ReverieMod)}/Assets/SFX/WardenDeath_2")
                     {
-                        Volume = 1.4f,
+                        Volume = 0.9f,
                         PitchVariance = 0.2f,
                         MaxInstances = 3,
                     });

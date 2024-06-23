@@ -173,3 +173,4 @@ C:\Users\cobal\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\obj\
 C:\Users\cobal\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\obj\Debug\net8.0\refint\ReverieMod.dll
 C:\Users\cobal\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\obj\Debug\net8.0\ReverieMod.pdb
 C:\Users\cobal\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\obj\Debug\net8.0\ref\ReverieMod.dll
+C:\Users\cobal\Documents\My Games\Terraria\tModLoader\ModSources\ReverieMod\bin\Debug\net8.0\StructureHelper.dll

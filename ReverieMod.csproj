@@ -13,6 +13,15 @@
     <Folder Include="Content\Projectiles\" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="StructureHelper">
+      <HintPath>Utilities\StructureHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureHelper">
+      <HintPath>Utilities\StructureHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureHelper">
+      <HintPath>Utilities\StructureHelper.dll</HintPath>
+    </Reference>
     <Reference Include="SubworldLibrary">
       <HintPath>Helpers\SubworldLibrary.dll</HintPath>
     </Reference>

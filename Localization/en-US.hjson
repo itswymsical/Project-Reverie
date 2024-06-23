@@ -107,6 +107,16 @@ Mods: {
 				DisplayName: Craterstrike
 				Tooltip: ""
 			}
+
+			Experience: {
+				DisplayName: Experience
+				Tooltip: ""
+			}
+
+			ExperienceReader: {
+				DisplayName: Experience Reader
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {

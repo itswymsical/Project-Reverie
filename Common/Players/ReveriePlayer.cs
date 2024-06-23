@@ -9,6 +9,9 @@ using ReverieMod.Helpers;
 using Terraria.ID;
 using ReverieMod.Common.Global;
 using ReverieMod.Common.Tiles;
+using System.Collections.Generic;
+using ReverieMod.Content.Items.Shovels;
+using static ReverieMod.Assets;
 
 namespace ReverieMod.Common.Players
 {
@@ -57,6 +60,13 @@ namespace ReverieMod.Common.Players
             toadstoolExplode = false;
 
             mushroomHeal = false;
+        }
+        public override IEnumerable<Item> AddStartingItems(bool mediumCoreDeath)
+        {
+            if (mediumCoreDeath)
+                return [new Item(ModContent.ItemType<CopperShovel>())];
+            
+            return [new Item(ModContent.ItemType<CopperShovel>())];
         }
         /*
         public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)

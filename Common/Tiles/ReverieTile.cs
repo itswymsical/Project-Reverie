@@ -13,13 +13,7 @@ namespace ReverieMod.Common.Tiles
 	public class ReverieTile : GlobalTile
 	{
 		public bool placedByPlayer;
-		public override void FloorVisuals(int type, Player player)
-		{
-			player.GetModPlayer<ReveriePlayer>().onSand =
-				(TileID.Sets.Conversion.Sand[type] || TileID.Sets.Conversion.Sandstone[type] || TileID.Sets.Conversion.HardenedSand[type]);
-		}
-        //This is gonna look really ugly, i had intended to make this a few simple and cohesive lines of code then i remembered how shit tile code is
-        public override void Drop(int i, int j, int type)
+      public override void Drop(int i, int j, int type)
         {
             Player player = Main.LocalPlayer;
             var modPlayer = player.GetModPlayer<ReveriePlayer>();

@@ -14,7 +14,7 @@ using Terraria.UI;
 
 namespace ReverieMod.Content.Items
 {
-    public class ExperienceReader : ModItem
+    public class DialogueTest : ModItem
     {
         public override string Texture => Assets.PlaceholderTexture;
         public override void SetDefaults()
@@ -24,9 +24,12 @@ namespace ReverieMod.Content.Items
             Item.width = Item.height = 30;
         }
         public override bool? UseItem(Player player)
-        {      
-            ExperiencePlayer experience = player.GetModPlayer<ExperiencePlayer>();
-            Main.NewText($"Level {experience.experienceLevel}, {experience.experienceValue} XP, {experience.skillPoints} Skill points.", Color.Lime);
+        {
+            WorldNPCDialogueNotification sophie = new WorldNPCDialogueNotification();
+            sophie.text = "Hey there! I see you over there slaughtering slimes, how about you come kill this fella I got over here?";
+            sophie.icon = ModContent.Request<Texture2D>("ReverieMod/Assets/Textures/UI/DialoguePortraits/Sophie");
+            InGameNotificationsTracker.AddNotification(sophie);      
+            
             return true;
         }
     }

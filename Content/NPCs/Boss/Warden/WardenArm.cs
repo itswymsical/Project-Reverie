@@ -1,22 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using ReverieMod.Common.Players;
+using ReverieMod.Content.NPCs.Boss.Warden;
+using System;
 using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using ReverieMod.Helpers;
-using ReverieMod.Content.NPCs.Boss.Warden;
-using Terraria.Audio;
-using System.Security.Cryptography.Xml;
-using Terraria.GameInput;
-using Terraria.DataStructures;
-using ReverieMod.Common.Players;
-using System;
-using ReLogic.Content;
-using Terraria.Graphics.Shaders;
 
 namespace ReverieMod.Content.NPCs.Bosses.Warden
 {
-	[AutoloadBossHead]
+    [AutoloadBossHead]
 	public class WardenArm : ModNPC
 	{
         public override string Texture => Assets.NPCs.Warden + Name;

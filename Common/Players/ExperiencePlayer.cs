@@ -5,6 +5,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.Audio;
+using ReverieMod.Common.UI;
+using Terraria.UI;
 
 namespace ReverieMod.Common.Players
 {
@@ -56,8 +58,13 @@ namespace ReverieMod.Common.Players
                     modPlayer.experienceLevel++;
                     modPlayer.skillPoints++;
                     SoundEngine.PlaySound(SoundID.AchievementComplete, player.position);
-                    Main.NewText($"{player.name} Reached Level {modPlayer.experienceLevel} [i:{ItemID.FallenStar}] , Skill Points: {modPlayer.skillPoints}");
+                    InGameNotificationsTracker.AddNotification(new LevelNotification());
+                    Main.NewText($"{player.name} Reached Level {modPlayer.experienceLevel} [i:{ItemID.FallenStar}], Skill Points: {modPlayer.skillPoints}");
                 }
+            }
+            else
+            {
+                return;
             }
         }
         public static int GetNextExperienceThreshold(int level)
@@ -114,7 +121,8 @@ namespace ReverieMod.Common.Players
         public override void OnKill(NPC npc)
         {
             int totalDamage = npc.lifeMax;
-
+            
+            ExperiencePlayer modPlayer = Main.LocalPlayer.GetModPlayer<ExperiencePlayer>();
             if (npc.friendly || npc.CountsAsACritter || npc.SpawnedFromStatue || npc.isLikeATownNPC)
             {
                 return;
@@ -126,7 +134,7 @@ namespace ReverieMod.Common.Players
                 int damageDealt = entry.Value;
                 Player player = Main.player[playerID];
                 
-                if (player.active && !player.dead)
+                if (player.active && !player.dead && modPlayer.experienceLevel <= 40)
                 {
                     float damageRatio = (float)damageDealt / totalDamage;
                     int experiencePoints = (int)(npc.lifeMax * damageRatio / 10); // Example calculation

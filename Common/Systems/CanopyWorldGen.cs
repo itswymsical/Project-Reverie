@@ -1,12 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using ReverieMod.Content.Tiles.Canopy;
-using ReverieMod.Helpers;
+﻿using ReverieMod.Content.Tiles.Canopy;
 using ReverieMod.Utilities;
 using StructureHelper;
 using System;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.Enums;
 using Terraria.ID;
 using Terraria.IO;
 using Terraria.ModLoader;

@@ -1,12 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReverieMod.Common.Players;
 using ReverieMod.Content.NPCs.Bosses.Warden;
 using ReverieMod.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Threading;
-using System.Timers;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;

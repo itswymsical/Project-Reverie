@@ -5,6 +5,11 @@ Mods: {
 				TownNPCDialogueName: Woodland Canopy
 				DisplayName: Woodland Canopy
 			}
+
+			ArchaeaDesert: {
+				DisplayName: Archaea Desert
+				TownNPCDialogueName: the Archaea Desert
+			}
 		}
 
 		Items: {

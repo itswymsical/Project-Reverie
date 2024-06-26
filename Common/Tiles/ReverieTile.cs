@@ -13,7 +13,7 @@ namespace ReverieMod.Common.Tiles
 	public class ReverieTile : GlobalTile
 	{
 		public bool placedByPlayer;
-      public override void Drop(int i, int j, int type)
+        public override void Drop(int i, int j, int type)
         {
             Player player = Main.LocalPlayer;
             var modPlayer = player.GetModPlayer<ReveriePlayer>();

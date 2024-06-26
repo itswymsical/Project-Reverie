@@ -1,12 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using ReverieMod.Content.Tiles.Canopy;
-using ReverieMod.Helpers;
+﻿using ReverieMod.Content.Tiles.Canopy;
 using ReverieMod.Utilities;
 using StructureHelper;
 using System;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.Enums;
 using Terraria.ID;
 using Terraria.IO;
 using Terraria.ModLoader;
@@ -27,7 +24,7 @@ namespace ReverieMod.Common.Systems
         public static int CANOPY_Y = TRUNK_BOTTOM + (TRUNK_BOTTOM / 4);
 
         public static int CANOPY_H = (int)(Main.maxTilesX * 0.03f);
-        public static int CANOPY_V = (int)(Main.maxTilesY * 0.093f);
+        public static int CANOPY_V = (int)(Main.maxTilesY * 0.1075f);
 
         public static int treeWood = TileID.LivingWood;
         public static int treeWall = WallID.LivingWoodUnsafe;
@@ -234,10 +231,10 @@ namespace ReverieMod.Common.Systems
                 roots.SetFractalGain(0.435f);
                 roots.SetFractalOctaves(5); // Since this is fractal noise, our noise map is almost infinite.
                 // '<' value zooms out of the noise grid (many, small caves), '>' value zooms in (bigger caves)
-                roots.SetFrequency(0.032f); //i think this a good value.
+                roots.SetFrequency(0.021f); //i think this a good value.
                 int posx = CANOPY_H * 2;
                 int posy = CANOPY_V * 2;
-                float threshold = 0.34f; // This is basically which noise values are we going to ignore/kill.
+                float threshold = 0.39f; // This is basically which noise values are we going to ignore/kill.
                 // Not entirely sure, but i believe positive values calculate the bright values.
                 float[,] noiseData = new float[posx, posy];
 
@@ -260,7 +257,7 @@ namespace ReverieMod.Common.Systems
                         int worldX = x + (CANOPY_X - CANOPY_H);
                         int worldY = y + (CANOPY_Y - CANOPY_V);
                         if (InsideCanopy_Trapezoid(worldX, worldY, CANOPY_X, CANOPY_Y, CANOPY_H, CANOPY_V))
-                        {
+                        {                           
                             if (noiseData[x, y] < threshold) // '>' = dark values, '<' = light values
                             {
                                 WorldGen.KillTile(worldX, worldY);
@@ -270,8 +267,9 @@ namespace ReverieMod.Common.Systems
                         progress.Set((float)((x * posy + y) + (posx * posy)) / (2 * posx * posy));
                     }
                 }
-                //GenVars.structures.AddProtectedStructure(new Rectangle())
                 Gen_NoiseMap_Walls(CANOPY_X, CANOPY_Y, CANOPY_H, CANOPY_V, 48, 10);
+                //GenVars.structures.AddProtectedStructure(new Rectangle())
+
             }
         }
         public class ReverieTreePass : GenPass
@@ -288,12 +286,12 @@ namespace ReverieMod.Common.Systems
                 TRUNK_X = (TRUNK_DIR == 0) ? SPAWN_X - SPAWN_DISTANCE : SPAWN_X + SPAWN_DISTANCE;
                 TRUNK_X = Math.Clamp(TRUNK_X, 0, Main.maxTilesX - 1);
 
-                int TRUNK_WIDTH = 26;
+                int TRUNK_WIDTH = 23;
                 Generator.GenerateStructure("Structures/ReverieTreeStruct", new Point16(SPAWN_X - 54, (Main.spawnTileY - (Main.maxTilesY / 14))), ReverieMod.Instance);
                 // Trunk Chasm
                 const float TRUNK_CURVE_FREQUENCY = 0.0765f;
                 const int TRUNK_CURVE_AMPLITUDE = 4;
-                for (int y = (int)Main.spawnTileY + 24; y <= TRUNK_BOTTOM; y++)
+                for (int y = (int)Main.spawnTileY + 38; y <= TRUNK_BOTTOM; y++)
                 {
                     int currentTRUNK_WIDTH = TRUNK_WIDTH + (y % 5 == 0 ? 2 : 0);
                     int curveOffset = (int)(Math.Sin(y * TRUNK_CURVE_FREQUENCY) * TRUNK_CURVE_AMPLITUDE);
@@ -308,7 +306,7 @@ namespace ReverieMod.Common.Systems
 
                     }
                 }
-                for (int y2 = (int)Main.spawnTileY + 24; y2 <= TRUNK_BOTTOM; y2++)
+                for (int y2 = (int)Main.spawnTileY + 38; y2 <= TRUNK_BOTTOM; y2++)
                 {
                     int tunnelTRUNK_WIDTH = (TRUNK_WIDTH / 2) + (y2 % 5 == 0 ? 2 : 0);
                     int tunnelOffset = (int)(Math.Sin(y2 * TRUNK_CURVE_FREQUENCY) * TRUNK_CURVE_AMPLITUDE);

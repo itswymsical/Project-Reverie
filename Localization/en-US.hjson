@@ -5,6 +5,11 @@ Mods: {
 				TownNPCDialogueName: Woodland Canopy
 				DisplayName: Woodland Canopy
 			}
+
+			ArchaeaDesert: {
+				DisplayName: Archaea Desert
+				TownNPCDialogueName: the Archaea Desert
+			}
 		}
 
 		Items: {
@@ -88,11 +93,6 @@ Mods: {
 				Tooltip: Naturally generated shinnies have a small chance to drop extra items
 			}
 
-			SubworldTool: {
-				DisplayName: Subworld Tool
-				Tooltip: Teleports you to a subworld
-			}
-
 			WoodgrassSeeds: {
 				DisplayName: Woodgrass Seeds
 				Tooltip: ""
@@ -105,6 +105,21 @@ Mods: {
 
 			Craterstrike: {
 				DisplayName: Craterstrike
+				Tooltip: ""
+			}
+
+			ExperienceReader: {
+				DisplayName: Experience Reader
+				Tooltip: Gives the current stats of your player.
+			}
+
+			SubworldTool: {
+				DisplayName: Subworld Tool
+				Tooltip: ""
+			}
+
+			DialogueTest: {
+				DisplayName: Dialogue Test
 				Tooltip: ""
 			}
 		}
@@ -128,5 +143,8 @@ Mods: {
 			ShovelMeteorite.DisplayName: Shovel Meteorite
 			RedSandBall.DisplayName: Red Sand Ball
 		}
+
+		"Keybinds.Skill Tree Menu.DisplayName": Skill  Tree  Menu
+		UI.ExperienceTracker: Mods.ReverieMod.UI.ExperienceTracker
 	}
 }

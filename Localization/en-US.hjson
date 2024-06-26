@@ -112,6 +112,11 @@ Mods: {
 				DisplayName: Subworld Tool
 				Tooltip: ""
 			}
+
+			DialogueTest: {
+				DisplayName: Dialogue Test
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -135,5 +140,6 @@ Mods: {
 		}
 
 		"Keybinds.Skill Tree Menu.DisplayName": Skill  Tree  Menu
+		UI.ExperienceTracker: Mods.ReverieMod.UI.ExperienceTracker
 	}
 }

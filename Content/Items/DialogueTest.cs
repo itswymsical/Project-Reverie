@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
@@ -25,10 +26,23 @@ namespace ReverieMod.Content.Items
         }
         public override bool? UseItem(Player player)
         {
-            WorldNPCDialogueNotification sophie = new WorldNPCDialogueNotification();
-            sophie.text = "Hey there! I see you over there slaughtering slimes, how about you come kill this fella I got over here?";
-            sophie.icon = ModContent.Request<Texture2D>("ReverieMod/Assets/Textures/UI/DialoguePortraits/Sophie");
-            InGameNotificationsTracker.AddNotification(sophie);      
+            var dialogues = new (string Text, int Delay)[]
+            {
+                ($"Hey, {player.name}!", 3),
+                ($"Nice to meet you, I'm you're guide.", 2),
+                ("Although i'm only an apprentice guide, I'm more than qualified to help you learn everything about Terraria.", 2),
+                ("You've been out for a while now, hehe.", 4),
+                ("Anyways...", 2),
+                ("I bet you're wondering what to do from here.", 3),
+                ("Come talk to me, I'll answer any questions you have.", 2)
+            };
+            NPCDialogueBox dialogue = NPCDialogueBox.CreateNewDialogueSequence(dialogues);
+            dialogue.npcName = "Guide";
+            dialogue.currentDialogue = "???"; // currentDialogue is ALWAYS the intial dialogue.
+            dialogue.iconTexture = ModContent.Request<Texture2D>("ReverieMod/Assets/Textures/UI/DialoguePortraits/Guide");
+            dialogue.color = Color.LightBlue;
+            dialogue.characterSound = SoundID.MenuOpen;
+            InGameNotificationsTracker.AddNotification(dialogue);      
             
             return true;
         }

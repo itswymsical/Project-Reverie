@@ -257,8 +257,7 @@ namespace ReverieMod.Common.Systems
                         int worldX = x + (CANOPY_X - CANOPY_H);
                         int worldY = y + (CANOPY_Y - CANOPY_V);
                         if (InsideCanopy_Trapezoid(worldX, worldY, CANOPY_X, CANOPY_Y, CANOPY_H, CANOPY_V))
-                        {
-                            Gen_NoiseMap_Walls(CANOPY_X, CANOPY_Y, CANOPY_H, CANOPY_V, 48, 10);
+                        {                           
                             if (noiseData[x, y] < threshold) // '>' = dark values, '<' = light values
                             {
                                 WorldGen.KillTile(worldX, worldY);
@@ -268,8 +267,9 @@ namespace ReverieMod.Common.Systems
                         progress.Set((float)((x * posy + y) + (posx * posy)) / (2 * posx * posy));
                     }
                 }
+                Gen_NoiseMap_Walls(CANOPY_X, CANOPY_Y, CANOPY_H, CANOPY_V, 48, 10);
                 //GenVars.structures.AddProtectedStructure(new Rectangle())
-                
+
             }
         }
         public class ReverieTreePass : GenPass

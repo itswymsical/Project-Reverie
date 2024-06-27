@@ -8,12 +8,22 @@ using static Terraria.ModLoader.ModContent;
 using ReverieMod.Utilities;
 using Terraria.ID;
 using ReverieMod.Helpers;
+using Microsoft.Xna.Framework;
+using Terraria.ModLoader;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.GameContent;
 
 
 namespace ReverieMod.Common.Systems.Subworlds
 {
     public class ArchaeaSubworld : Subworld
     {
+        private int currentFrame;
+        private double frameTime;
+        private const int totalFrames = 19; // Total number of frames in the texture
+        private const double timePerFrame = 0.1; // Time per frame in seconds
+        private float fadeInDuration = 4f; // Duration for the fade-in effect in seconds
+        private double elapsedTime;
         public override int Width => 2200;
         public override int Height => 1400;
         public override bool ShouldSave => false;
@@ -21,10 +31,10 @@ namespace ReverieMod.Common.Systems.Subworlds
 
         public override List<GenPass> Tasks => new()
         {
-            new DesertPass("DesertPass", 1f),
-            new CavernPass("CavernPass", 1f),
-            new SmoothPass("SmoothingPass", 1f),
-            new PlantPass("PlantPass", 1f)
+            new DesertPass("[Archaea] Desert", 1f),
+            new CavernPass("[Archaea] Caverns", 1f),
+            new SmoothPass("Smooth World - Reverie", 1f),
+            new PlantPass("[Archaea] Plants", 1f)
         };
         public override void Update()
         {
@@ -42,6 +52,46 @@ namespace ReverieMod.Common.Systems.Subworlds
         public override void OnEnter()
         {
             SubworldSystem.hideUnderworld = true;
+        }
+        public override void DrawSetup(GameTime gameTime)
+        {
+            var bg = Request<Texture2D>("ReverieMod/Assets/Textures/Backgrounds/Otherworlds/Archaea").Value;
+            var subworldNameTexture = (Texture2D)TextureAssets.Logo;
+            float opacity = MathHelper.Clamp((float)(elapsedTime / fadeInDuration), 0f, 1f);
+            // Update elapsed time
+            elapsedTime += gameTime.ElapsedGameTime.TotalSeconds / 4;
+
+            var loadingIcon = (Texture2D)TextureAssets.LoadingSunflower;
+            // Update animation frame
+            frameTime += gameTime.ElapsedGameTime.TotalSeconds;
+            if (frameTime >= timePerFrame)
+            {
+                frameTime -= timePerFrame;
+                currentFrame = (currentFrame + 1) % totalFrames;
+            }
+
+            int frameWidth = loadingIcon.Width;
+            int frameHeight = loadingIcon.Height / totalFrames;
+
+            Rectangle sourceRectangle = new Rectangle(0, currentFrame * frameHeight, frameWidth, frameHeight);
+
+
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise);
+            // Draw background texture to fill the screen
+            Main.spriteBatch.Draw(bg, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White * opacity);
+
+            // Calculate position for loading icon to be at the bottom right
+            Vector2 iconPosition = new Vector2(Main.screenWidth - loadingIcon.Width - 10, Main.screenHeight - frameHeight - 10);
+
+            // Draw loading icon
+            Main.spriteBatch.Draw(loadingIcon, iconPosition, sourceRectangle, Color.White * opacity);
+
+            // Draw subworld name texture in the top left corner
+            Vector2 nameTexturePosition = new Vector2(10, 10);
+            Main.spriteBatch.Draw(subworldNameTexture, nameTexturePosition, Color.White * opacity);
+
+            Main.DrawCursor(Main.DrawThickCursor());
+            Main.spriteBatch.End();
         }
     }
     public class DesertPass : GenPass

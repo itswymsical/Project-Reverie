@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Terraria.WorldBuilding;
 using static ReverieMod.Common.Systems.CanopyWorldGen;
+using ReverieMod.Common.Systems.Subworlds;
 
 namespace ReverieMod.Common.Systems
 {
@@ -15,6 +16,7 @@ namespace ReverieMod.Common.Systems
                 tasks.Insert(CanopyIndex + 1, new CanopyPass("Woodland Canopy", 100f));
                 tasks.Insert(CanopyIndex + 2, new CanopyRootPass("Canopy Cave System", 100f));
                 tasks.Insert(CanopyIndex + 3, new ReverieTreePass("Reverie Extras", 74f));
+                tasks.Insert(CanopyIndex + 4, new SmoothPass("Smooth World - Reverie", 50f));
             }
         }
     }

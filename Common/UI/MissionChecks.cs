@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.UI;
@@ -7,13 +8,15 @@ using Terraria.UI;
 namespace ReverieMod.Common.UI
 {
     public class MissionChecks : ModSystem
-    {      
+    {
         public static bool GUIDE_MISSIONS_WORLDSTART = false;
+        public static bool GUIDE_MISSIONS_WORLDSTART_COMPLETE = false;
         public static bool GUIDE_MISSIONS_OBTAIN_MIRROR = false;
         public static MissionChecks Instance => ModContent.GetInstance<MissionChecks>();
         public override void ClearWorld()
         {
             GUIDE_MISSIONS_WORLDSTART = false;
+            GUIDE_MISSIONS_WORLDSTART_COMPLETE = false;
             GUIDE_MISSIONS_OBTAIN_MIRROR = false;
         }
         public override void SaveWorldData(TagCompound tag)
@@ -21,6 +24,10 @@ namespace ReverieMod.Common.UI
             if (GUIDE_MISSIONS_WORLDSTART)
             {
                 tag["GUIDE_MISSIONS_WORLDSTART"] = true;
+            }
+            if (GUIDE_MISSIONS_WORLDSTART_COMPLETE)
+            {
+                tag["GUIDE_MISSIONS_WORLDSTART_COMPLETE"] = true;
             }
             if (GUIDE_MISSIONS_OBTAIN_MIRROR)
             {
@@ -31,6 +38,7 @@ namespace ReverieMod.Common.UI
         public override void LoadWorldData(TagCompound tag)
         {
             GUIDE_MISSIONS_WORLDSTART = tag.ContainsKey("GUIDE_MISSIONS_WORLDSTART");
+            GUIDE_MISSIONS_WORLDSTART_COMPLETE = tag.ContainsKey("GUIDE_MISSIONS_WORLDSTART_COMPLETE");
             GUIDE_MISSIONS_OBTAIN_MIRROR = tag.ContainsKey("GUIDE_MISSIONS_OBTAIN_MIRROR");
         }
 
@@ -38,7 +46,8 @@ namespace ReverieMod.Common.UI
         {
             var flags = new BitsByte();
             flags[0] = GUIDE_MISSIONS_WORLDSTART;
-            flags[0] = GUIDE_MISSIONS_OBTAIN_MIRROR;
+            flags[1] = GUIDE_MISSIONS_WORLDSTART_COMPLETE;
+            flags[2] = GUIDE_MISSIONS_OBTAIN_MIRROR;
             writer.Write(flags);
         }
 
@@ -46,7 +55,8 @@ namespace ReverieMod.Common.UI
         {
             BitsByte flags = reader.ReadByte();
             GUIDE_MISSIONS_WORLDSTART = flags[0];
-            GUIDE_MISSIONS_OBTAIN_MIRROR = flags[0];
+            GUIDE_MISSIONS_WORLDSTART_COMPLETE = flags[1];
+            GUIDE_MISSIONS_OBTAIN_MIRROR = flags[2];
         }
     }
     public class MissionGlobalNPC : GlobalNPC

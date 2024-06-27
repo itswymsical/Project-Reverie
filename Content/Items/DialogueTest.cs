@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using ReverieMod.Common.Players;
 using ReverieMod.Common.UI;
 using System;
@@ -26,24 +27,33 @@ namespace ReverieMod.Content.Items
         }
         public override bool? UseItem(Player player)
         {
-            var dialogues = new (string Text, int Delay)[]
+            var guideData = new NPCData(
+                ModContent.Request<Texture2D>("ReverieMod/Assets/Textures/UI/DialoguePortraits/Guide"),
+                "Guide",
+                Color.LightBlue,
+                SoundID.MenuOpen
+            );
+            var sophieData = new NPCData(
+                ModContent.Request<Texture2D>("ReverieMod/Assets/Textures/UI/DialoguePortraits/Sophie"),
+                "Sophie",
+                Color.LightPink,
+                SoundID.MenuClose
+            );
+
+            var dialogues = new (string Text, int Delay, int TimeLeft, NPCData NpcData)[]
             {
-                ($"Hey, {player.name}!", 3),
-                ($"Nice to meet you, I'm you're guide.", 2),
-                ("Although i'm only an apprentice guide, I'm more than qualified to help you learn everything about Terraria.", 2),
-                ("You've been out for a while now, hehe.", 4),
-                ("Anyways...", 2),
-                ("I bet you're wondering what to do from here.", 3),
-                ("Come talk to me, I'll answer any questions you have.", 2)
+                ($"Hey, {player.name}!", 3, 300, guideData),
+                ($"Nice to meet you, I'm your guide.", 2, 300, guideData),
+                ("Although I'm only an apprentice guide, I'm more than qualified to help you learn everything about Terraria.", 2, 300, guideData),
+                ("You've been out for a while now, hehe.", 4, 300, guideData),
+                ("Anyways...", 2, 300, guideData),
+                ("I bet you're wondering what to do from here.", 3, 300, guideData),
+                ("Screw that guy. Come talk to me, I'll answer any questions you have!", 2, 300, sophieData)
             };
+
             NPCDialogueBox dialogue = NPCDialogueBox.CreateNewDialogueSequence(dialogues);
-            dialogue.npcName = "Guide";
-            dialogue.currentDialogue = "???"; // currentDialogue is ALWAYS the intial dialogue.
-            dialogue.iconTexture = ModContent.Request<Texture2D>("ReverieMod/Assets/Textures/UI/DialoguePortraits/Guide");
-            dialogue.color = Color.LightBlue;
-            dialogue.characterSound = SoundID.MenuOpen;
-            InGameNotificationsTracker.AddNotification(dialogue);      
-            
+            InGameNotificationsTracker.AddNotification(dialogue);
+
             return true;
         }
     }

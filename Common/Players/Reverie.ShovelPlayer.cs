@@ -6,7 +6,7 @@ using Terraria.GameInput;
 
 namespace ReverieMod.Common.Players
 {
-    public partial class ShovelPlayer : ModPlayer
+    public partial class ShovelPlayer : ReveriePlayer
     {
         public void DigBlocks(int i, int j)
         {

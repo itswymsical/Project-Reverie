@@ -1,12 +1,12 @@
-﻿using ReverieMod.Common.Systems;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ModLoader;
+using ReverieMod.Common.Systems.WorldGeneration;
 
 namespace ReverieMod.Content.Biomes
 {
-	public class WoodlandCanopyBiome : ModBiome
+    public class WoodlandCanopyBiome : ModBiome
 	{
         public override int Music => MusicLoader.GetMusicSlot(Mod, Assets.Music + "Woodhaven");
         public override SceneEffectPriority Priority => SceneEffectPriority.BiomeMedium; // We have set the SceneEffectPriority to be BiomeLow for purpose of example, however default behavior is BiomeLow.

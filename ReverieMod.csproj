@@ -10,7 +10,7 @@
     <None Remove="Helpers\DustHelpers.cs~RF7d9f0961.TMP" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Common\UI\Cutscenes\" />
+    <Folder Include="Common\Cutscenes\" />
     <Folder Include="Content\Projectiles\" />
   </ItemGroup>
   <ItemGroup>

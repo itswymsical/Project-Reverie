@@ -9,19 +9,19 @@ using Terraria.IO;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
 
-namespace ReverieMod.Common.Systems
+namespace ReverieMod.Common.Systems.WorldGeneration
 {
     public class CanopyWorldGen : ModSystem
     {
         public static int TRUNK_X;
 
-        public static int SPAWN_X = Main.maxTilesX / 2 + (Main.maxTilesX / 64);
+        public static int SPAWN_X = Main.maxTilesX / 2 + Main.maxTilesX / 64;
         public static int SPAWN_Y = (int)Main.worldSurface;
 
-        public static int TRUNK_BOTTOM = (SPAWN_Y + (SPAWN_Y / 4));
+        public static int TRUNK_BOTTOM = SPAWN_Y + SPAWN_Y / 4;
 
         public static int CANOPY_X = SPAWN_X;
-        public static int CANOPY_Y = TRUNK_BOTTOM + (TRUNK_BOTTOM / 4);
+        public static int CANOPY_Y = TRUNK_BOTTOM + TRUNK_BOTTOM / 4;
 
         public static int CANOPY_H = (int)(Main.maxTilesX * 0.03f);
         public static int CANOPY_V = (int)(Main.maxTilesY * 0.1075f);
@@ -78,9 +78,9 @@ namespace ReverieMod.Common.Systems
             // ((x - centerX)^2 / horizontalRadius^2) + ((y - centerY)^2 / verticalRadius^2) <= 1
             // If the point (x, y) satisfies this inequality, it's inside the ellipse.
 
-            float dx = (x - centerX);
-            float dy = (y - centerY);
-            return (dx * dx) / (horizontalRadius * horizontalRadius) + (dy * dy) / (verticalRadius * verticalRadius) <= 1;
+            float dx = x - centerX;
+            float dy = y - centerY;
+            return dx * dx / (horizontalRadius * horizontalRadius) + dy * dy / (verticalRadius * verticalRadius) <= 1;
         }
         public static bool InsideCanopy_Trapezoid(int x, int y, int centerX, int centerY, int horizontalRadius, int verticalRadius)
         {
@@ -212,7 +212,7 @@ namespace ReverieMod.Common.Systems
                             WorldGen.TileRunner(x, y, 20, 5, treeWood, true, 0, 0, false, true);
                             // This is the blue progress bar under the green one that tracks the percentage of the GenPass.
                         }
-                        progress.Set((float)((x - (CANOPY_X - CANOPY_H)) * (2 * CANOPY_V) + (y - (CANOPY_Y - CANOPY_V))) / ((2 * CANOPY_H) * (2 * CANOPY_V)));
+                        progress.Set((float)((x - (CANOPY_X - CANOPY_H)) * 2 * CANOPY_V + (y - (CANOPY_Y - CANOPY_V))) / (2 * CANOPY_H * (2 * CANOPY_V)));
                     }
                 }
             }
@@ -257,14 +257,14 @@ namespace ReverieMod.Common.Systems
                         int worldX = x + (CANOPY_X - CANOPY_H);
                         int worldY = y + (CANOPY_Y - CANOPY_V);
                         if (InsideCanopy_Trapezoid(worldX, worldY, CANOPY_X, CANOPY_Y, CANOPY_H, CANOPY_V))
-                        {                           
+                        {
                             if (noiseData[x, y] < threshold) // '>' = dark values, '<' = light values
                             {
                                 WorldGen.KillTile(worldX, worldY);
                             }
                         }
                         // Update progress                        
-                        progress.Set((float)((x * posy + y) + (posx * posy)) / (2 * posx * posy));
+                        progress.Set((float)(x * posy + y + posx * posy) / (2 * posx * posy));
                     }
                 }
                 Gen_NoiseMap_Walls(CANOPY_X, CANOPY_Y, CANOPY_H, CANOPY_V, 48, 10);
@@ -283,15 +283,15 @@ namespace ReverieMod.Common.Systems
                 int TRUNK_DIR = Main.rand.Next(2);
                 int SPAWN_DISTANCE = (Main.maxTilesX - SPAWN_X) / 16;
 
-                TRUNK_X = (TRUNK_DIR == 0) ? SPAWN_X - SPAWN_DISTANCE : SPAWN_X + SPAWN_DISTANCE;
+                TRUNK_X = TRUNK_DIR == 0 ? SPAWN_X - SPAWN_DISTANCE : SPAWN_X + SPAWN_DISTANCE;
                 TRUNK_X = Math.Clamp(TRUNK_X, 0, Main.maxTilesX - 1);
 
                 int TRUNK_WIDTH = 23;
-                Generator.GenerateStructure("Structures/ReverieTreeStruct", new Point16(SPAWN_X - 54, (Main.spawnTileY - (Main.maxTilesY / 14))), ReverieMod.Instance);
+                Generator.GenerateStructure("Structures/ReverieTreeStruct", new Point16(SPAWN_X - 54, Main.spawnTileY - Main.maxTilesY / 14), ReverieMod.Instance);
                 // Trunk Chasm
                 const float TRUNK_CURVE_FREQUENCY = 0.0765f;
                 const int TRUNK_CURVE_AMPLITUDE = 4;
-                for (int y = (int)Main.spawnTileY + 38; y <= TRUNK_BOTTOM; y++)
+                for (int y = Main.spawnTileY + 38; y <= TRUNK_BOTTOM; y++)
                 {
                     int currentTRUNK_WIDTH = TRUNK_WIDTH + (y % 5 == 0 ? 2 : 0);
                     int curveOffset = (int)(Math.Sin(y * TRUNK_CURVE_FREQUENCY) * TRUNK_CURVE_AMPLITUDE);
@@ -306,9 +306,9 @@ namespace ReverieMod.Common.Systems
 
                     }
                 }
-                for (int y2 = (int)Main.spawnTileY + 38; y2 <= TRUNK_BOTTOM; y2++)
+                for (int y2 = Main.spawnTileY + 38; y2 <= TRUNK_BOTTOM; y2++)
                 {
-                    int tunnelTRUNK_WIDTH = (TRUNK_WIDTH / 2) + (y2 % 5 == 0 ? 2 : 0);
+                    int tunnelTRUNK_WIDTH = TRUNK_WIDTH / 2 + (y2 % 5 == 0 ? 2 : 0);
                     int tunnelOffset = (int)(Math.Sin(y2 * TRUNK_CURVE_FREQUENCY) * TRUNK_CURVE_AMPLITUDE);
                     int leftBound = SPAWN_X - tunnelTRUNK_WIDTH / 2 + tunnelOffset;
                     int rightBound = SPAWN_X + tunnelTRUNK_WIDTH / 2 + tunnelOffset;

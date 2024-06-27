@@ -3,32 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|c:\\users\\cobal\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\systems\\subworlds\\archaeasubworld.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\systems\\subworlds\\archaeasubworld.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|c:\\users\\cobal\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\ui\\npcdialoguebox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\ui\\npcdialoguebox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|c:\\users\\cobal\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\cutscenes\\guideintro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\cutscenes\\guideintro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|c:\\users\\cobal\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\core\\loaders\\cutsceneloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:core\\loaders\\cutsceneloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|c:\\users\\cobal\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\ui\\missionchecks.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\ui\\missionchecks.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|c:\\users\\cobal\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\ui\\npcdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\ui\\npcdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|c:\\users\\cobal\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\players\\reverie.cutsceneplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\players\\reverie.cutsceneplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|c:\\users\\cobal\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\systems\\worldgenerationsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\systems\\worldgenerationsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|c:\\users\\cobal\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\systems\\reveriemodsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\systems\\reveriemodsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|c:\\users\\cobal\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\content\\items\\dialoguetest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:content\\items\\dialoguetest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,97 +26,58 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ArchaeaSubworld.cs",
-              "DocumentMoniker": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\Subworlds\\ArchaeaSubworld.cs",
-              "RelativeDocumentMoniker": "Common\\Systems\\Subworlds\\ArchaeaSubworld.cs",
-              "ToolTip": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\Subworlds\\ArchaeaSubworld.cs",
-              "RelativeToolTip": "Common\\Systems\\Subworlds\\ArchaeaSubworld.cs",
-              "ViewState": "AQIAAB0AAAAAAAAAAAAgwBEAAAABAAAA",
+              "DocumentIndex": 1,
+              "Title": "NPCData.cs",
+              "DocumentMoniker": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\UI\\NPCData.cs",
+              "RelativeDocumentMoniker": "Common\\UI\\NPCData.cs",
+              "ToolTip": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\UI\\NPCData.cs",
+              "RelativeToolTip": "Common\\UI\\NPCData.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAA0AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-27T02:06:07.819Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "WorldGenerationSystem.cs",
-              "DocumentMoniker": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\WorldGenerationSystem.cs",
-              "RelativeDocumentMoniker": "Common\\Systems\\WorldGenerationSystem.cs",
-              "ToolTip": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\WorldGenerationSystem.cs",
-              "RelativeToolTip": "Common\\Systems\\WorldGenerationSystem.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAA6AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-27T02:05:07.466Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CutsceneLoader.cs",
-              "DocumentMoniker": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Core\\Loaders\\CutsceneLoader.cs",
-              "RelativeDocumentMoniker": "Core\\Loaders\\CutsceneLoader.cs",
-              "ToolTip": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Core\\Loaders\\CutsceneLoader.cs",
-              "RelativeToolTip": "Core\\Loaders\\CutsceneLoader.cs",
-              "ViewState": "AQIAACQAAAAAAAAAAAAowEwAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-27T01:56:37.228Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ReverieModSystem.cs",
-              "DocumentMoniker": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\ReverieModSystem.cs",
-              "RelativeDocumentMoniker": "Common\\Systems\\ReverieModSystem.cs",
-              "ToolTip": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\ReverieModSystem.cs",
-              "RelativeToolTip": "Common\\Systems\\ReverieModSystem.cs",
-              "ViewState": "AQIAAD4AAAAAAAAAAAAgwBcAAAASAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-27T01:46:07.72Z",
+              "WhenOpened": "2024-06-27T20:32:30.193Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "MissionChecks.cs",
-              "DocumentMoniker": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\UI\\MissionChecks.cs",
-              "RelativeDocumentMoniker": "Common\\UI\\MissionChecks.cs",
-              "ToolTip": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\UI\\MissionChecks.cs",
-              "RelativeToolTip": "Common\\UI\\MissionChecks.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAD8AAAA3AAAA",
+              "Title": "DialogueTest.cs",
+              "DocumentMoniker": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Items\\DialogueTest.cs",
+              "RelativeDocumentMoniker": "Content\\Items\\DialogueTest.cs",
+              "ToolTip": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\Items\\DialogueTest.cs",
+              "RelativeToolTip": "Content\\Items\\DialogueTest.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAiwCoAAABRAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-27T01:31:57.505Z",
+              "WhenOpened": "2024-06-27T20:11:37.54Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "GuideIntro.cs",
-              "DocumentMoniker": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Cutscenes\\GuideIntro.cs",
-              "RelativeDocumentMoniker": "Common\\Cutscenes\\GuideIntro.cs",
-              "ToolTip": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Cutscenes\\GuideIntro.cs",
-              "RelativeToolTip": "Common\\Cutscenes\\GuideIntro.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAxwBMAAAAhAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-27T01:21:29.772Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "Reverie.CutscenePlayer.cs",
               "DocumentMoniker": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Players\\Reverie.CutscenePlayer.cs",
               "RelativeDocumentMoniker": "Common\\Players\\Reverie.CutscenePlayer.cs",
               "ToolTip": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Players\\Reverie.CutscenePlayer.cs",
               "RelativeToolTip": "Common\\Players\\Reverie.CutscenePlayer.cs",
-              "ViewState": "AQIAABYAAAAAAAAAAAAkwCYAAAAmAAAA",
+              "ViewState": "AQIAACUAAAAAAAAAAAAiwDMAAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-27T01:20:31.835Z",
+              "WhenOpened": "2024-06-27T20:02:09.473Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "NPCDialogueBox.cs",
+              "DocumentMoniker": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\UI\\NPCDialogueBox.cs",
+              "RelativeDocumentMoniker": "Common\\UI\\NPCDialogueBox.cs",
+              "ToolTip": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\UI\\NPCDialogueBox.cs",
+              "RelativeToolTip": "Common\\UI\\NPCDialogueBox.cs",
+              "ViewState": "AQIAAEoAAAAAAAAAAAD4v1AAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-27T19:35:09.27Z",
               "EditorCaption": ""
             }
           ]

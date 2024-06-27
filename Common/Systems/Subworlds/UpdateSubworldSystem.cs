@@ -1,5 +1,4 @@
-﻿using ReverieMod.Common.Systems.Subworlds;
-using SubworldLibrary;
+﻿using SubworldLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +7,9 @@ using System.Threading.Tasks;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria;
+using ReverieMod.Common.Systems.Subworlds.Archaea;
 
-namespace ReverieMod.Common.Systems
+namespace ReverieMod.Common.Systems.Subworlds
 {
     public class UpdateSubworldSystem : ModSystem
     {

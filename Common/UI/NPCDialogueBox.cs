@@ -92,8 +92,16 @@ namespace ReverieMod.Common.UI
                 var nextDialogue = dialogueQueue.Dequeue();
                 currentDialogue = nextDialogue.Text;
                 charDisplayDelay = nextDialogue.Delay; // Use specific delay for this dialogue
-                charIndex = 0;
-                timeLeft = 5 * 60; // Reset timeLeft for new dialogue
+                charIndex = 0; // Reset charIndex to start displaying from the beginning of the new dialogue
+                timeLeft = nextDialogue.TimeLeft; // Reset timeLeft for new dialogue
+
+                if (nextDialogue.NpcData != null)
+                {
+                    iconTexture = nextDialogue.NpcData.IconTexture;
+                    npcName = nextDialogue.NpcData.NpcName;
+                    color = nextDialogue.NpcData.DialogueColor;
+                    characterSound = nextDialogue.NpcData.CharacterSound;
+                }
             }
 
             if (charIndex < currentDialogue.Length)
@@ -119,7 +127,10 @@ namespace ReverieMod.Common.UI
 
             foreach (var dialogue in dialogues)
             {
-                notification.AddDialogue(dialogue.Text, dialogue.Delay, dialogue.TimeLeft, dialogue.NpcData);
+                if (dialogue.NpcData != null)
+                {
+                    notification.AddDialogue(dialogue.Text, dialogue.Delay, dialogue.TimeLeft, dialogue.NpcData);
+                }
             }
 
             return notification;
@@ -157,7 +168,10 @@ namespace ReverieMod.Common.UI
             float iconScale = effectiveScale * 2.7f;
             Vector2 iconSize = new Vector2(iconTexture.Width(), iconTexture.Height()) * iconScale;
             Vector2 iconPosition = new Vector2(panelRectangle.Left - iconSize.X - 10f, panelRectangle.Center.Y - iconSize.Y / 2f);
-
+            if (iconTexture != null)
+            {
+                spriteBatch.Draw(iconTexture.Value, iconPosition, null, colorIcon * Opacity, 0f, Vector2.Zero, iconScale, SpriteEffects.None, 0f);
+            }
             // Position for the NPC name textbox below the icon
             Vector2 nameTextSize = FontAssets.ItemStack.Value.MeasureString(npcName);
             Vector2 nameTextPosition = new Vector2(iconPosition.X + iconSize.X / 2 - nameTextSize.X / 2, iconPosition.Y + iconSize.Y + 5f);
@@ -229,14 +243,21 @@ namespace ReverieMod.Common.UI
 
             if (charIndex < currentDialogue.Length)
             {
-                charIndex = currentDialogue.Length; // Skip to the end of the current dialogue
+                // Skip to the end of the current dialogue
+                charIndex = currentDialogue.Length;
             }
             else if (dialogueQueue.Count > 0)
             {
+                // Dequeue the next dialogue
                 var nextDialogue = dialogueQueue.Dequeue();
                 currentDialogue = nextDialogue.Text;
                 charDisplayDelay = nextDialogue.Delay; // Use specific delay for this dialogue
-                timeLeft = nextDialogue.TimeLeft; // Use specific time left for this dialogue
+
+                // Reset charIndex for new dialogue
+                charIndex = 0;
+
+                // Reset timeLeft for new dialogue
+                timeLeft = nextDialogue.TimeLeft;
 
                 // Set NPC data for the current dialogue
                 iconTexture = nextDialogue.NpcData.IconTexture;
@@ -246,7 +267,8 @@ namespace ReverieMod.Common.UI
             }
             else
             {
-                timeLeft = 0; // End the dialogue if there are no more sequences
+                // End the dialogue if there are no more sequences
+                timeLeft = 30;
             }
         }
 

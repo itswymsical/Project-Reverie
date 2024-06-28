@@ -11,6 +11,7 @@ using ReverieMod.Common.UI;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.UI;
 using ReLogic.Content;
+using static ReverieMod.Common.UI.NPCData;
 
 namespace ReverieMod.Common.Players
 {
@@ -49,18 +50,8 @@ namespace ReverieMod.Common.Players
             }
 
             Player player = Main.LocalPlayer;
-            var guideData = new NPCData(
-                ModContent.Request<Texture2D>("ReverieMod/Assets/Textures/UI/DialoguePortraits/Guide"),
-                "Guide",
-                Color.LightBlue,
-                SoundID.MenuOpen
-            );
-            var sophieData = new NPCData(
-                ModContent.Request<Texture2D>("ReverieMod/Assets/Textures/UI/DialoguePortraits/Sophie"),
-                "Sophie",
-                Color.LightPink,
-                SoundID.MenuClose
-            );
+            var guideData = NPCDialogueIDHelper.GetNPCData(NPCDialogueID.Guide);
+            var sophieData = NPCDialogueIDHelper.GetNPCData(NPCDialogueID.Sophie);
 
             var dialogues = new (string Text, int Delay, int TimeLeft, NPCData NpcData)[]
             {
@@ -76,7 +67,6 @@ namespace ReverieMod.Common.Players
             NPCDialogueBox dialogue = NPCDialogueBox.CreateNewDialogueSequence(dialogues);
             InGameNotificationsTracker.AddNotification(dialogue);
 
-            // Uncomment this line if needed
             // MissionChecks.GUIDE_MISSIONS_WORLDSTART = true;
         }
 

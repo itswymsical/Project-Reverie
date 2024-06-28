@@ -4,6 +4,8 @@ using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using ReverieMod.Utilities;
 
 namespace ReverieMod.Content.Tiles.Canopy
 {
@@ -16,10 +18,9 @@ namespace ReverieMod.Content.Tiles.Canopy
             TileID.Sets.IsVine[Type] = true;
             TileID.Sets.SwaysInWindBasic[Type] = true;
 
-            Main.tileCut[Type] = true;
-            Main.tileBlockLight[Type] = true;
+            Main.tileCut[Type] = true;     
             Main.tileLavaDeath[Type] = true;
-
+            Main.tileBlockLight[Type] = true;
             Main.tileNoFail[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLighted[Type] = true;
@@ -91,10 +92,11 @@ namespace ReverieMod.Content.Tiles.Canopy
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             Tile tile = Framing.GetTileSafely(i, j);
-            Texture2D glow = ModContent.Request<Texture2D>("ReverieMod" + (Assets.Tiles.Canopy + Name) + "_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
-            Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
-            spriteBatch.Draw(glow, new Vector2(i * 16, j * 16 + 2) - Main.screenPosition + zero, new Rectangle(tile.TileFrameX - 108, 0, 16, 16), Color.Aquamarine);
+            Color colour = new Color(5, 143, 65);
 
+            Texture2D glow = ModContent.Request<Texture2D>("ReverieMod/Assets/Textures/Tiles/Canopy/CanopyVine_Glow", ReLogic.Content.AssetRequestMode.ImmediateLoad).Value;
+            Vector2 zero = Main.drawToScreen ? Vector2.Zero : new Vector2(Main.offScreenRange, Main.offScreenRange);
+            spriteBatch.Draw(glow, new Vector2(i, j) - Main.screenPosition + zero - new Vector2(0, 0), new Rectangle(tile.TileFrameX, tile.TileFrameY, 16, 16), colour * .6f);
         }
     }
 }

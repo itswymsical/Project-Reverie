@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -12,12 +13,14 @@ namespace ReverieMod.Common.UI
         public static bool GUIDE_MISSIONS_WORLDSTART = false;
         public static bool GUIDE_MISSIONS_WORLDSTART_COMPLETE = false;
         public static bool GUIDE_MISSIONS_OBTAIN_MIRROR = false;
+        public static bool failed = false;
         public static MissionChecks Instance => ModContent.GetInstance<MissionChecks>();
         public override void ClearWorld()
         {
             GUIDE_MISSIONS_WORLDSTART = false;
             GUIDE_MISSIONS_WORLDSTART_COMPLETE = false;
             GUIDE_MISSIONS_OBTAIN_MIRROR = false;
+            failed = false;
         }
         public override void SaveWorldData(TagCompound tag)
         {
@@ -62,5 +65,14 @@ namespace ReverieMod.Common.UI
     public class MissionGlobalNPC : GlobalNPC
     {
         public override bool InstancePerEntity => true;
+        public override void OnChatButtonClicked(NPC npc, bool firstButton)
+        {
+            if (npc.type == NPCID.Guide && firstButton && !MissionChecks.GUIDE_MISSIONS_WORLDSTART_COMPLETE)
+            {
+                MissionChecks.GUIDE_MISSIONS_WORLDSTART_COMPLETE = true;
+                MissionChecks.failed = false;
+                InGameNotificationsTracker.AddNotification(new MissionStatusIndicator());
+            }
+        }
     }
 }

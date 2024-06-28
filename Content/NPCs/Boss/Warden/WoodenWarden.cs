@@ -87,7 +87,7 @@ namespace ReverieMod.Content.NPCs.Boss.Warden
             if (!Main.dedServ)
                 Music = MusicLoader.GetMusicSlot(Mod, Assets.Music + "LigneousWarden");
             
-            NPC.HitSound = new SoundStyle($"{nameof(ReverieMod)}/Assets/SFX/WoodenHit")
+            NPC.HitSound = new SoundStyle($"{nameof(ReverieMod)}/Assets/SFX/WoodHit2")
             {
                 Volume = 1.4f,
                 PitchVariance = 0.2f,

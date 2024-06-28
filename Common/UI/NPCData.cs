@@ -2,7 +2,10 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
+using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -27,6 +30,7 @@ namespace ReverieMod.Common.UI
         {
             public static NPCData GetNPCData(NPCDialogueID npcDialogueID)
             {
+                Player plr = Main.LocalPlayer;
                 switch (npcDialogueID)
                 {
                     case NPCDialogueID.Guide:
@@ -46,9 +50,16 @@ namespace ReverieMod.Common.UI
                     case NPCDialogueID.Fungore:
                         return new NPCData(
                             ModContent.Request<Texture2D>("ReverieMod/Assets/Textures/UI/DialoguePortraits/Fungore"),
-                            "Fungpre",
+                            "Fungore",
                             Color.LavenderBlush,
                             new SoundStyle($"{nameof(ReverieMod)}/Assets/SFX/Dialogue/FungoreReborn")
+                        );
+                    case NPCDialogueID.Dalia:
+                        return new NPCData(
+                            ModContent.Request<Texture2D>("ReverieMod/Assets/Textures/UI/DialoguePortraits/Dalia"),
+                            "Dalia",
+                            Color.Cyan,
+                            SoundID.MenuClose
                         );
                     // Add more cases for other NPCs
                     default:

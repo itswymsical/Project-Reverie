@@ -75,7 +75,7 @@ namespace ReverieMod.Content.NPCs.Bosses.Warden
 			NPC.netUpdate = true;
 
 			NPC.knockBackResist = 0f;
-            NPC.HitSound = new SoundStyle($"{nameof(ReverieMod)}/Assets/SFX/WoodenHit")
+            NPC.HitSound = new SoundStyle($"{nameof(ReverieMod)}/Assets/SFX/WoodHit2")
             {
                 Volume = 1.4f,
                 PitchVariance = 0.2f,

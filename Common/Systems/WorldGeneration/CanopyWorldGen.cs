@@ -28,7 +28,7 @@ namespace ReverieMod.Common.Systems.WorldGeneration
 
         public static int treeWood = TileID.LivingWood;
         public static int treeWall = WallID.LivingWoodUnsafe;
-        public static int canopyWall = WallID.DirtUnsafe4;
+        public static int canopyWall = WallID.LivingWoodUnsafe; //WallID.DirtUnsafe4
         public static int canopyWall_Alt = WallID.DirtUnsafe1;
         public static int treeLeaves = TileID.LeafBlock;
         public static int canopyGrass = ModContent.TileType<Woodgrass>();
@@ -287,7 +287,7 @@ namespace ReverieMod.Common.Systems.WorldGeneration
                 TRUNK_X = Math.Clamp(TRUNK_X, 0, Main.maxTilesX - 1);
 
                 int TRUNK_WIDTH = 23;
-                Generator.GenerateStructure("Structures/ReverieTreeStruct", new Point16(SPAWN_X - 54, Main.spawnTileY - Main.maxTilesY / 14), ReverieMod.Instance);
+                Generator.GenerateStructure("Structures/ReverieTreeStruct", new Point16(SPAWN_X - 54, Main.spawnTileY - Main.maxTilesY / 12), ReverieMod.Instance);
                 // Trunk Chasm
                 const float TRUNK_CURVE_FREQUENCY = 0.0765f;
                 const int TRUNK_CURVE_AMPLITUDE = 4;

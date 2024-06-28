@@ -10,7 +10,7 @@ using Terraria.IO;
 using Terraria.WorldBuilding;
 
 
-namespace ReverieMod.Common.Systems
+namespace ReverieMod.Common.Systems.WorldGeneration
 {
     public class TestWorldGen : ReverieModSystem
     {
@@ -55,7 +55,7 @@ namespace ReverieMod.Common.Systems
                             int worldY = y + posy;
                             WorldGen.PlaceTile(worldX, worldY, TileID.Adamantite, forced: true);
                         }
-                        float progressPercentage = (float)((x * posy + y) + (posx * posy)) / (2 * posx * posy);
+                        float progressPercentage = (float)(x * posy + y + posx * posy) / (2 * posx * posy);
                         progress.Set(progressPercentage);
                     }
                 }

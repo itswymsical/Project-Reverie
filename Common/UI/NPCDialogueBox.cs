@@ -19,51 +19,72 @@ namespace ReverieMod.Common.UI
     public class NPCDialogueBox : IInGameNotification
     {
         public bool ShouldBeRemoved => timeLeft <= 0 && dialogueQueue.Count == 0 && charIndex >= currentDialogue.Length;
-        private int timeLeft = 5 * 60;
+        private int timeLeft = 0;
 
-        public Asset<Texture2D> iconTexture = ModContent.Request<Texture2D>("ReverieMod/Assets/Textures/UI/DialoguePortraits/Guide");
-        public string npcName = "?";
+        private bool isFullyScaled = false; // Flag to track if the dialogue box is fully scaled
+
+        // This property calculates the scale of the dialogue box. It starts with a scaling animation,
+        // reaches full scale, and then shrinks back down if timeLeft exceeds certain thresholds.
         private float Scale
         {
             get
             {
-                if (timeLeft < 30)
+                if (!isFullyScaled)
                 {
-                    return MathHelper.Lerp(0f, 1f, timeLeft / 30f);
-                }
+                    if (timeLeft < 30)
+                    {
+                        return MathHelper.Lerp(0f, 1f, timeLeft / 30f);
+                    }
 
-                if (timeLeft > 285)
+                    if (timeLeft >= 30)
+                    {
+                        isFullyScaled = true; // Mark as fully scaled
+                        return 1f;
+                    }
+                }
+                else
                 {
-                    return MathHelper.Lerp(1f, 0f, (timeLeft - 285) / 15f);
+                    if (timeLeft <= 15)
+                    {
+                        return MathHelper.Lerp(1f, 0f, (15 - timeLeft) / 15f);
+                    }
+                    return 1f;
                 }
 
                 return 1f;
             }
         }
 
+        // This property calculates the opacity of the dialogue box based on its scale.
+        // It ensures the dialogue box is fully visible only when the scale is above 0.5.
         private float Opacity
         {
             get
             {
+                // Fully transparent: When the scale is 0.5 or less
                 if (Scale <= 0.5f)
                 {
                     return 0f;
                 }
 
+                // Gradually increase opacity from 0 to 1 as the scale goes from 0.5 to 1
                 return (Scale - 0.5f) / 0.5f;
             }
         }
 
-        private Queue<(string Text, int Delay)> dialogueQueue = new Queue<(string, int)>();
-        public string currentDialogue = "...";
-        private int charIndex = 0;
-        public int charDisplayDelay = 2;
         private int charDisplayTimer = 0;
         private float panelWidth = 420f;
-        public Color color = Color.White;
         public Color colorText = Color.White;
         public Color colorIcon = Color.White;
-        public SoundStyle characterSound;
+
+        private Queue<(string Text, int Delay, int TimeLeft, NPCData NpcData)> dialogueQueue = new Queue<(string, int, int, NPCData)>();
+        public Asset<Texture2D> iconTexture = TextureAssets.MagicPixel;
+        public string npcName = string.Empty;
+        public Color color = Color.White;
+        public SoundStyle characterSound = SoundID.MenuOpen;
+        public string currentDialogue = string.Empty;
+        private int charIndex = 0;
+        private int charDisplayDelay = 2;
         public void Update()
         {
             if (dialogueQueue.Count > 0 && charIndex >= currentDialogue.Length && timeLeft <= 0)
@@ -71,8 +92,16 @@ namespace ReverieMod.Common.UI
                 var nextDialogue = dialogueQueue.Dequeue();
                 currentDialogue = nextDialogue.Text;
                 charDisplayDelay = nextDialogue.Delay; // Use specific delay for this dialogue
-                charIndex = 0;
-                timeLeft = 5 * 60; // Reset timeLeft for new dialogue
+                charIndex = 0; // Reset charIndex to start displaying from the beginning of the new dialogue
+                timeLeft = nextDialogue.TimeLeft; // Reset timeLeft for new dialogue
+
+                if (nextDialogue.NpcData != null)
+                {
+                    iconTexture = nextDialogue.NpcData.IconTexture;
+                    npcName = nextDialogue.NpcData.NpcName;
+                    color = nextDialogue.NpcData.DialogueColor;
+                    characterSound = nextDialogue.NpcData.CharacterSound;
+                }
             }
 
             if (charIndex < currentDialogue.Length)
@@ -91,13 +120,25 @@ namespace ReverieMod.Common.UI
             if (timeLeft < 0)
                 timeLeft = 0;
         }
-        private void PlayCharacterSound(SoundStyle sound)
+        private void PlayCharacterSound(SoundStyle sound) => SoundEngine.PlaySound(characterSound, Main.LocalPlayer.position);
+        public static NPCDialogueBox CreateNewDialogueSequence(params (string Text, int Delay, int TimeLeft, NPCData NpcData)[] dialogues)
         {
-            SoundEngine.PlaySound(sound, Main.LocalPlayer.position);
+            NPCDialogueBox notification = new NPCDialogueBox();
+
+            foreach (var dialogue in dialogues)
+            {
+                if (dialogue.NpcData != null)
+                {
+                    notification.AddDialogue(dialogue.Text, dialogue.Delay, dialogue.TimeLeft, dialogue.NpcData);
+                }
+            }
+
+            return notification;
         }
-        public void AddDialogue(string dialogue, int delay = 2)
+
+        public void AddDialogue(string text, int delay, int timeLeft, NPCData npcData)
         {
-            dialogueQueue.Enqueue((dialogue, delay));
+            dialogueQueue.Enqueue((text, delay, timeLeft, npcData));
         }
 
         public void DrawInGame(SpriteBatch spriteBatch, Vector2 bottomAnchorPosition)
@@ -127,7 +168,10 @@ namespace ReverieMod.Common.UI
             float iconScale = effectiveScale * 2.7f;
             Vector2 iconSize = new Vector2(iconTexture.Width(), iconTexture.Height()) * iconScale;
             Vector2 iconPosition = new Vector2(panelRectangle.Left - iconSize.X - 10f, panelRectangle.Center.Y - iconSize.Y / 2f);
-
+            if (iconTexture != null)
+            {
+                spriteBatch.Draw(iconTexture.Value, iconPosition, null, colorIcon * Opacity, 0f, Vector2.Zero, iconScale, SpriteEffects.None, 0f);
+            }
             // Position for the NPC name textbox below the icon
             Vector2 nameTextSize = FontAssets.ItemStack.Value.MeasureString(npcName);
             Vector2 nameTextPosition = new Vector2(iconPosition.X + iconSize.X / 2 - nameTextSize.X / 2, iconPosition.Y + iconSize.Y + 5f);
@@ -138,12 +182,12 @@ namespace ReverieMod.Common.UI
 
             // Check if the mouse is hovering over the panel
             bool isHovering = panelRectangle.Contains(Main.MouseScreen.ToPoint());
-
             // Draw the background panel with a varying opacity based on hover state
             Utils.DrawInvBG(spriteBatch, panelRectangle, color * (isHovering ? 0.75f : 0.5f));
 
             // Draw the icon outside the panel
-            spriteBatch.Draw(iconTexture.Value, iconPosition, null, colorIcon * Opacity, 0f, Vector2.Zero, iconScale, SpriteEffects.None, 0f);
+
+            spriteBatch.Draw(iconTexture.Value, iconPosition, null, colorIcon * Opacity, 0f, Vector2.Zero, iconScale, SpriteEffects.None, 0f);        
             Utils.DrawBorderString(spriteBatch, npcName, nameTextPosition, Color.White * Opacity, effectiveScale, anchorx: 0f, anchory: 0.5f);
 
 
@@ -199,32 +243,35 @@ namespace ReverieMod.Common.UI
 
             if (charIndex < currentDialogue.Length)
             {
-                charIndex = currentDialogue.Length; // Skip to the end of the current dialogue
+                // Skip to the end of the current dialogue
+                charIndex = currentDialogue.Length;
             }
             else if (dialogueQueue.Count > 0)
             {
+                // Dequeue the next dialogue
                 var nextDialogue = dialogueQueue.Dequeue();
                 currentDialogue = nextDialogue.Text;
                 charDisplayDelay = nextDialogue.Delay; // Use specific delay for this dialogue
+
+                // Reset charIndex for new dialogue
                 charIndex = 0;
-                timeLeft = 5 * 60; // Reset timeLeft for new dialogue
+
+                // Reset timeLeft for new dialogue
+                timeLeft = nextDialogue.TimeLeft;
+
+                // Set NPC data for the current dialogue
+                iconTexture = nextDialogue.NpcData.IconTexture;
+                npcName = nextDialogue.NpcData.NpcName;
+                color = nextDialogue.NpcData.DialogueColor;
+                characterSound = nextDialogue.NpcData.CharacterSound;
             }
             else
             {
-                timeLeft = 0; // End the dialogue if there are no more sequences
+                // End the dialogue if there are no more sequences
+                timeLeft = 30;
             }
         }
 
         public void PushAnchor(ref Vector2 positionAnchorBottom) => positionAnchorBottom.Y -= 50f * Opacity;
-
-        public static NPCDialogueBox CreateNewDialogueSequence(params (string Text, int Delay)[] dialogues)
-        {
-            NPCDialogueBox notification = new NPCDialogueBox();
-            foreach (var dialogue in dialogues)
-            {
-                notification.AddDialogue(dialogue.Text, dialogue.Delay);
-            }
-            return notification;
-        }
     }
 }

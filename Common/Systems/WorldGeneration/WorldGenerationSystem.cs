@@ -1,10 +1,10 @@
 ﻿using Terraria.ModLoader;
 using System.Collections.Generic;
 using Terraria.WorldBuilding;
-using static ReverieMod.Common.Systems.CanopyWorldGen;
+using static ReverieMod.Common.Systems.WorldGeneration.CanopyWorldGen;
 using ReverieMod.Common.Systems.Subworlds;
 
-namespace ReverieMod.Common.Systems
+namespace ReverieMod.Common.Systems.WorldGeneration
 {
     public class WorldGenerationSystem : ModSystem
     {

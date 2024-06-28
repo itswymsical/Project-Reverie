@@ -1,5 +1,4 @@
-﻿using ReverieMod.Common.Systems.Subworlds;
-using SubworldLibrary;
+﻿using SubworldLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +7,7 @@ using System.Threading.Tasks;
 using Terraria.ID;
 using Terraria;
 using Terraria.ModLoader;
+using ReverieMod.Common.Systems.Subworlds.Archaea;
 
 namespace ReverieMod.Content.Items
 {

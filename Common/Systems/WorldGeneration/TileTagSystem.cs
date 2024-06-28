@@ -8,13 +8,13 @@ using ReverieMod.Core.Detours;
 using System.IO;
 using Terraria.ObjectData;
 
-namespace ReverieMod.Common.Systems
+namespace ReverieMod.Common.Systems.WorldGeneration
 {
     public class TileTagSystem : ModSystem
     {
         private Dictionary<Point, TileTag> tileTags;
         public override void Load() => tileTags = new Dictionary<Point, TileTag>();
-        
+
         public static bool naturallyPlaced = false;
         public override void ClearWorld() => naturallyPlaced = false;
         public override void SaveWorldData(TagCompound tag)

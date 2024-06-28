@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 using ReverieMod.Content.Tiles.Canopy;
 using Terraria.ID;
 
-namespace ReverieMod.Common.Systems
+namespace ReverieMod.Common.Systems.WorldGeneration
 {
     internal class TileCountSystem : ModSystem
     {

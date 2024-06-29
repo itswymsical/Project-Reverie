@@ -2,7 +2,10 @@
 using Microsoft.Xna.Framework.Graphics;
 using SubworldLibrary;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.ID;
+using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
 namespace ReverieMod.Common.Systems.Subworlds
@@ -12,7 +15,7 @@ namespace ReverieMod.Common.Systems.Subworlds
         private int currentFrame;
         private double frameTime;
         private const int totalFrames = 19; // Total number of frames in the texture
-        private const double timePerFrame = 0.6; // Time per frame in seconds
+        private const double timePerFrame = 1; // Time per frame in seconds
         private float fadeInDuration = 5f; // Duration for the fade-in effect in seconds
         private double elapsedTime;
         public Texture2D loadingScreen = Request<Texture2D>("ReverieMod/Assets/Textures/Backgrounds/Otherworlds/Archaea").Value;
@@ -34,9 +37,8 @@ namespace ReverieMod.Common.Systems.Subworlds
 
             int frameWidth = loadingIcon.Width;
             int frameHeight = loadingIcon.Height / totalFrames;
-
             Rectangle sourceRectangle = new Rectangle(0, currentFrame * frameHeight, frameWidth, frameHeight);
-
+            Main.newMusic = MusicLoader.GetMusicSlot(default, Assets.Music + "Reverie");
 
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise);
             // Draw background texture to fill the screen

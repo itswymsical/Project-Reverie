@@ -1,11 +1,18 @@
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using ReverieMod.Common.Players;
 using ReverieMod.Common;
 using System.IO;
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using System;
+using ReverieMod.Core.Abstraction.Interfaces;
+using System.Linq;
+using System.Reflection;
+using ReverieMod.Core.Mechanics.Particles;
+using ReverieMod.Core.Mechanics.Trails;
+using ReverieMod.Core.Mechanics.Verlet;
+using Humanizer;
 
 namespace ReverieMod
 {
@@ -15,6 +22,64 @@ namespace ReverieMod
 
         public const string AbbreviationPrefix = Abbreviation + ":";
         public static ReverieMod Instance => ModContent.GetInstance<ReverieMod>();
+
+        private List<ILoadableReverie> loadCache;
+
+        public override void Load()
+        {
+            loadCache = new List<ILoadableReverie>();
+
+            foreach (Type type in Code.GetTypes())
+            {
+                if (!type.IsAbstract && type.GetInterfaces().Contains(typeof(ILoadableReverie)))
+                {
+                    object instance = Activator.CreateInstance(type);
+                    loadCache.Add(instance as ILoadableReverie);
+                }
+
+                loadCache.Sort((n, t) => n.Priority.CompareTo(t.Priority));
+            }
+
+            for (int k = 0; k < loadCache.Count; k++)
+            {
+                loadCache[k].Load();
+            }
+        }
+        public override void Unload()
+        {
+            if (loadCache != null)
+            {
+                foreach (ILoadableReverie loadable in loadCache)
+                {
+                    loadable.Unload();
+                }
+
+                loadCache = null;
+            }
+            else
+            {
+                Logger.Warn("load cache was null, IOrderedLoadable's may not have been unloaded...");
+            }
+        }
+        public override void PostSetupContent()
+        {
+            if (!Main.dedServ)
+            {
+                ParticleManager.Instance.UpdateParticles();
+                TrailManager.Instance.UpdateTrails();
+                VerletManager.Instance.UpdateChains();
+            }
+            foreach (Type type in Assembly.GetExecutingAssembly().GetTypes())
+            {
+                if (!type.IsAbstract && type.GetInterfaces().Contains(typeof(IPostLoadable)))
+                {
+                    object toLoad = Activator.CreateInstance(type);
+
+                    ((IPostLoadable)toLoad).Load();
+                }
+            }
+        }
+
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
             MessageType msgType = (MessageType)reader.ReadByte();

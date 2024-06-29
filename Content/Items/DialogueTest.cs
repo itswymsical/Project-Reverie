@@ -30,17 +30,17 @@ namespace ReverieMod.Content.Items
         public override bool? UseItem(Player player)
         {
             var guideData = NPCDialogueIDHelper.GetNPCData(NPCDialogueID.Guide);
-            var sophieData = NPCDialogueIDHelper.GetNPCData(NPCDialogueID.Sophie);
-
+            var guide = NPC.FindFirstNPC(NPCID.Guide);
             var dialogues = new (string Text, int Delay, int TimeLeft, NPCData NpcData)[]
             {
-                ($"Hey, {player.name}!", 3, 200, guideData),
-                ($"Nice to meet you, I'm your guide.", 2, 300, guideData),
-                ("Although I'm only an apprentice guide, I'm more than qualified to help you learn everything about Terraria.", 2, 700, guideData),
-                ("You've been out for a while now, hehe.", 4, 300, guideData),
-                ("Anyways...", 2, 100, guideData),
-                ("I bet you're wondering what to do from here.", 3, 300, guideData),
-                ("Screw that guy. Come talk to me, I'll answer any questions you have!", 2, 300, sophieData)
+                    ($"Hey, {player.name}!", 3, 300, guideData),
+                    ($"Nice to meet you, I'm {Main.npc[guide].GivenName}.", 2, 300, guideData),
+                    ($"I'll be your guide.", 2, 300, guideData),
+                    ("Although I'm only an apprentice guide, I'm more than qualified to help you learn everything about Terraria.", 2, 300, guideData),
+                    ("You've been out for a while now, hehe.", 4, 300, guideData),
+                    ("Anyways...", 2, 300, guideData),
+                    ("Let's get started with our first task!", 3, 300, guideData),
+                    ("Come speak with me.", 2, 300, guideData)
             };
 
             NPCDialogueBox dialogue = NPCDialogueBox.CreateNewDialogueSequence(dialogues);

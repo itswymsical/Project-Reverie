@@ -1,4 +1,5 @@
 ﻿using ReverieMod.Content.Items.ClassTypes;
+using ReverieMod.Core.Mechanics.Trails;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

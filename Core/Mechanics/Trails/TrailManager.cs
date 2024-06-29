@@ -5,7 +5,7 @@ using Terraria.ID;
 
 namespace ReverieMod.Core.Mechanics.Trails
 {
-    public class TrailManager : ILoadableReverieMod
+    public class TrailManager : ILoadableReverie
     {
         public float Priority => 1f;
 

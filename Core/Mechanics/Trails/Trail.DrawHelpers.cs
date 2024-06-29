@@ -37,7 +37,7 @@ namespace ReverieMod.Core.Mechanics.Trails
 
 		protected void SetBasicShader()
 		{
-			Effect = Effect ?? Filters.Scene["TM:Primitives"].GetShader().Shader;
+			Effect = Effect ?? Filters.Scene["ReverieMod:Primitives"].GetShader().Shader;
 
             Effect.Parameters["WorldViewProjection"].SetValue(Helper.DefaultEffectMatrix);
 			Effect.Parameters["uScreenPos"].SetValue(Main.screenPosition);

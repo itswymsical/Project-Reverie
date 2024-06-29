@@ -287,11 +287,13 @@ namespace ReverieMod.Common.Systems.WorldGeneration
                 TRUNK_X = Math.Clamp(TRUNK_X, 0, Main.maxTilesX - 1);
 
                 int TRUNK_WIDTH = 23;
-                Generator.GenerateStructure("Structures/ReverieTreeStruct", new Point16(SPAWN_X - 54, Main.spawnTileY - Main.maxTilesY / 12), ReverieMod.Instance);
+                int treePos = ((int)Main.worldSurface - Main.maxTilesY / 10);
+                Generator.GenerateStructure("Structures/ReverieTreeStruct", new Point16(SPAWN_X - 54, treePos), ReverieMod.Instance);
                 // Trunk Chasm
                 const float TRUNK_CURVE_FREQUENCY = 0.0765f;
                 const int TRUNK_CURVE_AMPLITUDE = 4;
-                for (int y = Main.spawnTileY + 38; y <= TRUNK_BOTTOM; y++)
+                 
+                for (int y = treePos + 220; y <= TRUNK_BOTTOM; y++)
                 {
                     int currentTRUNK_WIDTH = TRUNK_WIDTH + (y % 5 == 0 ? 2 : 0);
                     int curveOffset = (int)(Math.Sin(y * TRUNK_CURVE_FREQUENCY) * TRUNK_CURVE_AMPLITUDE);
@@ -306,7 +308,7 @@ namespace ReverieMod.Common.Systems.WorldGeneration
 
                     }
                 }
-                for (int y2 = Main.spawnTileY + 38; y2 <= TRUNK_BOTTOM; y2++)
+                for (int y2 = treePos + 220; y2 <= TRUNK_BOTTOM; y2++)
                 {
                     int tunnelTRUNK_WIDTH = TRUNK_WIDTH / 2 + (y2 % 5 == 0 ? 2 : 0);
                     int tunnelOffset = (int)(Math.Sin(y2 * TRUNK_CURVE_FREQUENCY) * TRUNK_CURVE_AMPLITUDE);

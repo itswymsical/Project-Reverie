@@ -1,5 +1,9 @@
-Dive into the realms of Reverie, a content mod inspired by the mythic Yggdrasil; the world unfolds under the boughs of 'Reverie' - a world tree that is not just a monumental forest but a transcendental embodiment of consciousness.
+Reverie is a mod that aims to add as many layers as an onion to Terraria's sandbox formula. By introducing a variety of subworlds, Unique and interactive NPCs, missions and mini-boss hunts, Reverie injects the "Looter Shooter" formula into Terraria's foundation.
+You like XP? A Skill Tree? Cool mini-bosses with viable loot? Reverie will provide that and a whole lot more!
 
-What Awaits in Reverie:
+Reverie Adds:
+A pantheon of mini-bosses and bosses, Large ecosystems known as Otherworlds, Mission System and Experience System, Terraria-esque Soundtrack, and refined gameplay elements that create more variation in combat builds.
 
-Face off against a pantheon of new bosses, engage with fresh gameplay mechanics that harmonize with Terraria's spirit while offering new layers of strategy and exploration, and refined gameplay elements that fill the voids left by vanilla.
+Composer(s): Signiaa (wymsical)
+Lead Artist: ElectroManiac
+Contributing Members: HugeKraken

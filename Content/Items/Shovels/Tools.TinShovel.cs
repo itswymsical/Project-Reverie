@@ -13,7 +13,7 @@ namespace ReverieMod.Content.Items.Shovels
             DiggingPower(33);
             Item.DamageType = DamageClass.Melee;
             Item.damage = 3;
-            Item.useTime = Item.useAnimation = 19;
+            Item.useTime = Item.useAnimation = 20;
             Item.width = Item.height = 32;
             Item.knockBack = 5;
 

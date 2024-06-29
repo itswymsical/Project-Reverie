@@ -13,7 +13,7 @@ namespace ReverieMod.Common.Players
             // -1 (left) , 0 (center), 1 (right)
             for (int num = -1; num < 2; num++)
             {
-                if (num != 0) //skip center, the vanilla pick code will be useed to break the center tile instead. dont ask why
+                if (num != 0) //skip center, the vanilla pick code will be used to break the center tile instead. dont ask why
                 {
                     BreakTileIfValid(i / 16 + num, j / 16);
                     BreakTileIfValid(i / 16, j / 16 + num);
@@ -29,11 +29,10 @@ namespace ReverieMod.Common.Players
             if (!IsExcludedTile(i, j))
             {
                 Player.PickTile(i, j, digTile);
-                if (IsSoftTile(i, j))
+                if (!IsSoftTile(i, j))
                 {
-                    Player.PickTile(i, j, digTile + (digTile / 5)); //20%
+                    Player.PickTile(i, j, digTile - (digTile / 2));
                 }
-                
             }
         }
         

@@ -69,11 +69,11 @@ namespace ReverieMod.Common.Players
         }
         public static int GetNextExperienceThreshold(int level)
         {
-            if (level <= 0)
+            if (level <= 1)
             {
                 return 50; // Initial experience requirement for the first skill point
             }
-            return 100 * level;
+            return 70 * level;
         }
     }
     public class ExperienceGlobalNPC : GlobalNPC

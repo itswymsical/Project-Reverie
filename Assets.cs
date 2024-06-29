@@ -35,7 +35,9 @@
 
 			public const string Food = Consumable + "Food/";
 
-			public const string Materials = Directory + "Materials/";
+            public const string Frostbark = Directory + "Frostbark/";
+
+            public const string Materials = Directory + "Materials/";
 
 			public const string Tools = Directory + "Tools/";
 
@@ -49,22 +51,6 @@
             public const string Shelledrake = Boss + "Shelledrake/";
             #endregion
         }
-		internal class Armor
-		{
-			public const string Directory = TextureDirectory + "Items/Armor/";
-
-			public const string Sandcrawler = Directory + "Sandcrawler/";
-
-			public const string Wildlife = Directory + "Wildlife/";
-
-			public const string Frostbark = Directory + "Frostbark/";
-		}
-		internal class Vanity
-		{
-			public const string Directory = TextureDirectory + "Items/Vanity/";
-
-			public const string Peepo = Directory + "Peepo/";
-		}
 		internal class Weapons
 		{
 			public const string Directory = TextureDirectory + "Items/Weapons/";
@@ -95,10 +81,11 @@
             public const string Warden = Boss + "Warden/";
 
             public const string FoodLegion = Boss + "FoodLegion/";
+			public const string WorldNPCs = Directory + "WorldNPCs/";			
 
-			//public const string Cumulor = Boss + "Cumulor/";
+            //public const string Cumulor = Boss + "Cumulor/";
 
-			public const string Critters = Directory + "Critters/";
+            public const string Critters = Directory + "Critters/";
 
 			public const string Enemies = Directory + "Enemies/";
 

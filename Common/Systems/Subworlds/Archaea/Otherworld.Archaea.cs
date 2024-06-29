@@ -4,6 +4,7 @@ using SubworldLibrary;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.ModLoader;
 using Terraria.WorldBuilding;
 
 namespace ReverieMod.Common.Systems.Subworlds.Archaea

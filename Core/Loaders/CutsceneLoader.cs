@@ -9,7 +9,7 @@ using Terraria.UI;
 
 namespace ReverieMod.Core.Loaders
 {
-    internal sealed class CutsceneLoader : ILoadableReverieMod
+    internal sealed class CutsceneLoader : ILoadableReverie
     {
         public float Priority => 1f;
         public bool LoadOnDedServer => false;

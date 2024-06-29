@@ -14,9 +14,9 @@ namespace ReverieMod.Content
     public class Menu : ModMenu
     {
         private const string AssetPath = "ReverieMod/Assets/Textures/";
-        public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>($"{AssetPath}MenuTree");
+        public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>($"{AssetPath}Backgrounds/PlaceholderBG");
 
-        public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Music/Woodhaven");
+        public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Music/Reverie");
         public override ModSurfaceBackgroundStyle MenuBackgroundStyle => null;
         public override Asset<Texture2D> SunTexture => null;
         public override Asset<Texture2D> MoonTexture => null;

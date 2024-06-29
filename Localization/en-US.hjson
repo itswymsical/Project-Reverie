@@ -132,6 +132,7 @@ Mods: {
 			WardenArmLeft.DisplayName: Warden Arm
 			WardenArmRight.DisplayName: Warden Arm
 			WardenArm.DisplayName: Warden Arm
+			Sophie.DisplayName: Sophie
 		}
 
 		Projectiles: {
@@ -146,5 +147,6 @@ Mods: {
 
 		"Keybinds.Skill Tree Menu.DisplayName": Skill  Tree  Menu
 		UI.ExperienceTracker: Mods.ReverieMod.UI.ExperienceTracker
+		InfoDisplays.MissionInfoDisplay.DisplayName: Mission Info Display
 	}
 }

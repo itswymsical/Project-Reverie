@@ -5,7 +5,7 @@ using ReverieMod.Core.Detours;
 
 namespace ReverieMod.Core.Loaders
 {
-    public sealed class DetourLoader : ILoadableReverieMod
+    public sealed class DetourLoader : ILoadableReverie
     {
         public float Priority => 1f;
 

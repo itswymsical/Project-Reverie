@@ -30,14 +30,17 @@ namespace ReverieMod.Common.UI
         {
             public static NPCData GetNPCData(NPCDialogueID npcDialogueID)
             {
+                var mechanic = NPC.FindFirstNPC(NPCID.Mechanic);
+                var guide = NPC.FindFirstNPC(NPCID.Guide);
+                var goblin = NPC.FindFirstNPC(NPCID.GoblinTinkerer);
                 Player plr = Main.LocalPlayer;
                 switch (npcDialogueID)
                 {
                     case NPCDialogueID.Guide:
                         return new NPCData(
                             ModContent.Request<Texture2D>("ReverieMod/Assets/Textures/UI/DialoguePortraits/Guide"),
-                            "Guide",
-                            Color.LightBlue,
+                            Main.npc[guide].GivenName,
+                            new Color(64, 109, 164),
                             SoundID.MenuOpen
                         );
                     case NPCDialogueID.Sophie:
@@ -45,7 +48,7 @@ namespace ReverieMod.Common.UI
                             ModContent.Request<Texture2D>("ReverieMod/Assets/Textures/UI/DialoguePortraits/Sophie"),
                             "Sophie",
                             Color.Violet,
-                            SoundID.MenuClose
+                            new SoundStyle($"{nameof(ReverieMod)}/Assets/SFX/Dialogue/Sophie")
                         );
                     case NPCDialogueID.Fungore:
                         return new NPCData(
@@ -58,8 +61,22 @@ namespace ReverieMod.Common.UI
                         return new NPCData(
                             ModContent.Request<Texture2D>("ReverieMod/Assets/Textures/UI/DialoguePortraits/Dalia"),
                             "Dalia",
-                            Color.Cyan,
-                            SoundID.MenuClose
+                            Color.LightGoldenrodYellow,
+                            new SoundStyle($"{nameof(ReverieMod)}/Assets/SFX/Dialogue/Dalia")
+                        );
+                    case NPCDialogueID.Mechanic:
+                        return new NPCData(
+                            ModContent.Request<Texture2D>("ReverieMod/Assets/Textures/UI/DialoguePortraits/Mechanic"),
+                            Main.npc[mechanic].GivenName,
+                            Color.Orange,
+                            new SoundStyle($"{nameof(ReverieMod)}/Assets/SFX/Dialogue/Mechanic")
+                        );
+                    case NPCDialogueID.Goblin:
+                        return new NPCData(
+                            ModContent.Request<Texture2D>("ReverieMod/Assets/Textures/UI/DialoguePortraits/Goblin"),
+                            Main.npc[goblin].GivenName,
+                            Color.LightSlateGray,
+                            new SoundStyle($"{nameof(ReverieMod)}/Assets/SFX/Dialogue/Goblin")
                         );
                     // Add more cases for other NPCs
                     default:

@@ -7,7 +7,7 @@ using Terraria;
 
 namespace ReverieMod.Core.Mechanics.Particles
 {
-    public class ParticleManager : ILoadableReverieMod
+    public class ParticleManager : ILoadableReverie
     {
         public float Priority => 1f;
 

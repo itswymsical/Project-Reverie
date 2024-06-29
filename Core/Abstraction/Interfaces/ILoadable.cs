@@ -3,7 +3,7 @@
     /// <summary>
     /// Inspired from other mod structures, this is to be able to centralize content loading.
     /// </summary>
-    public interface ILoadableReverieMod
+    public interface ILoadableReverie
 	{
 		/// <summary>
 		/// Load priority. Important for loadables that are load-order-dependent.

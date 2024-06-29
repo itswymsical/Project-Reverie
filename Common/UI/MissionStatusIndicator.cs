@@ -1,13 +1,16 @@
-﻿using Microsoft.CodeAnalysis.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReverieMod.Common.Players;
 using System;
+using System.Security.AccessControl;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
+using Terraria.ModLoader;
 using Terraria.UI;
+using static ReverieMod.Common.UI.NPCData;
 
 namespace ReverieMod.Common.UI
 {
@@ -59,56 +62,104 @@ namespace ReverieMod.Common.UI
                 
             }
 			timeLeft--;
-			
+
 			if (timeLeft < 0)
+			{
 				timeLeft = 0;
+			}
 			
 		}
         private float panelWidth = 420f;
+		public static int rewardItem = 0;
+		public static int rewardStack = 0;
         public void DrawInGame(SpriteBatch spriteBatch, Vector2 bottomAnchorPosition)
 		{
 			if (Opacity <= 0f)
 				return;
 			
 			Player player = Main.LocalPlayer;
+			var reward = TextureAssets.Item[rewardItem];
+
 			ExperiencePlayer modPlayer = player.GetModPlayer<ExperiencePlayer>();
-			var iconTexture = TextureAssets.Item[ItemID.Confetti];
+			string title = $"Mission Complete! Rewards:";
+			if (rewardStack > 1)
+				title = $"Mission Complete! Rewards: {rewardStack}";
+            
 			if (MissionChecks.failed)
-			{
-				iconTexture = TextureAssets.MapDeath;
-			}
-			string title = "Mission Complete!";
-			if (MissionChecks.failed)
-			{
 				title = "Mission Failed!";
-			}
+			
             float effectiveScale = Scale * 1.1f;
-            // Measure the size of the text and calculate the height based on the static width
-            Vector2 textSize = FontAssets.ItemStack.Value.MeasureString(title);
-            int lineCount = (int)Math.Ceiling(textSize.X / panelWidth);
             float panelHeight = ( new Vector2(35f, 20f).Y * 2f) * effectiveScale;
-
-            // Calculate panel size
             Vector2 panelSize = new Vector2(panelWidth + 18, panelHeight);
-
-            // Calculate the panel's position and centered text position
-            Vector2 panelPosition = bottomAnchorPosition + new Vector2(0f, (-100f - panelSize.Y) * 0.5f);
+            Vector2 panelPosition = bottomAnchorPosition + new Vector2(0f, (15f - panelSize.Y) * 0.5f);
             Rectangle panelRectangle = Utils.CenteredRectangle(panelPosition, panelSize);
-			Color color = Color.White;
+
+			Color color = Color.LightCoral;
             Color colorText = new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor / 5, Main.mouseTextColor);
+
             if (MissionChecks.failed)
 			{
 				color = Color.Black;
 				colorText = Color.Red;
-
             }
-            Utils.DrawInvBG(spriteBatch, panelRectangle, color * 0.5f);
-			float iconScale = effectiveScale * 0.7f;
-			Vector2 vector = panelRectangle.Right() - Vector2.UnitX * effectiveScale * (12f + iconScale * iconTexture.Width());
-			spriteBatch.Draw(iconTexture.Value, vector, null, Color.White * Opacity, 0f, new Vector2(0f, iconTexture.Width() / 2f), iconScale, SpriteEffects.None, 0f);
-			Utils.DrawBorderString(color: colorText * Opacity, sb: spriteBatch, text: title, pos: panelPosition, scale: effectiveScale * 0.9f, anchorx: 1f, anchory: 0.4f);
+
+            Utils.DrawInvBG(spriteBatch, panelRectangle, default);
+            spriteBatch.Draw(reward.Value, panelPosition + new Vector2(-30f + (panelWidth / 3), -52f + panelSize.Y), Color.White * Opacity);
+            Utils.DrawBorderString(spriteBatch, title, panelPosition + new Vector2(panelWidth / 4, -44f + panelSize.Y), colorText * Opacity, effectiveScale * 0.9f, 1f, 0.4f);
 		}
 
-		public void PushAnchor(ref Vector2 positionAnchorBottom) => positionAnchorBottom.Y -= 50f * Opacity;
+
+        public void PushAnchor(ref Vector2 positionAnchorBottom) => positionAnchorBottom.Y -= 50f * Opacity;
 	}
+
+	public class MissionPlayer : ModPlayer
+	{
+        public override void OnEnterWorld()
+        {
+            if (!MissionChecks.GUIDE_MISSIONS_WORLDSTART_ACTIVE && !MissionChecks.GUIDE_MISSIONS_WORLDSTART_COMPLETE)
+            {
+                Player player = Main.LocalPlayer;
+                var guideData = NPCDialogueIDHelper.GetNPCData(NPCDialogueID.Guide);
+                var guide = NPC.FindFirstNPC(NPCID.Guide);
+                var dialogues = new (string Text, int Delay, int TimeLeft, NPCData NpcData)[]
+                {
+                    ($"Hey, {player.name}!", 3, 300, guideData),
+                    ($"Nice to meet you, I'm {Main.npc[guide].GivenName}.", 2, 300, guideData),
+                    ($"I'll be your guide.", 2, 300, guideData),
+                    ("Although I'm only an apprentice guide, I'm more than qualified to help you learn everything about Terraria.", 2, 300, guideData),
+                    ("You've been out for a while now, hehe.", 4, 300, guideData),
+                    ("Anyways...", 2, 300, guideData),
+                    ("Let's get started with our first task!", 3, 300, guideData),
+                    ("Come speak with me.", 2, 300, guideData)
+                };
+
+                NPCDialogueBox dialogue = NPCDialogueBox.CreateNewDialogueSequence(dialogues);
+                InGameNotificationsTracker.AddNotification(dialogue);
+
+                MissionChecks.GUIDE_MISSIONS_WORLDSTART_ACTIVE = true;
+            }
+        }
+        //public override void PostUpdate() { }
+    }
+    public class MissionInfoDisplay : InfoDisplay
+    {
+        public static Color RedInfoTextColor => new(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor);
+        public override string Texture => Assets.TextureDirectory + Name;
+        public override string HoverTexture => Texture + "_Hover";
+        public override bool Active() => true; 
+        public override string DisplayValue(ref Color displayColor, ref Color displayShadowColor)
+        {
+			// Display Mission Name and Objective
+			bool noInfo = MissionChecks.missionName == string.Empty && MissionChecks.missionObjective == string.Empty;
+
+            if (noInfo)
+				displayColor = InactiveInfoTextColor;
+            else
+				displayColor = RedInfoTextColor;
+
+			//TODO: Checker for objective condition met (i.e. player placed item)
+			// Do this by flagging the event and adding incrementing the objective value, or smth like that.
+            return !noInfo ? $"{MissionChecks.missionName}: {MissionChecks.missionObjective}" : "No active missions.";
+        }
+    }
 }

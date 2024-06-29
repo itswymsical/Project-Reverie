@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ReverieMod.Core.Mechanics.Verlet
 {
-    public class VerletManager : ILoadableReverieMod
+    public class VerletManager : ILoadableReverie
     {
         public float Priority => 1f;
 

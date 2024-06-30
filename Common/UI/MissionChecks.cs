@@ -182,43 +182,4 @@ namespace ReverieMod.Common.UI
             player.QuickSpawnItem(default, item, stack);
         }
     }
-
-    public class MissionSystem
-    {
-        /// <summary>
-        /// Gets the item and stack amount for the mission reward. You can set up to 3 rewards.
-        /// </summary>
-        /// <param name="player"></param>
-        /// <param name="item"></param>
-        /// <param name="stack"></param>
-        public static void GetMissionReward(Player player, int item, int stack)
-        {
-            player.QuickSpawnItem(default, item, stack);
-        }
-        /// <summary>
-        /// Gets the item and stack amount for the mission reward. You can set up to 3 rewards.
-        /// </summary>
-        /// <param name="player"></param>
-        /// <param name="item"></param>
-        /// <param name="stack"></param>
-        public static void GetMissionReward(Player player, int item, int stack, int item2, int stack2)
-        {
-            player.QuickSpawnItem(default, item, stack);
-            player.QuickSpawnItem(default, item2, stack2);
-        }
-        /// <summary>
-        /// Gets the item and stack amount for the mission reward. You can set up to 3 rewards.
-        /// </summary>
-        /// <param name="player"></param>
-        /// <param name="item"></param>
-        /// <param name="stack"></param>
-        public static void GetMissionReward(Player player, int item, int stack, int item2, int stack2, int item3, int stack3)
-        {
-            player.QuickSpawnItem(default, item, stack);
-            player.QuickSpawnItem(default, item2, stack2);
-            player.QuickSpawnItem(default, item3, stack3);
-        }
-
-
-    }
 }

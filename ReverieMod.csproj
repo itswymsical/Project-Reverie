@@ -6,11 +6,16 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <AdditionalFiles Remove="Common\Cutscenes\**" />
+    <Compile Remove="Common\Cutscenes\**" />
+    <EmbeddedResource Remove="Common\Cutscenes\**" />
+    <None Remove="Common\Cutscenes\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Content\Items\Shovels\Shovels.cs~RF7b713434.TMP" />
     <None Remove="Helpers\DustHelpers.cs~RF7d9f0961.TMP" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Common\Cutscenes\" />
     <Folder Include="Content\Projectiles\" />
   </ItemGroup>
   <ItemGroup>

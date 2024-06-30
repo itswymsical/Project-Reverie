@@ -8,13 +8,14 @@ using Terraria.GameContent;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace ReverieMod.Content
 {
     public class Menu : ModMenu
     {
         private const string AssetPath = "ReverieMod/Assets/Textures/";
-        public override Asset<Texture2D> Logo => ModContent.Request<Texture2D>($"{AssetPath}Backgrounds/PlaceholderBG");
+        public override Asset<Texture2D> Logo => Request<Texture2D>($"{AssetPath}MenuTree");
 
         public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Music/Reverie");
         public override ModSurfaceBackgroundStyle MenuBackgroundStyle => null;
@@ -27,7 +28,7 @@ namespace ReverieMod.Content
         }
         public override bool PreDrawLogo(SpriteBatch spriteBatch, ref Vector2 logoDrawCenter, ref float logoRotation, ref float logoScale, ref Color drawColor)
         {
-            spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black);
+            spriteBatch.Draw((Texture2D)Request<Texture2D>($"{AssetPath}Backgrounds/PlaceholderBG"), new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black);
             Main.dayTime = false;
             logoRotation = 0f;
             logoScale *= 0.35f;

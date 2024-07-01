@@ -13,61 +13,38 @@ namespace ReverieMod.Core.MissionSystem
         public string Description { get; private set; }
         public Queue<(string Objective, int Value)> Objectives { get; private set; }
         public List<Item> Rewards { get; private set; }
-        public bool IsComplete { get; private set; }
-
-        public Mission(string missionName, string description, List<(string, int)> objectives, List<Item> rewards)
+        public bool IsComplete { get; set; }
+        public int Priority { get; private set; } // Priority level of the mission
+        public Mission(string missionName, string description, List<(string Objective, int Value)> objectives, List<Item> rewards, int priority = 0)
         {
             MissionName = missionName;
             Description = description;
-            Objectives = new Queue<(string, int)>(objectives);
+            Objectives = new Queue<(string Objective, int Value)>(objectives);
             Rewards = rewards;
             IsComplete = false;
+            Priority = priority; // Assign priority level
         }
 
-        public void UpdateObjective(string objective, int value)
+        public void UpdateObjective(string objectiveName, int value)
         {
-            if (Objectives.Count == 0) return;
-
-            var currentObjective = Objectives.Peek();
-
-            if (currentObjective.Objective == objective)
+            if (Objectives.Count > 0 && Objectives.Peek().Objective == objectiveName)
             {
-                if (value >= currentObjective.Value)
+                var currentObjective = Objectives.Dequeue();
+                currentObjective.Value += value;
+                if (currentObjective.Value >= 1) // Assuming 1 is the required value for completion
                 {
-                    Objectives.Dequeue(); // Objective completed
                     if (Objectives.Count == 0)
                     {
-                        CompleteMission();
+                        IsComplete = true;
                     }
+                }
+                else
+                {
+                    Objectives.Enqueue(currentObjective);
                 }
             }
         }
-
-        public void SetComplete(bool complete)
-        {
-            IsComplete = complete;
-            if (complete)
-            {
-                GiveRewards();
-            }
-        }
-
-        private void CompleteMission()
-        {
-            IsComplete = true;
-            GiveRewards();
-        }
-
-        private void GiveRewards()
-        {
-            Player player = Main.LocalPlayer;
-            foreach (var reward in Rewards)
-            {
-                player.QuickSpawnItem(player.GetSource_Misc("MissionComplete"), reward.type, reward.stack);
-            }
-        }
     }
-
     public class MissionCategory
     {
         public string Name { get; private set; }
@@ -94,23 +71,8 @@ namespace ReverieMod.Core.MissionSystem
     {
         public static void AddGuideMissions(MissionManager missionManager)
         {
-            List<Item> rewards = new List<Item> { new Item(ItemID.Wood, 10), new Item(ItemID.Torch, 5) };
-            missionManager.AddMission("Guide", "Housemaker", "Build a house", new List<(string, int)> { ("Build a house", 1) }, rewards);
-
-            rewards = new List<Item> { new Item(ItemID.IronPickaxe, 1) };
-            missionManager.AddMission("Guide", "Explorer", "Explore the world", new List<(string, int)> { ("Explore the world", 1) }, rewards);
-        }
-    }
-
-    public static class MerchantMissions
-    {
-        public static void AddMerchantMissions(MissionManager missionManager)
-        {
-            List<Item> rewards = new List<Item> { new Item(ItemID.GoldCoin, 1) };
-            missionManager.AddMission("Merchant", "Shopper", "Buy items", new List<(string, int)> { ("Buy items", 5) }, rewards);
-
-            rewards = new List<Item> { new Item(ItemID.SilverCoin, 50) };
-            missionManager.AddMission("Merchant", "Seller", "Sell items", new List<(string, int)> { ("Sell items", 5) }, rewards);
+            List<Item> rewards = new List<Item> { new Item(ItemID.SilverCoin, 50) };
+            missionManager.AddMission("Guide", "Journey's Begin", "Talk to the guide", new List<(string, int)> { ("Talk to the guide", 1) }, rewards, priority: 2);
         }
     }
 }

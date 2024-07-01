@@ -14,6 +14,7 @@ using ReverieMod.Core.Mechanics.Trails;
 using ReverieMod.Core.Mechanics.Verlet;
 using Humanizer;
 using ReverieMod.Core.MissionSystem;
+using ReverieMod.Common.UI;
 
 namespace ReverieMod
 {
@@ -29,7 +30,6 @@ namespace ReverieMod
         public override void Load()
         {
             loadCache = new List<ILoadableReverie>();
-
             foreach (Type type in Code.GetTypes())
             {
                 if (!type.IsAbstract && type.GetInterfaces().Contains(typeof(ILoadableReverie)))

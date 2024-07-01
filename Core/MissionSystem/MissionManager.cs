@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -8,90 +9,118 @@ namespace ReverieMod.Core.MissionSystem
 {
     public class MissionManager : ModSystem
     {
-        private Dictionary<string, MissionCategory> missionCategories = new Dictionary<string, MissionCategory>();
-
-        public void AddMissionCategory(string categoryName)
+        private Dictionary<string, List<Mission>> npcMissions = new Dictionary<string, List<Mission>>();
+        private Dictionary<string, HashSet<string>> completedMissions; // To store completed missions by NPC name
+        public void AddMission(string npcName, string missionName, string description, List<(string Objective, int Value)> objectives, List<Item> rewards, int priority = 0)
         {
-            if (!missionCategories.ContainsKey(categoryName))
+            var mission = new Mission(missionName, description, objectives, rewards, priority);
+
+            if (!npcMissions.ContainsKey(npcName))
             {
-                missionCategories[categoryName] = new MissionCategory(categoryName);
+                npcMissions[npcName] = new List<Mission>();
             }
-        }
 
-        public void AddMission(string categoryName, string missionName, string description, List<(string, int)> objectives, List<Item> rewards)
-        {
-            if (!missionCategories.ContainsKey(categoryName))
-            {
-                missionCategories[categoryName] = new MissionCategory(categoryName);
-            }
-            missionCategories[categoryName].AddMission(missionName, description, objectives, rewards);
+            npcMissions[npcName].Add(mission);
         }
-
-        public void UpdateMissionObjective(string categoryName, string missionName, string objective, int value)
+        public bool IsMissionActive(string missionName)
         {
-            if (missionCategories.TryGetValue(categoryName, out var category))
+            foreach (var npcMission in npcMissions.Values)
             {
-                var mission = category.GetMission(missionName);
-                mission?.UpdateObjective(objective, value);
-            }
-        }
-
-        public override void SaveWorldData(TagCompound tag)
-        {
-            List<TagCompound> categories = new List<TagCompound>();
-            foreach (var category in missionCategories)
-            {
-                TagCompound categoryTag = new TagCompound
+                foreach (var mission in npcMission)
                 {
-                    ["CategoryName"] = category.Key,
-                    ["Missions"] = new List<TagCompound>()
-                };
-
-                foreach (var mission in category.Value.Missions)
-                {
-                    TagCompound missionTag = new TagCompound
+                    if (mission.MissionName == missionName && !mission.IsComplete)
                     {
-                        ["MissionName"] = mission.Value.MissionName,
-                        ["Description"] = mission.Value.Description,
-                        ["Objectives"] = mission.Value.Objectives,
-                        ["Rewards"] = mission.Value.Rewards.ConvertAll(item => ItemIO.Save(item)),
-                        ["IsComplete"] = mission.Value.IsComplete
-                    };
-                    categoryTag.Get<List<TagCompound>>("Missions").Add(missionTag);
-                }
-
-                categories.Add(categoryTag);
-            }
-            tag["MissionCategories"] = categories;
-        }
-
-        public override void LoadWorldData(TagCompound tag)
-        {
-            missionCategories.Clear();
-            if (tag.ContainsKey("MissionCategories"))
-            {
-                var categories = tag.GetList<TagCompound>("MissionCategories");
-                foreach (var categoryTag in categories)
-                {
-                    var categoryName = categoryTag.GetString("CategoryName");
-                    var category = new MissionCategory(categoryName);
-
-                    var missions = categoryTag.GetList<TagCompound>("Missions");
-                    foreach (var missionTag in missions)
-                    {
-                        var missionName = missionTag.GetString("MissionName");
-                        var description = missionTag.GetString("Description");
-                        var objectives = missionTag.Get<List<(string, int)>>("Objectives");
-                        var rewards = missionTag.Get<List<TagCompound>>("Rewards").ConvertAll(ItemIO.Load);
-                        var isComplete = missionTag.GetBool("IsComplete");
-                        var mission = new Mission(missionName, description, objectives, rewards);
-                        mission.SetComplete(isComplete);
-                        category.Missions[missionName] = mission;
+                        return true;
                     }
-
-                    missionCategories[categoryName] = category;
                 }
             }
+            return false;
+        }
+        public Mission GetPriorityMission()
+        {
+            Mission priorityMission = null;
+            int highestPriority = int.MinValue; // Initialize to a very low priority
+
+            foreach (var npcMission in npcMissions.Values)
+            {
+                foreach (var mission in npcMission)
+                {
+                    if (!mission.IsComplete && mission.Priority > highestPriority)
+                    {
+                        priorityMission = mission;
+                        highestPriority = mission.Priority;
+                    }
+                }
+            }
+
+            return priorityMission;
+        }
+        public void UpdateMissionObjective(string npcName, string missionName, string objectiveName, int value)
+        {
+            if (npcMissions.ContainsKey(npcName))
+            {
+                foreach (var mission in npcMissions[npcName])
+                {
+                    if (mission.MissionName == missionName)
+                    {
+                        mission.UpdateObjective(objectiveName, value);
+                        if (mission.IsComplete)
+                        {
+                            CompleteMission(npcName, missionName);
+                        }
+                        break;
+                    }
+                }
+            }
+        }     
+        public void CompleteMission(string npcName, string missionName)
+        {
+            if (npcMissions.ContainsKey(npcName))
+            {
+                var mission = npcMissions[npcName].FirstOrDefault(m => m.MissionName == missionName);
+                if (mission != null)
+                {
+                    mission.IsComplete = true;
+                    if (!completedMissions.ContainsKey(npcName))
+                    {
+                        completedMissions[npcName] = new HashSet<string>();
+                    }
+                    completedMissions[npcName].Add(missionName);
+                    // Optionally, call SaveWorldData if needed to immediately save the state.
+                    GiveMissionRewards(npcName, missionName);
+                }
+            }
+        }
+        public override void OnWorldLoad()
+        {
+            completedMissions = new Dictionary<string, HashSet<string>>();
+        }
+        private void GiveMissionRewards(string npcName, string missionName)
+        {
+            // Retrieve the mission details
+            Mission mission = GetMission(npcName, missionName);
+            if (mission != null)
+            {
+                // Give rewards to the player
+                foreach (var reward in mission.Rewards)
+                {
+                Main.LocalPlayer.QuickSpawnItem(Main.LocalPlayer.GetSource_Misc("Mission"), reward.type, reward.stack);
+                    
+                    // Example: Add reward items to the player's inventory
+                    // Replace with your actual implementation for giving rewards to the player
+                    // For example, if using Terraria.ModLoader.PlayerHooks, you can use:
+                    // PlayerHooks.ModifyInventory(player.whoAmI, reward.type, reward.stack);
+                    // This example assumes player is accessible where this method is called.
+                }
+            }
+        }
+        private Mission GetMission(string npcName, string missionName)
+        {
+            if (npcMissions.TryGetValue(npcName, out var missions))
+            {
+                return missions.FirstOrDefault(m => m.MissionName == missionName);
+            }
+            return null;
         }
     }
 }

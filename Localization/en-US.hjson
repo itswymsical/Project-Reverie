@@ -147,6 +147,10 @@ Mods: {
 
 		"Keybinds.Skill Tree Menu.DisplayName": Skill  Tree  Menu
 		UI.ExperienceTracker: Mods.ReverieMod.UI.ExperienceTracker
-		InfoDisplays.MissionInfoDisplay.DisplayName: Mission Info Display
+
+		InfoDisplays: {
+			MissionInfoDisplay.DisplayName: Mission Info Display
+			MissionObjectiveInfoDisplay.DisplayName: Mission Objective Info Display
+		}
 	}
 }

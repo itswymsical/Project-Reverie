@@ -46,7 +46,7 @@ namespace ReverieMod.Content.NPCs.Boss.Warden
         private float alphaTimer;
 
         private int count;
-        private int bossDefense = 12;
+        private int bossDefense = 10;
         public override void SetStaticDefaults()
         {
             NPCID.Sets.BossBestiaryPriority.Add(Type);
@@ -69,9 +69,9 @@ namespace ReverieMod.Content.NPCs.Boss.Warden
         public override string Texture => Assets.NPCs.Warden + Name;
         public override void SetDefaults()
         {
-            NPC.damage = 1;
+            NPC.damage = 12;
             NPC.defense = bossDefense;
-            NPC.lifeMax = 2370;
+            NPC.lifeMax = 2040;
 
             NPC.noGravity = true;
             NPC.noTileCollide = true;
@@ -143,7 +143,7 @@ namespace ReverieMod.Content.NPCs.Boss.Warden
             {
                 if (AITimer >= 600 % NPC.lifeMax * 0.70f) // Adjust timing as needed
                 {
-                    if (State == AIState.Hovering)
+                    if (State == AIState.Hovering && Main.player[NPC.target].Top.Y > NPC.Bottom.Y)
                     {
                         State = AIState.Slamming;
                     }
@@ -252,12 +252,12 @@ namespace ReverieMod.Content.NPCs.Boss.Warden
         }
         private void SpawnShockwaveProjectiles()
         {
-            Vector2 position = NPC.Center;
-            Vector2 velocityLeft = new Vector2(-10f, -5f); // Adjust speed as needed
-            Vector2 velocityRight = new Vector2(10f, -5f);
+            Vector2 position = NPC.Hitbox.Bottom();
+            Vector2 velocityLeft = new Vector2(-10f, 0f); // Adjust speed as needed
+            Vector2 velocityRight = new Vector2(10f, 0f);
 
-            //Projectile.NewProjectile(default, position, velocityLeft, ModContent.ProjectileType<ShockwaveProjectile>(), 20, 1f, Main.myPlayer);
-            //Projectile.NewProjectile(default, position, velocityRight, ModContent.ProjectileType<ShockwaveProjectile>(), 20, 1f, Main.myPlayer);
+            Projectile.NewProjectile(default, position, velocityLeft, ProjectileID.DeerclopsIceSpike, 20, 1f);
+            Projectile.NewProjectile(default, position, velocityRight, ProjectileID.DeerclopsIceSpike, 20, 1f);
         }
         private void Recover()
         {

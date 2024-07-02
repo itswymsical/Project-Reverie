@@ -3,24 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|c:\\users\\cobal\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\ui\\npcdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\ui\\npcdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|c:\\users\\cobal\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\players\\reverie.experienceplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\players\\reverie.experienceplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|c:\\users\\cobal\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\ui\\missionstatusindicator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\ui\\missionstatusindicator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|c:\\users\\cobal\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\systems\\worldgeneration\\canopyworldgen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\systems\\worldgeneration\\canopyworldgen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|c:\\users\\cobal\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\ui\\missionchecks.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\ui\\missionchecks.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|c:\\users\\cobal\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\content\\npcs\\boss\\warden\\woodenwarden.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:content\\npcs\\boss\\warden\\woodenwarden.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|c:\\users\\cobal\\documents\\my games\\terraria\\tmodloader\\modsources\\reveriemod\\common\\ui\\npcdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E1318FF-20C1-4E61-8AC9-FBA618894FCE}|ReverieMod.csproj|solutionrelative:common\\ui\\npcdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,11 +22,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "NPCData.cs",
               "DocumentMoniker": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\UI\\NPCData.cs",
               "RelativeDocumentMoniker": "Common\\UI\\NPCData.cs",
@@ -48,54 +40,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Reverie.ExperiencePlayer.cs",
-              "DocumentMoniker": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Players\\Reverie.ExperiencePlayer.cs",
-              "RelativeDocumentMoniker": "Common\\Players\\Reverie.ExperiencePlayer.cs",
-              "ToolTip": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Players\\Reverie.ExperiencePlayer.cs",
-              "RelativeToolTip": "Common\\Players\\Reverie.ExperiencePlayer.cs",
-              "ViewState": "AQIAABIAAAAAAAAAAAAAAEsAAAAVAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-29T09:42:52.738Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "CanopyWorldGen.cs",
               "DocumentMoniker": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\WorldGeneration\\CanopyWorldGen.cs",
               "RelativeDocumentMoniker": "Common\\Systems\\WorldGeneration\\CanopyWorldGen.cs",
               "ToolTip": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\Systems\\WorldGeneration\\CanopyWorldGen.cs",
               "RelativeToolTip": "Common\\Systems\\WorldGeneration\\CanopyWorldGen.cs",
-              "ViewState": "AQIAABQBAAAAAAAAAAAqwCEBAABLAAAA",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAiwBcAAABFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-29T09:02:44.347Z",
+              "WhenOpened": "2024-07-02T00:45:50.652Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "MissionStatusIndicator.cs",
-              "DocumentMoniker": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\UI\\MissionStatusIndicator.cs",
-              "RelativeDocumentMoniker": "Common\\UI\\MissionStatusIndicator.cs",
-              "ToolTip": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\UI\\MissionStatusIndicator.cs",
-              "RelativeToolTip": "Common\\UI\\MissionStatusIndicator.cs",
-              "ViewState": "AQIAAI4AAAAAAAAAAAAgwKAAAABjAAAA",
+              "DocumentIndex": 1,
+              "Title": "WoodenWarden.cs",
+              "DocumentMoniker": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\NPCs\\Boss\\Warden\\WoodenWarden.cs",
+              "RelativeDocumentMoniker": "Content\\NPCs\\Boss\\Warden\\WoodenWarden.cs",
+              "ToolTip": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Content\\NPCs\\Boss\\Warden\\WoodenWarden.cs",
+              "RelativeToolTip": "Content\\NPCs\\Boss\\Warden\\WoodenWarden.cs",
+              "ViewState": "AQIAACkAAAAAAAAAAAAgwEcAAAAbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-29T06:28:16.872Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "MissionChecks.cs",
-              "DocumentMoniker": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\UI\\MissionChecks.cs",
-              "RelativeDocumentMoniker": "Common\\UI\\MissionChecks.cs",
-              "ToolTip": "C:\\Users\\cobal\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\ReverieMod\\Common\\UI\\MissionChecks.cs",
-              "RelativeToolTip": "Common\\UI\\MissionChecks.cs",
-              "ViewState": "AQIAAIcAAAAAAAAAAAAqwKYAAABcAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-29T05:45:28.38Z",
+              "WhenOpened": "2024-07-01T23:50:46.075Z",
               "EditorCaption": ""
             }
           ]

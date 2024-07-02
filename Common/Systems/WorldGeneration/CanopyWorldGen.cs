@@ -24,12 +24,12 @@ namespace ReverieMod.Common.Systems.WorldGeneration
         public static int CANOPY_Y = TRUNK_BOTTOM + TRUNK_BOTTOM / 4;
 
         public static int CANOPY_H = (int)(Main.maxTilesX * 0.03f);
-        public static int CANOPY_V = (int)(Main.maxTilesY * 0.1075f);
+        public static int CANOPY_V = (int)(Main.maxTilesY * 0.1175f);
 
         public static int treeWood = TileID.LivingWood;
         public static int treeWall = WallID.LivingWoodUnsafe;
         public static int canopyWall = WallID.LivingWoodUnsafe; //WallID.DirtUnsafe4
-        public static int canopyWall_Alt = WallID.DirtUnsafe1;
+        public static int canopyWall_Alt = WallID.DirtUnsafe4;
         public static int treeLeaves = TileID.LeafBlock;
         public static int canopyGrass = ModContent.TileType<Woodgrass>();
         public static int canopyVines = ModContent.TileType<CanopyVine>();
@@ -283,17 +283,16 @@ namespace ReverieMod.Common.Systems.WorldGeneration
                 int TRUNK_DIR = Main.rand.Next(2);
                 int SPAWN_DISTANCE = (Main.maxTilesX - SPAWN_X) / 16;
 
-                TRUNK_X = TRUNK_DIR == 0 ? SPAWN_X - SPAWN_DISTANCE : SPAWN_X + SPAWN_DISTANCE;
                 TRUNK_X = Math.Clamp(TRUNK_X, 0, Main.maxTilesX - 1);
 
                 int TRUNK_WIDTH = 23;
-                int treePos = ((int)Main.worldSurface - Main.maxTilesY / 10);
-                Generator.GenerateStructure("Structures/ReverieTreeStruct", new Point16(SPAWN_X - 54, treePos), ReverieMod.Instance);
+                int treePos = (((int)Main.worldSurface - 227));
+                Generator.GenerateStructure("Structures/ReverieTreeStruct", new Point16(SPAWN_X - 56, treePos), ReverieMod.Instance);
                 // Trunk Chasm
                 const float TRUNK_CURVE_FREQUENCY = 0.0765f;
                 const int TRUNK_CURVE_AMPLITUDE = 4;
                  
-                for (int y = treePos + 220; y <= TRUNK_BOTTOM; y++)
+                for (int y = treePos + 192; y <= TRUNK_BOTTOM; y++)
                 {
                     int currentTRUNK_WIDTH = TRUNK_WIDTH + (y % 5 == 0 ? 2 : 0);
                     int curveOffset = (int)(Math.Sin(y * TRUNK_CURVE_FREQUENCY) * TRUNK_CURVE_AMPLITUDE);
@@ -308,7 +307,7 @@ namespace ReverieMod.Common.Systems.WorldGeneration
 
                     }
                 }
-                for (int y2 = treePos + 220; y2 <= TRUNK_BOTTOM; y2++)
+                for (int y2 = treePos + 192; y2 <= TRUNK_BOTTOM; y2++)
                 {
                     int tunnelTRUNK_WIDTH = TRUNK_WIDTH / 2 + (y2 % 5 == 0 ? 2 : 0);
                     int tunnelOffset = (int)(Math.Sin(y2 * TRUNK_CURVE_FREQUENCY) * TRUNK_CURVE_AMPLITUDE);
